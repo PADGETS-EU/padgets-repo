@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : welcomeICEfaces
+    Created on : 16.09.2011, 14:45:08
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:head>
+        <title>ICEfaces 2</title>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+    </h:head>
+    <h:body>
+             <ice:form>
+            <ice:panelGroup styleClass="pnlClpsblWrapper panelCollapsible">
+            <ice:panelCollapsible expanded="true">
+                <f:facet name="header">
+                    <ice:panelGroup>
+                        <ice:outputText value="Survey Profile"/>
+                    </ice:panelGroup>
+                </f:facet>
+                <ice:panelGroup>
+                <ice:panelGrid columns="2" styleClass="ice-skin-rime">
+                    <ice:outputText value="#{bundle.survey_title}: "/>
+                    <ice:inputText value="#{editSurveyManagedBean.em.survey.name}"/>
+                    <ice:outputText value="#{bundle.survey_start}: "/>
+
+                    <ice:selectInputDate id="calendar1"
+                                         popupDateFormat="MM/dd/yyyy"
+                                         value="#{editSurveyManagedBean.em.survey.startDate}" renderAsPopup="true" />
+                    <ice:outputText value="#{bundle.survey_end}: "/>
+
+                    <ice:selectInputDate id="calendar2"
+                                         popupDateFormat="MM/dd/yyyy"
+                                         value="#{editSurveyManagedBean.em.survey.endDate}" renderAsPopup="true" />
+
+                </ice:panelGrid>
+                </ice:panelGroup>
+            </ice:panelCollapsible>
+            </ice:panelGroup>
+        </ice:form>
+    </h:body>
+</html>

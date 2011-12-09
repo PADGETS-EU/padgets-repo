@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                template="./../template/htmlTemplate.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="left">
+        left
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form>
+            <ice:commandButton action="#{createSurveyManagedBean.createSurvey()}" value="createSurvey" />
+            <h:button outcome="editSurvey" value="editSurvey">
+                <f:param name="key" value="#{createSurveyManagedBean.key}" />
+            </h:button>
+        </ice:form>
+        <ice:outputText value="#{createSurveyManagedBean.key}" />
+    </ui:define>
+
+</ui:composition>

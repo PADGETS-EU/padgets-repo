@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                template="./../template/htmlTemplate.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="meta">
+        <title>#{vote3ManagedBean.vm.survey.name}</title>
+        <f:metadata>
+            <f:viewParam name="key" value="#{vote3ManagedBean.vm.key}" />
+            <f:viewParam name="showAnswererBox" value="#{vote3ManagedBean.vm.showAnswererBox}" />
+            <f:viewParam name="name" value="#{vote3ManagedBean.vm.answerer.name}" />
+            <f:viewParam name="sex" value="#{vote3ManagedBean.vm.answerer.sex}" /> 
+            <f:viewParam name="age" value="#{vote3ManagedBean.vm.answerer.age}" />
+            <f:viewParam name="region" value="#{vote3ManagedBean.vm.answerer.region}" />
+            <f:viewParam name="externalId" value="#{vote3ManagedBean.vm.answerer.externalId}" />
+            <f:viewParam name="socialNetwork" value="#{vote3ManagedBean.vm.answerer.socialNetwork}" />
+        </f:metadata>
+    </ui:define>
+
+    <ui:define name="top">
+        <ice:outputText value="#{vote3ManagedBean.vm.survey.name}" styleClass="vote_caption"/>
+    </ui:define>
+
+    <ui:define name="left">
+        left
+    </ui:define>
+
+    <ui:define name="content" >
+        <ice:form rendered="#{vote3ManagedBean.vm.voteNow}">
+            <ui:include src="voteNow.xhtml" > - This text will overwrite from voteNow.xhtml</ui:include>
+        </ice:form>
+        <ice:form rendered="#{vote3ManagedBean.vm.voteLater}">
+            <ui:include src="voteLater.xhtml" > - This text will overwrite from voteLater.xhtml</ui:include>
+        </ice:form>
+        <ice:form rendered="#{vote3ManagedBean.vm.votePrevious}">
+            <ui:include src="votePrevious.xhtml" > - This text will overwrite from votePrevious.xhtml</ui:include>
+        </ice:form>
+    </ui:define>
+
+</ui:composition>

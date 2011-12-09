@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : voteNow
+    Created on : 15.11.2011, 15:11:16
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ice:panelGrid columns="2" styleClass="ice-skin-rime"  rendered="#{vote3ManagedBean.vm.showAnswererBox}">
+        <ice:outputText value="#{bundle.voter_name}: "/>
+        <ice:inputText value="#{vote3ManagedBean.vm.answerer.name}"/>
+
+        <ice:outputText value="#{bundle.voter_sex}: "/>
+        <ice:selectOneRadio layout="lineDirection" value="#{vote3ManagedBean.vm.answerer.sex}" > 
+            <f:selectItem itemLabel="#{bundle.voter_man}" itemValue="#{true}" />
+            <f:selectItem itemLabel="#{bundle.voter_woman}" itemValue="#{false}" />
+        </ice:selectOneRadio> 
+
+        <ice:outputText value="#{bundle.voter_age}: "/>
+        <ice:inputText value="#{vote3ManagedBean.vm.answerer.age}"/>
+
+        <ice:outputText value="#{bundle.voter_region}: "/>
+        <ice:inputText value="#{vote3ManagedBean.vm.answerer.region}"/>
+    </ice:panelGrid>
+
+    <!-- We differ between three types of questions -->
+    <ice:panelSeries var="question" value="#{vote3ManagedBean.vm.survey.questionList}">
+        <ice:panelGroup>
+        <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'norm' and question.answerLimit  > 1}">
+            <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
+            <ice:outputText value="#{question.question}" styleClass="vote_question"/>
+            <ice:selectManyCheckbox id="id_#{question.idQuestion()}" value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenAnswers}"
+                                    layout="pageDirection" validator="#{vote3ManagedBean.validateAnswerLimit}" validatorMessage="Max #{question.answerLimit} answers allowed!" >
+                <f:attribute name="answerLimit" value="#{question.answerLimit}" /> 
+                <f:selectItems
+                    value="#{question.answerList}"
+                    var="answer"
+                    itemValue="#{answer.idAnswer}"
+                    itemLabel="#{answer.answer} "/>
+            </ice:selectManyCheckbox>
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'norm' and question.answerLimit == 1}">
+                <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
+                <ice:outputText value="#{question.question}" styleClass="vote_question"/>
+                <ice:selectOneRadio value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenRadioAnswer}"
+                                        layout="pageDirection">
+                    <f:selectItems
+                        value="#{question.answerList}"
+                        var="answer"
+                        itemValue="#{answer.idAnswer}"
+                        itemLabel="#{answer.answer} "/>
+                </ice:selectOneRadio>
+            </ice:panelGroup>
+            <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'acc'}">
+                <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
+                <ice:outputText value="#{question.question}" styleClass="vote_question_acc"/>
+                <ice:selectOneRadio value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenRadioAnswer}"
+                                        layout="pageDirection">
+                    <f:selectItems
+                        value="#{question.answerList}"
+                        var="answer"
+                        itemValue="#{answer.idAnswer}"
+                        itemLabel="#{answer.answer} "/>
+                </ice:selectOneRadio>
+            </ice:panelGroup>      
+        </ice:panelGroup>
+    </ice:panelSeries>
+    <ice:commandButton id="saveVote" value="#{bundle.saveVote}"
+                       action="#{vote3ManagedBean.saveVote()}" />
+</ui:composition>

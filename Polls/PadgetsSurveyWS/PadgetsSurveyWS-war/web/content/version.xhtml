@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                template="./../template/htmlTemplate.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="meta">
+        <title>Padgets Survey Version History</title>
+    </ui:define>
+
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="left">
+        left
+    </ui:define>
+
+    <ui:define name="content">
+        <ice:form>
+
+            <ice:panelGrid columns="3" >  
+                <ice:outputText value="Version  "/>
+                <ice:outputText value="  Date"/>
+                <ice:outputText value="Change-History"/>
+                <ice:outputText value=" 0.1 - " style="color: red"/>
+                <ice:outputText value="01.10.2010" />
+
+                <ul>
+                    <li>First Edit-Tools and Vote-Page (don't save the results)</li>
+                </ul>
+
+                <ice:outputText value=" 0.15 - " style="color: red"/>
+                <ice:outputText value="25.10.2010" />
+                <ul>
+                    <li>Collapsable Panel on Edit-Page don't collapse anymore after save.</li>
+                    <li>Fix: Crash after with wrong survey-key</li>
+                    <li>Further improvements on Edit Page</li>
+                </ul>
+
+                <ice:outputText value=" 0.16 - " style="color: red"/>
+                <ice:outputText value="27.10.2010" />
+                <ul>
+                    <li>Change scope of vote- and edit ManagedBeans from 'SessionScope' to icefaces CustomScope 'WindowScope'. </li>
+                    <li>Query Params sex, name, region, age (now as int) and externaId are now available</li>
+                    <li>users whose externalId is already known, get the same anwerer profile</li>
+                    <li></li>
+                </ul>
+
+                <ice:outputText value=" 0.161 - " style="color: red"/>
+                <ice:outputText value="04.11.2010" />
+                <ul>
+                    <li>Test saveVote</li>
+                </ul>
+
+                <ice:outputText value=" 0.2 - " style="color: red"/>
+                <ice:outputText value="05.11.2010" />
+                <ul>
+                    <li>Results as Text</li>
+                </ul>
+
+                <ice:outputText value=" 0.3 - " style="color: red"/>
+                <ice:outputText value="07.11.2010" />
+                <ul>
+                    <li>Formatting text results</li>
+                    <li>REST: createSurvey</li>
+                    <li>REST: results</li>
+                </ul>
+
+                <ice:outputText value=" 0.4 - " style="color: red"/>
+                <ice:outputText value="08.11.2010" />
+                <ul>
+                    <li>REST: results XML are finalized</li>
+                </ul>
+
+                <ice:outputText value=" 0.5 - " style="color: red"/>
+                <ice:outputText value="09.11.2010" />
+                <ul>
+                    <li>results.xhtml has a nice chart</li>
+                </ul>
+
+                <ice:outputText value=" 0.6 - " style="color: red"/>
+                <ice:outputText value="15.11.2010" />
+                <ul>
+                    <li>vote.xhtml: shows now random question lists</li>
+                    <li>vote.xhtml: shows now random answer lists</li>
+                    <li>vote.xhtml: answer order number is not shown anymore</li>
+                    <li>vote.xhtml: sex-bug is fixed</li>
+                    <li>vote.xhtml: new view for vote which is not started now</li>
+                    <li>vote.xhtml: new view for vote which is already finished</li>
+                    <li>vote.xhtml: testing</li>
+                </ul>
+                <ice:outputText value=" 0.61 - " style="color: red"/>
+                <ice:outputText value="17.11.2010" />
+                <ul>
+                    <li>vote.xhtml: shows results after vote</li>
+                </ul>
+                <ice:outputText value=" 0.62 - " style="color: red"/>
+                <ice:outputText value="17.11.2010" />
+                <ul>
+                    <li>vote.xhtml: socialNetworks is a new query param</li>
+                </ul>
+                <ice:outputText value=" 0.63 - " style="color: red"/>
+                <ice:outputText value="21.11.2010" />
+                <ul>
+                    <li>both REST services support xml and json</li>
+                    <li>check answer-limit before vote</li>
+                </ul>
+                <ice:outputText value=" 0.64 - " style="color: red"/>
+                <ice:outputText value="22.11.2010" />
+                <ul>
+                    <li>Datebase supports diffrent question types</li>
+                </ul>
+                <ice:outputText value=" 0.65 - " style="color: red"/>
+                <ice:outputText value="29.11.2010" />
+                <ul>
+                    <li>EditPage supports two diffrent question types</li>
+                </ul>
+                             <ice:outputText value=" 0.7 - " style="color: red"/>
+                <ice:outputText value="29.11.2010" />
+                <ul>
+                    <li>VotePage supports two diffrent question types</li>
+                    <li>VotePage supports RadiButtons if the answer limit is at one</li>
+                </ul>
+            </ice:panelGrid>
+            <h:outputStylesheet library="css" name="tableLayout.css" />
+
+            <ice:outputText value="Feature Request" nospan="true"/>
+            <ul>
+                <li>show localized Validator Messages</li>
+                <li>Users which are identified through an extenal ID can remove or edit their votes later</li>
+                <li>Scope bei editSurvey. Was mache ich, wenn ich 2 Surveys gleichzeitig bearbeiten will</li>
+                <li>answer limit 1 = radio buttons</li>
+            </ul>
+        </ice:form>
+    </ui:define>
+
+</ui:composition>
