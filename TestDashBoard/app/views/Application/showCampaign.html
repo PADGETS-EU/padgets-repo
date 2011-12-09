@@ -1,0 +1,104 @@
+#{extends 'main.html' /}
+#{set title:'Campaign: ' + campaignDTO.title /}
+
+<div class="grid_12 spacer_3">
+</div>
+<div id="content" class="grid_12 alpha">
+	<div class="grid_8 prefix_2 alpha">
+		<h1>${campaignDTO.title}</h1>
+	</div>
+	<div class="grid_8 prefix_2 alpha">
+		<p>
+			Owner: ${campaignDTO.pmakerref}
+			<br />
+			Start: %{
+			out.print(campaignDTO.startdate);
+			%}
+			<br />
+			End: %{
+			out.print(campaignDTO.enddate);
+			%}
+			<br />
+		</p>
+	</div>
+	<div class="grid_8 prefix_2 alpha">
+		<a title="Add Content" href="${play.configuration.getProperty('webdashboard.url')}createMessage?cid=${campaignDTO.cid}" class="button add right">Add message</a>
+		<a title="Add Content" href="${play.configuration.getProperty('webdashboard.url')}createMedia?cid=${campaignDTO.cid}" class="button add right">Add media</a>
+		<a title="Add Content" href="${play.configuration.getProperty('webdashboard.url')}editCampaignDetails?cid=${campaignDTO.cid}" class="button edit right">Edit campaign</a>
+	</div>
+	<div class="grid_8 prefix_2 alpha">
+		<a title="Add Content" href="${play.configuration.getProperty('webdashboard.url')}createSurvey?cid=${campaignDTO.cid}" class="button add right">Add survey</a>
+		<h2>Surveys:</h2>
+		<!-- Surveys -->
+		#{list surveyList, as: 'survey'}
+			<div>${survey.sKey} - <a href="@{Application.editSurvey(campaignDTO.cid, survey.sid)}">[Edit]</a>
+			 - <a href="${survey.voteUrl}" target=”_blank”>[Vote]</a>
+			 - <a href="@{Application.resultsSurvey(campaignDTO.cid, survey.sid)}">[Results]</a></div>
+		#{/list}
+		<h2>Messages</h2>
+		<!-- Messages -->
+		#{list messageList, as: 'm'}
+		<div class="message">
+			<div class="options">
+				<a title="edit Message" href="${play.configuration.getProperty('webdashboard.url')}editMessage?cid=${campaignDTO.cid}&mid=${m.msgid}">
+				<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/edit_16.png" alt="">
+				</a>
+				<a title="delete Message" href="${play.configuration.getProperty('webdashboard.url')}deleteMessage?cid=${campaignDTO.cid}&mid=${m.msgid}">
+				<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/remove_16.png" alt="">
+				</a>
+			</div>
+			<h5>${m.title}</h5>
+			<p align="justify">
+				${m.content}
+			</p>
+			#{if comments.get(m.msgid) != null}
+				<h6>Comments:</h6>
+				#{list comments.get(m.msgid), as: 'comment'}
+					<div>${comment.network}: ${new Date(comment.timestamp).toString()} - <a href="${comment.networkCommentUrl}">[Comment]</a> <a href="${comment.userProfileUrl}">[User]</a></div>
+					<p align="justify">${comment.content}</p>
+				#{/list}
+			#{/if}
+		</div>
+		#{/list}
+
+		<h2>Media</h2>
+		<!-- Medias -->
+		#{list mediaList, as: 'media'}
+		<div class="message">
+			<div class="options">
+				<a title="edit Message" href="${play.configuration.getProperty('webdashboard.url')}editMedia?cid=${campaignDTO.cid}&mid=${media.medid}">
+				<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/edit_16.png" alt="">
+				</a>
+				<a title="delete Media" href="${play.configuration.getProperty('webdashboard.url')}deleteMedia?cid=${campaignDTO.cid}&mid=${media.medid}">
+				<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/remove_16.png" alt="">
+				</a>
+			</div>
+			<img src="${media.url}" alt="${media.title}" />			
+			<p align="justify">
+				${media.title}
+			</p>
+		</div>
+		#{/list}
+
+		<!-- Activate button -->
+		%{
+		if(messageList!=null || mediaList!=null){
+		if(!campaignDTO.active){
+		%}
+		<form action="${play.configuration.getProperty('webdashboard.url')}activateCampaign" method="get">
+			<input name="cid" type="hidden" value="${campaignDTO.cid}" />
+			<br />
+			<input type="submit" value="Activate now" class="right"/>
+			%{
+			}else{
+			%}
+			<form action="${play.configuration.getProperty('webdashboard.url')}deactivateCampaign" method="get">
+				<input name="cid" type="hidden" value="${campaignDTO.cid}" />
+				<br />
+				<input type="submit" value="Deactivate Campaign" class="right"/>
+				%{
+				}
+				}
+				%}
+	</div>
+</div>

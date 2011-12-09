@@ -1,0 +1,139 @@
+/* VARIABLES */
+$grey: #e5e5e6;
+$darkgrey: #777777;
+
+
+/* TESTING */
+.container_12 {
+    background-image: url('/public/stylesheets/img/12_col.gif!!');
+}
+
+/* RESET */
+a {
+  text-decoration:  none;
+}
+
+textarea {
+     resize: vertical;
+     height: 200px;
+}
+img {
+  padding-bottom: 20px;
+}
+
+input, select, textarea{
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.right {
+  float: right;
+}
+
+.center {
+    display: block;
+    text-align: center;
+}
+
+@font-face {
+  font-family: "LucidaSansStd";
+  src: url("/public/stylesheets/fonts/LucidaSansStd.otf");
+}
+
+@font-face {
+  font-family: "LucidaSansStd-Bold";
+  src: url("/public/stylesheets/fonts/LucidaSansStd-Bold.otf");
+}
+
+@font-face {
+  font-family: "Klavika-Medium";
+  src: url("/public/stylesheets/fonts/Klavika-Medium.otf");
+}
+
+@font-face {
+  font-family: "Klavika-Regular";
+  src: url("/public/stylesheets/fonts/Klavika-Regular.otf");
+}
+
+div#header div.padding{
+    border-bottom: 10px solid $grey;
+}
+
+div#header h1, div#header h2{
+	margin: 0;
+	font-family: Klavika-Medium;
+}
+
+div#header h1{
+  font-size: 4em;
+}
+
+div#header h2{
+  font-size: 2em;
+}
+
+div#navbar {
+	padding: 10px 0;
+}
+
+div#navbar a {
+  /* display: block; */
+	background-color: $grey;
+	text-align: center;
+	padding: 0.5em 0;
+	font: bold 1em Arial;
+}
+
+div#navbar div.empty {
+	background-color: transparent;
+}
+
+div#openIDbox a {
+  @extend .center;
+  font-size: 90%;
+}
+
+/*
+div#content .button {  
+  padding: 10px 20px;  
+  color: black;
+  background-color: $grey;
+  border: 1px solid black;
+}
+*/
+
+div#content .button:hover {
+  cursor: pointer;
+  background-color: $darkgrey;
+}
+
+div#content input{
+  border: 1px solid #999999;
+}
+
+div#content input[type=text], div#content input[type=file], div#content select, div#content textarea {
+  border: 1px solid #999999;
+	padding: 10px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+div#content input[type=submit] {
+	@extend .button;	
+}
+
+div#content input[type=submit]:hover {
+  cursor: pointer;
+  background-color: $darkgrey;
+}
+
+div#content .message{
+  border-bottom: 5px solid $grey;
+  margin: 5px 0;
+}
+
+div#content .options{
+  padding:0 0 10px 10px;
+  float:right;
+}

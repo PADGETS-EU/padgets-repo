@@ -1,0 +1,71 @@
+<div class="grid_12 spacer_3">
+</div>
+<div id="content" class="grid_12 alpha">
+	<div class="grid_8 prefix_2 alpha">
+		<h1>${c.title}</h1>
+	</div>
+	<div class="grid_8 prefix_2 alpha">
+		<p>
+			Owner: ${c.owner}
+			<br />
+			Start: %{
+			out.print(new Date(c.startDate).toString());
+			%}
+			<br />
+			Ende: %{
+			out.print(new Date(c.endDate).toString());
+			%}
+			<br />
+		</p>
+		<h2>Messages</h2>
+		<h5>${m.title}</h5>
+		<a title="edit Message" href="${play.configuration.getProperty('webdashboard.url')}editMessage?cid=${c.campaignID}&mid=${m.messageId}">
+		<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/edit_16.png" alt="">
+		</a>
+		<a title="delete Message" href="${play.configuration.getProperty('webdashboard.url')}deleteMessage?cid=${c.campaignID}&mid=${m.messageId}">
+		<img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/remove_16.png" alt="">
+		</a>
+		<p align="justify" >
+			${m.content}
+		</p>
+	</div>
+	<form action="${play.configuration.getProperty('webdashboard.url')}updateCampaignSettings" method="get">
+		<p>
+			Titel:
+			<input id="title" name="c.title" value="${flash.title}" type="text" />
+		</p>
+		<p>
+			Start:
+			<input type="text" id="startdate" name="startdate" />
+		</p>
+		<p>
+			Ende:
+			<input type="text" id="enddate" name="enddate"/>
+		</p>
+		<input id="campaignID" name="c.campaignID" type="hidden" value=${c.campaignID} />
+		<input id="created" name="c.createDate" type="hidden" value=${c.createDate} />
+		<input id="userId" name="userId" type="hidden" value=${id} />
+		<input type="submit" value="Speichern" class="right"/>
+	</form>
+</div>
+
+%{
+			if(facebookChannels!=null){
+			%}
+			<p>
+				Select a Facebook Fanpage:
+				#{select 'fitemId', items:facebookChannels, valueProperty:'pchid', labelProperty:'name', value:1 /}
+			</p>
+			%{
+			}
+			%}
+			%{
+			if(bloggerChannels!=null){
+			%}
+			<p>
+				Select a Blogger Blog:
+				#{select 'bitemId', items:bloggerChannels, valueProperty:'pchid', labelProperty:'name', value:1 /}
+			</p>
+			%{
+			}
+			%}

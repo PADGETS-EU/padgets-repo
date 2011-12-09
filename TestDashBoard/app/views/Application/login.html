@@ -1,0 +1,52 @@
+#{extends 'main.html' /}
+#{set title:'Login' /}
+
+
+	<div class="grid_12 spacer_3">
+	</div>
+	<div id="content" class="grid_12 alpha">
+		<div id="openIDbox" class="grid_6 prefix_3 alpha">
+			<p>
+				Click the logo to log in with OpenID provider:
+			</p>
+			<div class="grid_2 alpha">
+				<a href="${play.configuration.getProperty('as-padgets.url')}login?provider=google&redirectUrl=http%3A%2F%2Flocalhost%3A10000%2Fauthorize">
+				<img src="@{'/public/logo/google_logo_w140.png'}">
+				Google OpenId
+				</a>
+			</div>
+			<div class="grid_2">
+				<a href="${play.configuration.getProperty('as-padgets.url')}login?provider=google&redirectUrl=http%3A%2F%2Flocalhost%3A10000%2Fauthorize">
+				<img src="@{'/public/logo/yahoo_logo_w140.png'}">
+				Yahoo OpenId
+				</a>
+			</div>
+			<div class="grid_2 omega">
+				<a href="${play.configuration.getProperty('as-padgets.url')}login?provider=google&redirectUrl=http%3A%2F%2Flocalhost%3A10000%2Fauthorize">
+				<img src="@{'/public/logo/wordpress_logo_w140.png'}">
+				WordPress OpenId
+				</a>
+			</div>
+		</div>
+		<div class="clear spacer_2">
+		</div>
+		<div class="grid_6 prefix_3 alpha">
+			<p>
+				Or, you can manually enter your OpenID:
+			</p>
+			<form action="${play.configuration.getProperty('as-padgets.url')}login" method="get" enctype="application/x-www-form-urlencoded" accept-charset="utf-8">
+				<input type="hidden" name="config.APIKey" value="test" />
+				<input type="hidden" name="redirectUrl" value="${play.configuration.getProperty('webdashboard.url')}authorize" />
+				<input type="text" name="discoveryUrl" placeholder="Your OpenID..." />
+				<br />
+				<input type="submit" value="Login!" class="button right"/>
+			</form>
+			<!--
+			<form action="${play.configuration.getProperty('as-padgets.url')}rest/media" method="post" enctype="multipart/form-data">
+				<input name="file" type="file" id="file"/>
+				<input type="submit" value="Speichern" />
+			</form>
+			-->
+		</div>
+	</div>	
+

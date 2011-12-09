@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<div class="grid_12 spacer_3">
+</div>
+<div id="content" class="grid_12 alpha">
+	<div class="grid_6 prefix_3 alpha">
+		<p>
+			User: ${user.username} </br>
+			E-Mail: ${user.email}
+		</p>
+	</div>
+	<div class="grid_6 prefix_3 alpha">
+		<a href="@{Application.createCampaign}" class="button add right">Create new Campaign!</a>
+	</div>
+	<div class="grid_6 prefix_3 alpha">
+		<h1>Campaigns:</h1>
+		#{if campaigns == null || campaigns.isEmpty()}
+			<p>You don't have any campaigns. Please create <a href="@{Application.createCampaign}">one</a>!</p>
+		#{/if}
+		<ul>
+			%{
+			for(campaign in campaigns){
+			%}
+			<li>
+				<a href=${play.configuration.getProperty('webdashboard.url')}showCampaign?cid=${campaign.cid}>${campaign.title}</a>
+			</li>
+			%{
+			}
+			%}
+		</ul>
+	</div>
+	
+</div>
+

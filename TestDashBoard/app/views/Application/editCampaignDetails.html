@@ -1,0 +1,112 @@
+#{extends 'main.html' /}
+
+<div class="grid_12 spacer_3">
+</div>
+<div id="content" class="grid_12 alpha">
+	<div class="grid_8 prefix_2 alpha">
+		<h1>Create a campaign</h1>
+	</div>
+	<div class="grid_8 prefix_2 alpha">
+		<h2>Select accounts:</h2>
+		<form action="${play.configuration.getProperty('webdashboard.url')}saveCampaignDetails" method="get">
+		<h3>Activ accounts:</h3>
+		#{list activeChannels, as:'channel'}
+			<input name="channelId" type="checkbox" value="${channel.pchid}" checked="true"/> ${channel.name} <br />
+		#{/list}
+		<h3>Unactiv accounts:</h3>
+		#{list allChannels, as:'channel'}
+			<input name="channelId" type="checkbox" value="${channel.pchid}" /> ${channel.name} <br />
+		#{/list}
+		
+		
+			
+			<p>
+				Titel:
+				<input id="title" name="campaignDTO.title" value="${campaignDTO.title}" type="text" />
+			</p>
+			<p>
+				Start:
+				<input type="text" id="startdate" name="startdate" onChange="startChanged();" value="${campaignDTO.startdate}"/>
+			</p>
+			<p>
+				Ende:
+				<input type="text" id="enddate" name="enddate" onChange="endChanged();" value="${campaignDTO.enddate}"/>
+			</p>
+			<input id="campaignID" name="campaignDTO.cid" type="hidden" value=${campaignDTO.cid} />
+			<input id="created" name="campaignDTO.createDate" type="hidden" value=${campaignDTO.creationdate} />
+			<input id="userId" name="userId" type="hidden" value=${id} />
+			<input id="save" type="submit" value="Save" class="button save right"/>
+		</form>
+		<p id="error"></p>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function () {
+      $("#startdate").datepicker({dateFormat:'dd.mm.yy', showAnim:'fadeIn'});
+      $("#enddate").datepicker({dateFormat:'dd.mm.yy', showAnim:'fadeIn'});
+    })
+    
+    function startChanged(){
+    	var date = new Date();
+    	var start = checkDate($("#startdate").val());
+    	if(start){
+    		var todaySecs = Date.parse(date.toString());
+    		var startSecs = Date.parse(start.toString());
+    		if(startSecs<todaySecs){
+    			var day = date.getDate();
+    			var month = date.getMonth()+1;
+    			var year = date.getFullYear()
+    			var datestring = day + "." + month + "." + year;
+    			$("#startdate").attr("value",datestring);
+    		}
+    	}
+    }
+    
+    function endChanged(){
+    	var start = checkDate($("#startdate").val());
+    	var end = checkDate($("#enddate").val());
+    	
+    	if(end<start){
+    		$("#error").html("<font color='#FF0004'> The End Date must be in future</font>");
+    		$("#enddate").attr("value","");
+    		//$("#save").attr("disabled","disabled");
+    	}else{
+    		if($("#title").val()){
+    			$("#save").removeAttr("disabled");
+    		}
+    		$("#error").hide();
+    	}
+    }
+    
+    $("#title").keypress(titleChanged);
+    
+    function titleChanged(){
+    	if($("#enddate").val() && $("#title").val()){
+    			$("#save").removeAttr("disabled");
+    		}
+    }
+    
+    function checkDate(str){
+		var date =null;
+		var pos1=str.indexOf('.');
+		var pos2=str.lastIndexOf('.');
+		if (pos1&&pos1>-1&&pos2&&pos2>pos1&&str.length>pos2)
+		{
+			var day=str.substring(0,pos1);
+			if (day&&day>=1&&day<=31){
+				var month=str.substring(pos1+1,pos2);
+				if (month&&month>0&&month<=12){
+					var year=str.substring(pos2+1);
+				
+					var d=Date.parse(month+" "+day+" "+year);
+					date=new Date(d);//new Date();
+					//date.setDate(day);
+					//date.setMonth(month);
+					//date.setYear(year);
+					}
+				}
+		}
+		return date;
+	}
+</script>

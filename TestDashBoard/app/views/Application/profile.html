@@ -1,0 +1,34 @@
+#{extends 'main.html' /}
+#{set title:'profile.html' /} <h1>User Profile</h1>
+Name: ${user.username}
+<br />
+Email: ${user.email}
+<br />
+UserId: ${user.uid}
+<br />
+Social media accounts:
+<br />
+<ul>
+	#{list items:accounts, as:'account'}
+	<li>
+		${account.network}: <a href="${account.profileUrl}">${account.username}</a>, ${account.name} <a href="@{Application.removeNetwork(account.accountId)}"><img width="16" height="16" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/remove_16.png" alt=""></a>
+	</li>
+	#{/list}
+</ul>
+<br />
+Social media channels:
+<br />
+<ul>
+	#{list items:channels, as:'channel'}
+	<li>
+		${channel.network}: ${channel.name}
+	</li>
+	#{/list}
+</ul>
+<br />
+Add social media account:
+<br />
+<a class="grid_1" title="add Twitter Account" href="@{Application.addNetwork('twitter')}"><img width="48" height="48" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/twitter_48.png" alt=""></a>
+<a class="grid_1" title="add Facebook Account" href="@{Application.addNetwork('facebook')}"><img width="48" height="48" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/facebook_48.png" alt=""></a>
+<a class="grid_1" title="add Blogger Account" href="@{Application.addNetwork('blogger')}"><img width="48" height="48" src="${play.configuration.getProperty('webdashboard.url')}public/images/icons/blogger_48.png" alt=""></a>
+<!--  <a href="@{Application.addNetwork('buzz')}">Buzz</a><br />-->

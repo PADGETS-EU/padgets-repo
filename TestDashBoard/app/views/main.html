@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>#{get 'title' /}</title>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/smoothness/jquery-ui-1.8.14.custom.css'}" />
+		<link href='http://fonts.googleapis.com/css?family=Play:regular,bold' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/reset.css'}" />
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/text.css'}" />
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/960.css'}" />
+
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/helper.css'}" />
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/main.scss'}">
+		<link rel="stylesheet" type="text/css" media="all" href="@{'/public/stylesheets/buttons.css'}">
+		
+
+		#{get 'moreStyles' /}
+		<link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+		<script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+		<script src="@{'/public/javascripts/jquery-ui-1.8.14.custom.min.js'}" type="text/javascript" charset="utf-8"></script>
+		#{get 'moreScripts' /}
+
+		<!--
+		<style type="text/css">
+		#f1_upload_process{
+		z-index:100;
+		position:absolute;
+		visibility:hidden;
+		text-align:center;
+		width:400px;
+		margin:0px;
+		padding:0px;
+		background-color:#fff;
+		border:1px solid #ccc;
+		}
+
+		form{
+		text-align:center;
+		width:390px;
+		margin:0px;
+		padding:5px;
+		background-color:#fff;
+		border:1px solid #ccc;
+
+		}
+		</style>
+		-->
+	</head>
+	<body>
+		<div class="container_12">
+			<div class="grid_12 spacer_1">
+			</div>
+			<div id="header" class="grid_12">
+				<div class="padding clearfix">
+					<div class="grid_8 alpha">
+						<h1>Padgets</h1>
+						<h2>Web Dashboard</h2>
+					</div>
+					<div class="grid_4 omega">
+						&nbsp;
+					</div>
+				</div>
+			</div>
+			<div id="navbar" class="grid_12">
+				<div class="grid_9 alpha empty">
+					&nbsp;
+				</div>
+				<a class="button grid_1" href="${play.configuration.getProperty('webdashboard.url')}">Home</a>
+				<a class="button grid_1" href="${play.configuration.getProperty('webdashboard.url')}profile">Profile</a>
+				<a class="button grid_1 omega" href="@{Application.logout}">Logout</a>
+			</div>
+			<div class="grid_12">
+				#{doLayout /}
+			</div>
+			<div class="grid_12 spacer_10">
+			</div>
+			<div id="fotter" class="grid_12">
+				PADGETS Web Dashboard 2011
+			</div>
+			<div class="grid_12 spacer_1">
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'profile.html' /}
+	
+	#{form @Application.addAccountItem(), method:'POST', id:'creationForm', enctype:'multipart/form-data' }
+		#{select 'itemId', items:itemList, valueProperty:'itemId', labelProperty:'name', value:1 /}
+		<input type="hidden" name="network" value="${network}"/>		
+		<input type="submit" value="Send!" />
+	#{/form}
+	

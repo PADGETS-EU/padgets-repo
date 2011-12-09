@@ -1,0 +1,16 @@
+<project name="build-interface-jar" default="build-jar">
+
+	<property name="eclipse.ws" value="C:\lur\dev\ws\eclipse"/>
+	<property name="webdashboard.home" value="${eclipse.ws}\as-webdashboard" />
+	<property name="padgets.home" value="${eclipse.ws}\as-padgets" />
+	<property name="padgets.build" value="${eclipse.ws}\as-padgets\tmp\classes" />
+
+
+	<target name="build-jar">
+		<delete file="${webdashboard.home}/lib/as-padgets.jar" failonerror="false" />
+		<jar destfile="${webdashboard.home}/lib/as-padgets.jar"
+		     basedir="${padgets.build}"
+		     includes="rest/dto/**, rest/conf/**, rest/interfaces/**, utils/StringUtil.class">
+		</jar>
+	</target>
+</project>
