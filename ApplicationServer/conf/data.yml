@@ -1,0 +1,18 @@
+## YAML Template.
+
+models.OpenIDProvider(yahoo):
+    name:           yahoo
+    discoveryUrl:   https://me.yahoo.com/
+
+models.OpenIDProvider(google):
+    name:           google
+    discoveryUrl:   https://www.google.com/accounts/o8/id
+
+models.Twitter(twitter):
+    name:           twitter
+
+models.Blogger(blogger):
+    name:           blogger
+
+models.Facebook(facebook):
+    name:           facebook

@@ -1,0 +1,41 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# REST
+*  		/								module:resteasy
+
+GET     /redirectWS                     Application.redirectWS
+GET     /renderMsg                    	Application.renderMsg
+GET		/renderError					Application.renderError
+
+# Login/OpenID/Auth
+GET		/login							AuthController.login
+GET		/openID/{hash} 					AuthController.openID
+GET		/oauth/{hash} 					AuthController.oauth
+
+*   	/pubsub/{cid}					PubSubController.pubSubHandler
+
+
+# Campaign Display
+*		/padgetscampaign				CampaignController.index
+*		/padgetscampaign/				CampaignController.index
+*		/padgetscampaign/edit			CampaignController.edit
+*		/padgetscampaign/show			CampaignController.show
+*		/padgetscampaign/redirect		CampaignController.redir
+
+# Survey
+*		/padgetssurvey					Survey.index
+*		/padgetssurvey/redirect			Survey.redir
+
+# Home page
+GET     /                                       Application.index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{action}                  		Application.{action}
