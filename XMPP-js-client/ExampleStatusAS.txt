@@ -1,0 +1,33 @@
+<message from="initiator1@gic" type="chat" to="fb_comp@gic" >
+<body>
+<entry xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns="http://www.w3.org/2005/Atom" 
+xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:padgets="http://padgets.eu/spec/1.0/" 
+xmlns:v="http://www.w3.org/TR/vcard-rdf/">
+	<id>entry1</id>
+	<title>Test Status</title>
+	<published>15/11/2011</published>
+        <author>
+             <name>Iosif Alvertis</name>
+             <uri>http://www.facebook.com/iosif.alvertis</uri>
+             <activity:object-type>person</activity:object-type>
+             <link rel="alternate" type="text/html" href="http://www.facebook.com/iosif.alvertis"/>
+        </author>
+	<activity:object>
+		<activity:object-type>status</activity:object-type>
+		<content type="text/html">
+                     <div>Hello from beatiful Zurich. Padgets meeting is in progress </div>
+        	</content>
+		<link rel="alternate" type="text/html" href="http://i-xmpp-robot.blogspot.com/"/>
+	</activity:object>
+	<activity:verb>post</activity:verb>
+	<padgets:campaign id="idCampaign" name="campaignName"/>
+	<padgets:platforms>
+		<padgets:platform>
+			<name>facebook</name>
+			<padgets:page id="194982287247833" name="Test-XMPP"/>
+                      	<link rel="alternate" type="text/html" href="http://www.facebook.com/pages/XMPP-Tester/194982287247833"/>
+		</padgets:platform>
+	</padgets:platforms>
+</entry>
+</body>
+</message>

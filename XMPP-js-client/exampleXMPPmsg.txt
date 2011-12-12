@@ -1,0 +1,97 @@
+
+<message from="mpetyx@giclaptop/GICLaptop-PC" type="chat" to="jo@giclaptop" >
+<body><entry xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns="http://www.w3.org/2005/Atom" 
+xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:padgets="http://padgets.eu/spec/1.0/" 
+xmlns:v="http://www.w3.org/TR/vcard-rdf/">
+<id>idofEntry</id>
+<title>NameofEntry</title>
+<published>17/6/2011</published>
+          <author>
+             <name>Iosif Alvertis</name>
+             <uri>http://www.facebook.com/iosif.alvertis</uri>
+             <activity:object-type>person</activity:object-type>
+             <link rel="alternate" type="text/html" href="http://www.facebook.com/iosif.alvertis"/>
+         </author>
+<activity:object>
+	<activity:object-type>comment</activity:object-type>
+	<content type="text/html">
+                     <div>This is the content of the message</div>
+        </content>
+	<id>statusID:221212</id>
+	<link rel="alternate" type="text/html" href="http://commentURL.com"/>
+</activity:object>
+<activity:verb>post</activity:verb>
+<activity:target>
+	<activity:object-type>status</activity:object-type>
+	<link rel="alternate" type="text/html" href="http://statusURL.com"/>
+</activity:target>
+<padgets:campaign id="idCampaign" name="campaignName"/>
+<padgets:platforms>
+	<padgets:platform>
+		<name>facebook</name>
+		<padgets:page id="page1ID" name="My Page name"/>
+                      <link rel="alternate" type="text/html" href="http://profileURL.com"/>
+	</padgets:platform>
+</padgets:platforms>
+</entry></body>
+</message>
+
+
+<message from="mpetyx@giclaptop/GICLaptop-PC" type="chat" to="jo@giclaptop" >
+<body>
+<entry xmlns="http://www.w3.org/2005/Atom">
+<id>idofEntry</id>
+<title>NameofEntry</title>
+<published>17/6/2011</published>
+          <author>
+             <name>Username</name>
+             <uri>http://example.com/username</uri>
+             <activity:object-type xmlns:activity="http://activitystrea.ms/spec/1.0/">person</activity:object-type>
+             <link rel="alternate" type="text/html" href="http://example.com/username" />
+         </author>
+	<activity:object xmlns:activity="http://activitystrea.ms/spec/1.0/">
+	<activity:object-type>comment</activity:object-type>
+	<content xmlns="http://www.w3.org/2005/Atom" type="text/html" >
+                     <div>This is the content of the message</div>
+        </content>
+	<id xmlns="http://www.w3.org/2005/Atom">statusID:221212</id>
+	<link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://commentURL.com" />
+</activity:object>
+<activity:verb xmlns:activity="http://activitystrea.ms/spec/1.0/">post</activity:verb>
+<activity:target xmlns:activity="http://activitystrea.ms/spec/1.0/">
+	<activity:object-type>status</activity:object-type>
+	<link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://statusURL.com" />
+</activity:target>
+<padgets:campaign xmlns:padgets="http://padgets.eu/spec/1.0/" id="idCampaign" name="campaignName" />
+<padgets:platforms xmlns:padgets="http://padgets.eu/spec/1.0/">
+	<padgets:platform>
+		<name xmlns="http://www.w3.org/2005/Atom">facebook</name>
+		<padgets:page id="page1ID" name="My Page name" />
+                      <link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://profileURL.com" />
+	</padgets:platform>
+</padgets:platforms>
+</entry>
+</body>
+</message>
+
+
+<message from="mpetyx@giclaptop/GICLaptop-PC" type="chat" to="jo@giclaptop" >
+<body>
+<entry xmlns="http://www.w3.org/2005/Atom"><id>idofEntry</id><title>NameofEntry</title><published>17/6/2011</published><author><name>Username</name><uri>http://example.com/username</uri><activity:object-type xmlns:activity="http://activitystrea.ms/spec/1.0/">person</activity:object-type><link rel="alternate" type="text/html" href="http://example.com/username" /></author><activity:object xmlns:activity="http://activitystrea.ms/spec/1.0/"><activity:object-type>comment</activity:object-type><content xmlns="http://www.w3.org/2005/Atom" type="text/html"><div>This is the content of the message</div></content><id xmlns="http://www.w3.org/2005/Atom">statusID:221212</id><link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://commentURL.com" />
+</activity:object>
+<activity:verb xmlns:activity="http://activitystrea.ms/spec/1.0/">post</activity:verb>
+<activity:target xmlns:activity="http://activitystrea.ms/spec/1.0/">
+	<activity:object-type>status</activity:object-type>
+	<link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://statusURL.com" />
+</activity:target>
+<padgets:campaign xmlns:padgets="http://padgets.eu/spec/1.0/" id="idCampaign" name="campaignName" />
+<padgets:platforms xmlns:padgets="http://padgets.eu/spec/1.0/">
+	<padgets:platform>
+		<name xmlns="http://www.w3.org/2005/Atom">facebook</name>
+		<padgets:page id="page1ID" name="My Page name" />
+                      <link xmlns="http://www.w3.org/2005/Atom" rel="alternate" type="text/html" href="http://profileURL.com" />
+	</padgets:platform>
+</padgets:platforms>
+</entry>
+</body>
+</message>

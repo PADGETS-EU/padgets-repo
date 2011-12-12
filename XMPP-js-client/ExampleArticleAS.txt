@@ -1,0 +1,34 @@
+<message from="mpetyx@giclaptop/GICLaptop-PC" type="chat" to="jo@giclaptop" >
+<body>
+<entry xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns="http://www.w3.org/2005/Atom" 
+xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:padgets="http://padgets.eu/spec/1.0/" 
+xmlns:v="http://www.w3.org/TR/vcard-rdf/">
+	<id>entry1</id>
+	<title>Test Entry</title>
+	<published>15/11/2011</published>
+        <author>
+             <name>Iosif Alvertis</name>
+             <uri>http://www.facebook.com/iosif.alvertis</uri>
+             <activity:object-type>person</activity:object-type>
+             <link rel="alternate" type="text/html" href="http://www.facebook.com/iosif.alvertis"/>
+        </author>
+	<activity:object>
+		<activity:object-type>article</activity:object-type>
+		<title>This is a test blog Article</title>
+		<content type="text/html">
+                     <div>Hello from beatiful Zurich. Padgets meeting is in progress</div>
+        	</content>
+	</activity:object>
+	<activity:verb>post</activity:verb>
+	<padgets:campaign id="idCampaign" name="campaignName"/>
+	<padgets:platforms>
+		<padgets:platform>
+			<name>blogger</name>
+			<padgets:account email="gic.epu.test@gmail.com"  username="gic.epu.test"/>
+			<padgets:page id="page1ID" name="TestingXMPP"/>
+                      	<link rel="alternate" type="text/html" href="http://i-xmpp-robot.blogspot.com"/>
+		</padgets:platform>
+	</padgets:platforms>
+</entry>
+</body>
+</message>
