@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  *
@@ -137,7 +138,8 @@ public class Answerer implements Serializable {
         this.externalId = externalId;
     }
 
-    @XmlTransient
+    @XmlElementWrapper(name = "Votes")
+    @XmlElement(name = "Vote")
     public List<AnswererAnsweredAnswer> getAnswererAnsweredAnswerList() {
         return answererAnsweredAnswerList;
     }

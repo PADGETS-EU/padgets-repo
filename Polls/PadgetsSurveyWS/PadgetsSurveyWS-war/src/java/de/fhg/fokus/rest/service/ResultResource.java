@@ -5,6 +5,7 @@
 package de.fhg.fokus.rest.service;
 
 import de.fhg.fokus.persistence.Survey;
+import de.fhg.fokus.rest.converter.Results;
 import de.fhg.fokus.session.CreateSurveyBean;
 import de.fhg.fokus.session.EditSurveyBean;
 import javax.ejb.EJB;
@@ -29,6 +30,9 @@ import javax.ws.rs.QueryParam;
 @Stateless
 public class ResultResource {
     @EJB
+    private SamplesSessionBean samplesSessionBean;
+
+    @EJB
     private CreateSurveyBean createSurveyBean;
     @EJB
     private EditSurveyBean editSurveyBean;
@@ -43,26 +47,14 @@ public class ResultResource {
     }
 
     /**
-     * Retrieves representation of an instance of de.fhg.fokus.rest.service.ResultResource
-     * @return an instance of de.fhg.fokus.persistence.Survey
+     * Get all results for a survey with the given key. Is the key wrong a sample result will be returned.
+     * @return results
      */
     @GET
     @Produces({"application/xml", "application/json"})
-    public Survey get(@DefaultValue("nothing") @QueryParam("key") String key) {
-       Survey s = editSurveyBean.getSurveyWithKey(key);
-       if (s== null){
-            return new Survey();
-        }
-       return s;
-    }
+    public Results get(@DefaultValue("nothing") @QueryParam("key") String key) {
+        return samplesSessionBean.createSampleResults();
+        //TODO
 
-    /**
-     * PUT method for updating or creating an instance of ResultResource
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
-    @PUT
-    @Consumes({"application/xml", "application/json"})
-    public void put(Survey content) {
     }
 }

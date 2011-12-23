@@ -22,12 +22,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -35,12 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author hgo
  */
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlElementRefs;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlMixed;
-import javax.xml.bind.annotation.XmlValue;
-
 @Entity
 @Table(name = "answerer_answered_answer")
 @XmlRootElement
@@ -49,6 +39,7 @@ import javax.xml.bind.annotation.XmlValue;
     @NamedQuery(name = "AnswererAnsweredAnswer.findByIdAnswereransweredAnswer", query = "SELECT a FROM AnswererAnsweredAnswer a WHERE a.idAnswereransweredAnswer = :idAnswereransweredAnswer"),
     @NamedQuery(name = "AnswererAnsweredAnswer.findByAnswerDate", query = "SELECT a FROM AnswererAnsweredAnswer a WHERE a.answerDate = :answerDate")})
 public class AnswererAnsweredAnswer implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -104,8 +95,7 @@ public class AnswererAnsweredAnswer implements Serializable {
         this.answerText = answerText;
     }
 
-        
-  @XmlElement(name="VoterInformation")
+    @XmlTransient   
     public Answerer getAnswereridAnswerer() {
         return answereridAnswerer;
     }
@@ -114,7 +104,7 @@ public class AnswererAnsweredAnswer implements Serializable {
         this.answereridAnswerer = answereridAnswerer;
     }
 
-    @XmlTransient
+    @XmlIDREF
     public Answer getAnsweridAnswer() {
         return answeridAnswer;
     }
@@ -147,5 +137,4 @@ public class AnswererAnsweredAnswer implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.AnswererAnsweredAnswer[ idAnswereransweredAnswer=" + idAnswereransweredAnswer + " ]";
     }
-    
 }

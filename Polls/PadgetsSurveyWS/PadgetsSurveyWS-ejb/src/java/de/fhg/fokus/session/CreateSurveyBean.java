@@ -8,11 +8,13 @@ import de.fhg.fokus.facades.AnswerFacade;
 import de.fhg.fokus.facades.QuestionFacade;
 import de.fhg.fokus.facades.SurveyFacade;
 import de.fhg.fokus.persistence.Answer;
+import de.fhg.fokus.persistence.Creator;
 import de.fhg.fokus.persistence.Question;
 import de.fhg.fokus.persistence.Survey;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -152,4 +154,5 @@ public class CreateSurveyBean {
             return false;
         }
     }
+        
 }

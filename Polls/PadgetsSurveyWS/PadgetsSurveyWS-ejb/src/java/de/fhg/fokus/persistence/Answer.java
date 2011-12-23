@@ -21,8 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -74,14 +73,18 @@ public class Answer implements Serializable, Comparable<Answer> {
         this.idAnswer = idAnswer;
         this.textfield = textfield;
     }
-
-    @XmlTransient
+ 
     public Integer getIdAnswer() {
         return idAnswer;
     }
 
     public void setIdAnswer(Integer idAnswer) {
         this.idAnswer = idAnswer;
+    }
+    
+    @XmlID
+    public String getId(){
+        return getIdAnswer().toString();
     }
 
     public String getAnswer() {
@@ -118,8 +121,7 @@ public class Answer implements Serializable, Comparable<Answer> {
         this.questionidQuestion = questionidQuestion;
     }
 
-    @XmlElement(name = "Vote")
-    @XmlElementWrapper(name = "Votes")
+    @XmlTransient
     public List<AnswererAnsweredAnswer> getAnswererAnsweredAnswerList() {
         return answererAnsweredAnswerList;
     }

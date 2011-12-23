@@ -53,6 +53,7 @@ public class Creator implements Serializable {
         this.idCreator = idCreator;
     }
 
+    @XmlTransient
     public Integer getIdCreator() {
         return idCreator;
     }

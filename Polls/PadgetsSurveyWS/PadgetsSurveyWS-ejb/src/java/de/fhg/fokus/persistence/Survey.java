@@ -26,6 +26,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -104,7 +105,6 @@ public class Survey implements Serializable {
         this.name = name;
     }
 
-    @XmlElement(name="key")
     public String getSurveyKey() {
         return surveyKey;
     }
@@ -113,7 +113,7 @@ public class Survey implements Serializable {
         this.surveyKey = surveyKey;
     }
 
-    @XmlTransient
+    
     public boolean getRandomQuestionOrder() {
         return randomQuestionOrder;
     }
@@ -138,7 +138,6 @@ public class Survey implements Serializable {
         this.endDate = endDate;
     }
     
-@XmlTransient
     public Creator getCreatoridCreator() {
         return creatoridCreator;
     }
@@ -149,6 +148,7 @@ public class Survey implements Serializable {
 
     @XmlElement(name = "question")
     @XmlElementWrapper(name = "questions") 
+//    @XmlIDREF
     public List<Question> getQuestionList() {
         return questionList;
     }

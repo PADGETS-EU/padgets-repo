@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -81,7 +82,7 @@ public class Question implements Serializable, Comparable<Question> {
         this.idQuestion = idQuestion;
         this.randomAnswerOrder = randomAnswerOrder;
     }
-
+    
     public Integer getIdQuestion() {
         return idQuestion;
     }
@@ -129,8 +130,7 @@ public class Question implements Serializable, Comparable<Question> {
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
-
-    @XmlTransient
+ 
     public List<Answer> getAnswerList() {
         return answerList;
     }
@@ -155,6 +155,7 @@ public class Question implements Serializable, Comparable<Question> {
         this.questionMatrixidQuestionMatrix = questionMatrixidQuestionMatrix;
     }
 
+    @XmlTransient
     public Survey getSurveyidSurvey() {
         return surveyidSurvey;
     }
