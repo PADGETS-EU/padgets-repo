@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : voteNow
+    Created on : 15.11.2011, 15:11:16
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:icecore="http://www.icefaces.org/icefaces/core"
+                xmlns:ace="http://www.icefaces.org/icefaces/components"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+<ice:panelSeries var="question" value="#{resultManagedBean.rm.survey.questionList}">
+                <ice:panelGroup styleClass="vote_question_box">
+                    <ice:outputText value="#{question.orderNumber} : #{question.question}" styleClass="vote_question"/>                 
+                    <ice:panelSeries
+                        value="#{question.answerList}"
+                        var="answer" >
+                        <ice:panelGrid columns="2" >
+                            <ice:outputText 
+                                value="#{answer.orderNumber} - #{answer.answer} : " />
+                            <ice:outputText value="#{answer.answererAnsweredAnswerList.size()}" style="color: red;" />
+                        </ice:panelGrid>
+                    </ice:panelSeries>    
+                </ice:panelGroup>
+            </ice:panelSeries>
+            <ice:outputChart
+                horizontal=""
+                type="barclustered"
+                chartTitle="Results for '#{resultManagedBean.rm.survey.name}'"
+                yaxisTitle="Votes"
+                xaxisTitle="Question"
+                xaxisLabels="#{resultManagedBean.rm.xaxisLabels}"
+                data="#{resultManagedBean.rm.chartData}"
+                
+                />
+</ui:composition>
