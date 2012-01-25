@@ -27,8 +27,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Message.findByLat", query = "SELECT m FROM Message m WHERE m.lat = :lat"),
     @NamedQuery(name = "Message.findByLng", query = "SELECT m FROM Message m WHERE m.lng = :lng"),
     @NamedQuery(name = "Message.findByPermalink", query = "SELECT m FROM Message m WHERE m.permalink = :permalink"),
-    @NamedQuery(name = "Message.findByTimestamp", query = "SELECT m FROM Message m WHERE m.timestamp = :timestamp"),
-    @NamedQuery(name = "Message.findByIsPublisehd", query = "SELECT m FROM Message m WHERE m.isPublisehd = :isPublisehd")})
+    @NamedQuery(name = "Message.findByCreateTime", query = "SELECT m FROM Message m WHERE m.createTime = :createTime"),
+    @NamedQuery(name = "Message.findByIsPublisehd", query = "SELECT m FROM Message m WHERE m.isPublisehd = :isPublisehd"),
+    @NamedQuery(name = "Message.findByMediaPath", query = "SELECT m FROM Message m WHERE m.mediaPath = :mediaPath"),
+    @NamedQuery(name = "Message.findByType", query = "SELECT m FROM Message m WHERE m.type = :type")})
 public class Message implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,25 +54,29 @@ public class Message implements Serializable {
     @Size(max = 255)
     @Column(name = "permalink")
     private String permalink;
-    @Column(name = "timestamp")
+    @Column(name = "createTime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    private Date createTime;
     @Basic(optional = false)
     @NotNull
     @Column(name = "isPublisehd")
     private boolean isPublisehd;
-    @JoinTable(name = "message_has_media", joinColumns = {
-        @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")}, inverseJoinColumns = {
-        @JoinColumn(name = "idMedia", referencedColumnName = "idMedia")})
-    @ManyToMany
-    private List<Media> mediaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "messageidMessage")
-    private List<Messagelinks> messagelinksList;
+    @Size(max = 255)
+    @Column(name = "mediaPath")
+    private String mediaPath;
+    @Size(max = 255)
+    @Column(name = "type")
+    private String type;
+    @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
+    @ManyToOne(optional = false)
+    private Userdata idUserData;
     @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")
     @ManyToOne(optional = false)
     private Campaign idCampaign;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMessage")
+    @OneToMany(mappedBy = "idMessage")
     private List<Publisheditem> publisheditemList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idMessage")
+    private List<Comment> commentList;
 
     public Message() {
     }
@@ -132,12 +138,12 @@ public class Message implements Serializable {
         this.permalink = permalink;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public boolean getIsPublisehd() {
@@ -148,22 +154,28 @@ public class Message implements Serializable {
         this.isPublisehd = isPublisehd;
     }
 
-    @XmlTransient
-    public List<Media> getMediaList() {
-        return mediaList;
+    public String getMediaPath() {
+        return mediaPath;
     }
 
-    public void setMediaList(List<Media> mediaList) {
-        this.mediaList = mediaList;
+    public void setMediaPath(String mediaPath) {
+        this.mediaPath = mediaPath;
     }
 
-    @XmlTransient
-    public List<Messagelinks> getMessagelinksList() {
-        return messagelinksList;
+    public String getType() {
+        return type;
     }
 
-    public void setMessagelinksList(List<Messagelinks> messagelinksList) {
-        this.messagelinksList = messagelinksList;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Userdata getIdUserData() {
+        return idUserData;
+    }
+
+    public void setIdUserData(Userdata idUserData) {
+        this.idUserData = idUserData;
     }
 
     public Campaign getIdCampaign() {
@@ -181,6 +193,15 @@ public class Message implements Serializable {
 
     public void setPublisheditemList(List<Publisheditem> publisheditemList) {
         this.publisheditemList = publisheditemList;
+    }
+
+    @XmlTransient
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     @Override

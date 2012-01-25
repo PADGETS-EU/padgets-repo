@@ -46,12 +46,11 @@ public class Publishchannel implements Serializable {
     @Size(max = 255)
     @Column(name = "oAuth2Token")
     private String oAuth2Token;
-    @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")
+    @ManyToMany(mappedBy = "publishchannelList")
+    private List<Campaign> campaignList;
+    @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
     @ManyToOne(optional = false)
-    private Campaign idCampaign;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @ManyToOne(optional = false)
-    private User idUser;
+    private Userdata idUserData;
     @JoinColumn(name = "idSmpAccount", referencedColumnName = "idSmpAccount")
     @ManyToOne(optional = false)
     private Smpaccount idSmpAccount;
@@ -105,20 +104,21 @@ public class Publishchannel implements Serializable {
         this.oAuth2Token = oAuth2Token;
     }
 
-    public Campaign getIdCampaign() {
-        return idCampaign;
+    @XmlTransient
+    public List<Campaign> getCampaignList() {
+        return campaignList;
     }
 
-    public void setIdCampaign(Campaign idCampaign) {
-        this.idCampaign = idCampaign;
+    public void setCampaignList(List<Campaign> campaignList) {
+        this.campaignList = campaignList;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Userdata getIdUserData() {
+        return idUserData;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setIdUserData(Userdata idUserData) {
+        this.idUserData = idUserData;
     }
 
     public Smpaccount getIdSmpAccount() {

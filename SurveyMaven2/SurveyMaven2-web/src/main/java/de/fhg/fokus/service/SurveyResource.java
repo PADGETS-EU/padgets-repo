@@ -4,23 +4,17 @@
  */
 package de.fhg.fokus.service;
 
-import de.fhg.fokus.facades.AnswererAnsweredAnswerFacade;
-import de.fhg.fokus.facades.SurveyFacade;
-import de.fhg.fokus.persistence.Survey;
 import de.fhg.fokus.converter.Success;
 import de.fhg.fokus.converter.SurveyKeyReturn;
 import de.fhg.fokus.converter.Voting;
+import de.fhg.fokus.facades.AnswererAnsweredAnswerFacade;
+import de.fhg.fokus.facades.SurveyFacade;
+import de.fhg.fokus.persistence.Survey;
 import de.fhg.fokus.session.CreateSurveyBean;
 import de.fhg.fokus.session.EditSurveyBean;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -89,7 +83,7 @@ public class SurveyResource {
         return samplesSessionBean.createSampleVoting();
     }
 
-    @PUT
+    @POST
     @Path("vote")
     @Consumes({"application/xml", "application/json"})
     public Success vote(Voting v) {

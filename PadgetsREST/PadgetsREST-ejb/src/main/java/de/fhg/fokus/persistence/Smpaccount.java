@@ -62,9 +62,9 @@ public class Smpaccount implements Serializable {
     @Size(max = 255)
     @Column(name = "username")
     private String username;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
     @ManyToOne(optional = false)
-    private User idUser;
+    private Userdata idUserData;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSmpAccount")
     private List<Publishchannel> publishchannelList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSmpAccount")
@@ -149,12 +149,12 @@ public class Smpaccount implements Serializable {
         this.username = username;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Userdata getIdUserData() {
+        return idUserData;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setIdUserData(Userdata idUserData) {
+        this.idUserData = idUserData;
     }
 
     @XmlTransient

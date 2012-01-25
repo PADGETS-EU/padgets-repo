@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Authdata.findAll", query = "SELECT a FROM Authdata a"),
     @NamedQuery(name = "Authdata.findByIdAuthData", query = "SELECT a FROM Authdata a WHERE a.idAuthData = :idAuthData"),
     @NamedQuery(name = "Authdata.findByExpire", query = "SELECT a FROM Authdata a WHERE a.expire = :expire"),
-    @NamedQuery(name = "Authdata.findByHash", query = "SELECT a FROM Authdata a WHERE a.hash = :hash"),
+    @NamedQuery(name = "Authdata.findByHashValue", query = "SELECT a FROM Authdata a WHERE a.hashValue = :hashValue"),
     @NamedQuery(name = "Authdata.findByNetwork", query = "SELECT a FROM Authdata a WHERE a.network = :network"),
     @NamedQuery(name = "Authdata.findByPermissions", query = "SELECT a FROM Authdata a WHERE a.permissions = :permissions"),
     @NamedQuery(name = "Authdata.findByRedirectUrl", query = "SELECT a FROM Authdata a WHERE a.redirectUrl = :redirectUrl"),
@@ -38,8 +38,8 @@ public class Authdata implements Serializable {
     @Column(name = "expire")
     private String expire;
     @Size(max = 255)
-    @Column(name = "hash")
-    private String hash;
+    @Column(name = "hashValue")
+    private String hashValue;
     @Size(max = 255)
     @Column(name = "network")
     private String network;
@@ -52,9 +52,9 @@ public class Authdata implements Serializable {
     @Size(max = 255)
     @Column(name = "type")
     private String type;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
     @ManyToOne(optional = false)
-    private User idUser;
+    private Userdata idUserData;
     @JoinColumn(name = "idSmpAccount", referencedColumnName = "idSmpAccount")
     @ManyToOne(optional = false)
     private Smpaccount idSmpAccount;
@@ -82,12 +82,12 @@ public class Authdata implements Serializable {
         this.expire = expire;
     }
 
-    public String getHash() {
-        return hash;
+    public String getHashValue() {
+        return hashValue;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public void setHashValue(String hashValue) {
+        this.hashValue = hashValue;
     }
 
     public String getNetwork() {
@@ -122,12 +122,12 @@ public class Authdata implements Serializable {
         this.type = type;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Userdata getIdUserData() {
+        return idUserData;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setIdUserData(Userdata idUserData) {
+        this.idUserData = idUserData;
     }
 
     public Smpaccount getIdSmpAccount() {

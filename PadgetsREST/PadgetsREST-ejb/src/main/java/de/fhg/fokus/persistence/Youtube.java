@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Youtube.findAll", query = "SELECT y FROM Youtube y"),
     @NamedQuery(name = "Youtube.findByIdYouTube", query = "SELECT y FROM Youtube y WHERE y.idYouTube = :idYouTube"),
-    @NamedQuery(name = "Youtube.findByDate", query = "SELECT y FROM Youtube y WHERE y.date = :date"),
+    @NamedQuery(name = "Youtube.findByMetricDate", query = "SELECT y FROM Youtube y WHERE y.metricDate = :metricDate"),
     @NamedQuery(name = "Youtube.findByVideoId", query = "SELECT y FROM Youtube y WHERE y.videoId = :videoId"),
     @NamedQuery(name = "Youtube.findByViewCounts", query = "SELECT y FROM Youtube y WHERE y.viewCounts = :viewCounts"),
     @NamedQuery(name = "Youtube.findByFavCount", query = "SELECT y FROM Youtube y WHERE y.favCount = :favCount"),
@@ -35,9 +35,9 @@ public class Youtube implements Serializable {
     @NotNull
     @Column(name = "idYouTube")
     private Integer idYouTube;
-    @Column(name = "date")
+    @Column(name = "metricDate")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date metricDate;
     @Size(max = 45)
     @Column(name = "videoId")
     private String videoId;
@@ -68,12 +68,12 @@ public class Youtube implements Serializable {
         this.idYouTube = idYouTube;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getMetricDate() {
+        return metricDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMetricDate(Date metricDate) {
+        this.metricDate = metricDate;
     }
 
     public String getVideoId() {

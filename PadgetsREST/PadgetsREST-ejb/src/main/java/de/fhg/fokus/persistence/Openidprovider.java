@@ -5,12 +5,10 @@
 package de.fhg.fokus.persistence;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,8 +36,6 @@ public class Openidprovider implements Serializable {
     @Size(max = 255)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idOpenIdProvider")
-    private List<Oiprequiredparameter> oiprequiredparameterList;
 
     public Openidprovider() {
     }
@@ -70,15 +66,6 @@ public class Openidprovider implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlTransient
-    public List<Oiprequiredparameter> getOiprequiredparameterList() {
-        return oiprequiredparameterList;
-    }
-
-    public void setOiprequiredparameterList(List<Oiprequiredparameter> oiprequiredparameterList) {
-        this.oiprequiredparameterList = oiprequiredparameterList;
     }
 
     @Override

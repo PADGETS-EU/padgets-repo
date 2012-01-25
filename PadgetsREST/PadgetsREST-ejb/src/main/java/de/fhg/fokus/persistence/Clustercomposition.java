@@ -5,10 +5,12 @@
 package de.fhg.fokus.persistence;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -19,41 +21,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Clustercomposition.findAll", query = "SELECT c FROM Clustercomposition c"),
-    @NamedQuery(name = "Clustercomposition.findByIdClusterComposition", query = "SELECT c FROM Clustercomposition c WHERE c.idClusterComposition = :idClusterComposition"),
+    @NamedQuery(name = "Clustercomposition.findByIdCluster", query = "SELECT c FROM Clustercomposition c WHERE c.idCluster = :idCluster"),
     @NamedQuery(name = "Clustercomposition.findByGender", query = "SELECT c FROM Clustercomposition c WHERE c.gender = :gender"),
-    @NamedQuery(name = "Clustercomposition.findByAgeBracket", query = "SELECT c FROM Clustercomposition c WHERE c.ageBracket = :ageBracket"),
-    @NamedQuery(name = "Clustercomposition.findByCluster", query = "SELECT c FROM Clustercomposition c WHERE c.cluster = :cluster")})
+    @NamedQuery(name = "Clustercomposition.findByAgeBracket", query = "SELECT c FROM Clustercomposition c WHERE c.ageBracket = :ageBracket")})
 public class Clustercomposition implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idClusterComposition")
-    private Integer idClusterComposition;
+    @Column(name = "idCluster")
+    private Integer idCluster;
     @Size(max = 45)
     @Column(name = "gender")
     private String gender;
     @Size(max = 45)
     @Column(name = "ageBracket")
     private String ageBracket;
-    @Size(max = 45)
-    @Column(name = "cluster")
-    private String cluster;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCluster")
+    private List<Facebookdata> facebookdataList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCluster")
+    private List<LocationHasPopulation> locationHasPopulationList;
 
     public Clustercomposition() {
     }
 
-    public Clustercomposition(Integer idClusterComposition) {
-        this.idClusterComposition = idClusterComposition;
+    public Clustercomposition(Integer idCluster) {
+        this.idCluster = idCluster;
     }
 
-    public Integer getIdClusterComposition() {
-        return idClusterComposition;
+    public Integer getIdCluster() {
+        return idCluster;
     }
 
-    public void setIdClusterComposition(Integer idClusterComposition) {
-        this.idClusterComposition = idClusterComposition;
+    public void setIdCluster(Integer idCluster) {
+        this.idCluster = idCluster;
     }
 
     public String getGender() {
@@ -72,18 +74,28 @@ public class Clustercomposition implements Serializable {
         this.ageBracket = ageBracket;
     }
 
-    public String getCluster() {
-        return cluster;
+    @XmlTransient
+    public List<Facebookdata> getFacebookdataList() {
+        return facebookdataList;
     }
 
-    public void setCluster(String cluster) {
-        this.cluster = cluster;
+    public void setFacebookdataList(List<Facebookdata> facebookdataList) {
+        this.facebookdataList = facebookdataList;
+    }
+
+    @XmlTransient
+    public List<LocationHasPopulation> getLocationHasPopulationList() {
+        return locationHasPopulationList;
+    }
+
+    public void setLocationHasPopulationList(List<LocationHasPopulation> locationHasPopulationList) {
+        this.locationHasPopulationList = locationHasPopulationList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idClusterComposition != null ? idClusterComposition.hashCode() : 0);
+        hash += (idCluster != null ? idCluster.hashCode() : 0);
         return hash;
     }
 
@@ -94,7 +106,7 @@ public class Clustercomposition implements Serializable {
             return false;
         }
         Clustercomposition other = (Clustercomposition) object;
-        if ((this.idClusterComposition == null && other.idClusterComposition != null) || (this.idClusterComposition != null && !this.idClusterComposition.equals(other.idClusterComposition))) {
+        if ((this.idCluster == null && other.idCluster != null) || (this.idCluster != null && !this.idCluster.equals(other.idCluster))) {
             return false;
         }
         return true;
@@ -102,7 +114,7 @@ public class Clustercomposition implements Serializable {
 
     @Override
     public String toString() {
-        return "de.fhg.fokus.persistence.Clustercomposition[ idClusterComposition=" + idClusterComposition + " ]";
+        return "de.fhg.fokus.persistence.Clustercomposition[ idCluster=" + idCluster + " ]";
     }
     
 }

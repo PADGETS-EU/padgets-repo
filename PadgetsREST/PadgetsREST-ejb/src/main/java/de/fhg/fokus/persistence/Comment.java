@@ -6,10 +6,12 @@ package de.fhg.fokus.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Comment.findByNetwork", query = "SELECT c FROM Comment c WHERE c.network = :network"),
     @NamedQuery(name = "Comment.findByNetworkCommentId", query = "SELECT c FROM Comment c WHERE c.networkCommentId = :networkCommentId"),
     @NamedQuery(name = "Comment.findByNetworkCommentUrl", query = "SELECT c FROM Comment c WHERE c.networkCommentUrl = :networkCommentUrl"),
-    @NamedQuery(name = "Comment.findByTimestamp", query = "SELECT c FROM Comment c WHERE c.timestamp = :timestamp"),
+    @NamedQuery(name = "Comment.findByCreateTime", query = "SELECT c FROM Comment c WHERE c.createTime = :createTime"),
     @NamedQuery(name = "Comment.findByUserProfileUrl", query = "SELECT c FROM Comment c WHERE c.userProfileUrl = :userProfileUrl")})
 public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,18 +52,20 @@ public class Comment implements Serializable {
     @Size(max = 255)
     @Column(name = "networkCommentUrl")
     private String networkCommentUrl;
-    @Column(name = "timestamp")
+    @Column(name = "createTime")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    private Date createTime;
     @Size(max = 255)
     @Column(name = "userProfileUrl")
     private String userProfileUrl;
-    @JoinColumn(name = "idpublishedItem", referencedColumnName = "idpublishedItem")
+    @OneToMany(mappedBy = "idComment")
+    private List<Publisheditem> publisheditemList;
+    @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
     @ManyToOne(optional = false)
-    private Publisheditem idpublishedItem;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @ManyToOne(optional = false)
-    private User idUser;
+    private Message idMessage;
+    @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
+    @ManyToOne
+    private Userdata idUserData;
 
     public Comment() {
     }
@@ -118,12 +122,12 @@ public class Comment implements Serializable {
         this.networkCommentUrl = networkCommentUrl;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public String getUserProfileUrl() {
@@ -134,20 +138,29 @@ public class Comment implements Serializable {
         this.userProfileUrl = userProfileUrl;
     }
 
-    public Publisheditem getIdpublishedItem() {
-        return idpublishedItem;
+    @XmlTransient
+    public List<Publisheditem> getPublisheditemList() {
+        return publisheditemList;
     }
 
-    public void setIdpublishedItem(Publisheditem idpublishedItem) {
-        this.idpublishedItem = idpublishedItem;
+    public void setPublisheditemList(List<Publisheditem> publisheditemList) {
+        this.publisheditemList = publisheditemList;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public Message getIdMessage() {
+        return idMessage;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setIdMessage(Message idMessage) {
+        this.idMessage = idMessage;
+    }
+
+    public Userdata getIdUserData() {
+        return idUserData;
+    }
+
+    public void setIdUserData(Userdata idUserData) {
+        this.idUserData = idUserData;
     }
 
     @Override

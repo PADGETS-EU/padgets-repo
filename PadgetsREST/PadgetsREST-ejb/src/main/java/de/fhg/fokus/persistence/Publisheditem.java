@@ -5,12 +5,10 @@
 package de.fhg.fokus.persistence;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,49 +19,46 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Publisheditem.findAll", query = "SELECT p FROM Publisheditem p"),
-    @NamedQuery(name = "Publisheditem.findByIdpublishedItem", query = "SELECT p FROM Publisheditem p WHERE p.idpublishedItem = :idpublishedItem"),
+    @NamedQuery(name = "Publisheditem.findByIdPublishedItem", query = "SELECT p FROM Publisheditem p WHERE p.idPublishedItem = :idPublishedItem"),
     @NamedQuery(name = "Publisheditem.findByNetworkPostId", query = "SELECT p FROM Publisheditem p WHERE p.networkPostId = :networkPostId"),
-    @NamedQuery(name = "Publisheditem.findByPermalink", query = "SELECT p FROM Publisheditem p WHERE p.permalink = :permalink"),
-    @NamedQuery(name = "Publisheditem.findByUrl", query = "SELECT p FROM Publisheditem p WHERE p.url = :url")})
+    @NamedQuery(name = "Publisheditem.findByPermalink", query = "SELECT p FROM Publisheditem p WHERE p.permalink = :permalink")})
 public class Publisheditem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idpublishedItem")
-    private Integer idpublishedItem;
+    @Column(name = "idPublishedItem")
+    private Integer idPublishedItem;
     @Size(max = 255)
     @Column(name = "networkPostId")
     private String networkPostId;
     @Size(max = 255)
     @Column(name = "permalink")
     private String permalink;
-    @Size(max = 255)
-    @Column(name = "url")
-    private String url;
+    @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
+    @ManyToOne
+    private Message idMessage;
+    @JoinColumn(name = "idComment", referencedColumnName = "idComment")
+    @ManyToOne
+    private Comment idComment;
     @JoinColumn(name = "idPublishChannel", referencedColumnName = "idPublishChannel")
     @ManyToOne(optional = false)
     private Publishchannel idPublishChannel;
-    @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
-    @ManyToOne(optional = false)
-    private Message idMessage;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpublishedItem")
-    private List<Comment> commentList;
 
     public Publisheditem() {
     }
 
-    public Publisheditem(Integer idpublishedItem) {
-        this.idpublishedItem = idpublishedItem;
+    public Publisheditem(Integer idPublishedItem) {
+        this.idPublishedItem = idPublishedItem;
     }
 
-    public Integer getIdpublishedItem() {
-        return idpublishedItem;
+    public Integer getIdPublishedItem() {
+        return idPublishedItem;
     }
 
-    public void setIdpublishedItem(Integer idpublishedItem) {
-        this.idpublishedItem = idpublishedItem;
+    public void setIdPublishedItem(Integer idPublishedItem) {
+        this.idPublishedItem = idPublishedItem;
     }
 
     public String getNetworkPostId() {
@@ -82,12 +77,20 @@ public class Publisheditem implements Serializable {
         this.permalink = permalink;
     }
 
-    public String getUrl() {
-        return url;
+    public Message getIdMessage() {
+        return idMessage;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setIdMessage(Message idMessage) {
+        this.idMessage = idMessage;
+    }
+
+    public Comment getIdComment() {
+        return idComment;
+    }
+
+    public void setIdComment(Comment idComment) {
+        this.idComment = idComment;
     }
 
     public Publishchannel getIdPublishChannel() {
@@ -98,27 +101,10 @@ public class Publisheditem implements Serializable {
         this.idPublishChannel = idPublishChannel;
     }
 
-    public Message getIdMessage() {
-        return idMessage;
-    }
-
-    public void setIdMessage(Message idMessage) {
-        this.idMessage = idMessage;
-    }
-
-    @XmlTransient
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idpublishedItem != null ? idpublishedItem.hashCode() : 0);
+        hash += (idPublishedItem != null ? idPublishedItem.hashCode() : 0);
         return hash;
     }
 
@@ -129,7 +115,7 @@ public class Publisheditem implements Serializable {
             return false;
         }
         Publisheditem other = (Publisheditem) object;
-        if ((this.idpublishedItem == null && other.idpublishedItem != null) || (this.idpublishedItem != null && !this.idpublishedItem.equals(other.idpublishedItem))) {
+        if ((this.idPublishedItem == null && other.idPublishedItem != null) || (this.idPublishedItem != null && !this.idPublishedItem.equals(other.idPublishedItem))) {
             return false;
         }
         return true;
@@ -137,7 +123,7 @@ public class Publisheditem implements Serializable {
 
     @Override
     public String toString() {
-        return "de.fhg.fokus.persistence.Publisheditem[ idpublishedItem=" + idpublishedItem + " ]";
+        return "de.fhg.fokus.persistence.Publisheditem[ idPublishedItem=" + idPublishedItem + " ]";
     }
     
 }

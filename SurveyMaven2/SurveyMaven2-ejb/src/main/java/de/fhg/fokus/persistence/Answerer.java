@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -78,7 +79,6 @@ public class Answerer implements Serializable {
         this.idAnswerer = idAnswerer;
     }
 
-    @XmlTransient
     public Integer getIdAnswerer() {
         return idAnswerer;
     }

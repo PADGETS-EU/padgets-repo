@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Facebookvisits.findAll", query = "SELECT f FROM Facebookvisits f"),
     @NamedQuery(name = "Facebookvisits.findByIdFacebookVisits", query = "SELECT f FROM Facebookvisits f WHERE f.idFacebookVisits = :idFacebookVisits"),
-    @NamedQuery(name = "Facebookvisits.findByDate", query = "SELECT f FROM Facebookvisits f WHERE f.date = :date"),
+    @NamedQuery(name = "Facebookvisits.findByMetricDate", query = "SELECT f FROM Facebookvisits f WHERE f.metricDate = :metricDate"),
     @NamedQuery(name = "Facebookvisits.findByVisits", query = "SELECT f FROM Facebookvisits f WHERE f.visits = :visits")})
 public class Facebookvisits implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -30,9 +30,9 @@ public class Facebookvisits implements Serializable {
     @NotNull
     @Column(name = "idFacebookVisits")
     private Integer idFacebookVisits;
-    @Column(name = "date")
+    @Column(name = "metricDate")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date metricDate;
     @Column(name = "visits")
     private Integer visits;
     @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")
@@ -54,12 +54,12 @@ public class Facebookvisits implements Serializable {
         this.idFacebookVisits = idFacebookVisits;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getMetricDate() {
+        return metricDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMetricDate(Date metricDate) {
+        this.metricDate = metricDate;
     }
 
     public Integer getVisits() {

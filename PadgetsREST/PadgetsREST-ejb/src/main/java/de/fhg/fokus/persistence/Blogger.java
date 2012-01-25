@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Blogger.findAll", query = "SELECT b FROM Blogger b"),
     @NamedQuery(name = "Blogger.findByIdBlogger", query = "SELECT b FROM Blogger b WHERE b.idBlogger = :idBlogger"),
-    @NamedQuery(name = "Blogger.findByDate", query = "SELECT b FROM Blogger b WHERE b.date = :date"),
+    @NamedQuery(name = "Blogger.findByMetricDate", query = "SELECT b FROM Blogger b WHERE b.metricDate = :metricDate"),
     @NamedQuery(name = "Blogger.findByVisitors", query = "SELECT b FROM Blogger b WHERE b.visitors = :visitors"),
     @NamedQuery(name = "Blogger.findByNewVisitors", query = "SELECT b FROM Blogger b WHERE b.newVisitors = :newVisitors")})
 public class Blogger implements Serializable {
@@ -31,9 +31,9 @@ public class Blogger implements Serializable {
     @NotNull
     @Column(name = "idBlogger")
     private Integer idBlogger;
-    @Column(name = "date")
+    @Column(name = "metricDate")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date metricDate;
     @Column(name = "visitors")
     private Integer visitors;
     @Column(name = "newVisitors")
@@ -57,12 +57,12 @@ public class Blogger implements Serializable {
         this.idBlogger = idBlogger;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getMetricDate() {
+        return metricDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMetricDate(Date metricDate) {
+        this.metricDate = metricDate;
     }
 
     public Integer getVisitors() {

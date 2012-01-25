@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -57,7 +58,6 @@ public class AnswererAnsweredAnswer implements Serializable {
     @JoinColumn(name = "Answerer_idAnswerer", referencedColumnName = "idAnswerer")
     @ManyToOne(optional = false)
     private Answerer answereridAnswerer;
-    @XmlTransient
     @JoinColumn(name = "Answer_idAnswer", referencedColumnName = "idAnswer")
     @ManyToOne(optional = false)
     private Answer answeridAnswer;
@@ -69,6 +69,7 @@ public class AnswererAnsweredAnswer implements Serializable {
         this.idAnswereransweredAnswer = idAnswereransweredAnswer;
     }
 
+    @JsonIgnore
     @XmlTransient
     public Integer getIdAnswereransweredAnswer() {
         return idAnswereransweredAnswer;
@@ -86,6 +87,7 @@ public class AnswererAnsweredAnswer implements Serializable {
         this.answerDate = answerDate;
     }
 
+    @JsonIgnore
     @XmlTransient
     public String getAnswerText() {
         return answerText;
@@ -95,6 +97,7 @@ public class AnswererAnsweredAnswer implements Serializable {
         this.answerText = answerText;
     }
 
+    @JsonIgnore
     @XmlTransient   
     public Answerer getAnswereridAnswerer() {
         return answereridAnswerer;

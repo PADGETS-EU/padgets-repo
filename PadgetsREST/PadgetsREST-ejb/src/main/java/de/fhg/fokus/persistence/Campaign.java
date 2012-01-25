@@ -28,9 +28,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Campaign.findByCreationdate", query = "SELECT c FROM Campaign c WHERE c.creationdate = :creationdate"),
     @NamedQuery(name = "Campaign.findByStartdate", query = "SELECT c FROM Campaign c WHERE c.startdate = :startdate"),
     @NamedQuery(name = "Campaign.findByEnddate", query = "SELECT c FROM Campaign c WHERE c.enddate = :enddate"),
-    @NamedQuery(name = "Campaign.findByLanguage", query = "SELECT c FROM Campaign c WHERE c.language = :language"),
     @NamedQuery(name = "Campaign.findByNotes", query = "SELECT c FROM Campaign c WHERE c.notes = :notes"),
-    @NamedQuery(name = "Campaign.findByUrl", query = "SELECT c FROM Campaign c WHERE c.url = :url")})
+    @NamedQuery(name = "Campaign.findByUrl", query = "SELECT c FROM Campaign c WHERE c.url = :url"),
+    @NamedQuery(name = "Campaign.findByHashTag", query = "SELECT c FROM Campaign c WHERE c.hashTag = :hashTag")})
 public class Campaign implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,45 +56,48 @@ public class Campaign implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date enddate;
     @Size(max = 255)
-    @Column(name = "language")
-    private String language;
-    @Size(max = 255)
     @Column(name = "notes")
     private String notes;
     @Size(max = 255)
     @Column(name = "url")
     private String url;
-    @JoinTable(name = "campaign_has_user", joinColumns = {
+    @Size(max = 255)
+    @Column(name = "hashTag")
+    private String hashTag;
+    @JoinTable(name = "campaign_has_publishchannel", joinColumns = {
         @JoinColumn(name = "Campaign_idCampaign", referencedColumnName = "idCampaign")}, inverseJoinColumns = {
-        @JoinColumn(name = "User_idUser", referencedColumnName = "idUser")})
+        @JoinColumn(name = "PublishChannel_idPublishChannel", referencedColumnName = "idPublishChannel")})
     @ManyToMany
-    private List<User> userList;
+    private List<Publishchannel> publishchannelList;
+    @JoinTable(name = "campaign_has_user", joinColumns = {
+        @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")}, inverseJoinColumns = {
+        @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")})
+    @ManyToMany
+    private List<Userdata> userdataList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Assconsref> assconsrefList;
+    private List<CampaignHasPlatform> campaignHasPlatformList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "campaignidCampaign")
     private List<Campaigntopics> campaigntopicsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Publishchannel> publishchannelList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Message> messageList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Blogger> bloggerList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Activites> activitesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Facebookvisits> facebookvisitsList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Facebookdata> facebookdataList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Action> actionList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Youtube> youtubeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Survey> surveyList;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
+    @JoinColumn(name = "idLocation", referencedColumnName = "idLocation")
     @ManyToOne(optional = false)
-    private User idUser;
-    @JoinColumn(name = "idLacotion", referencedColumnName = "idLocation")
+    private Location idLocation;
+    @JoinColumn(name = "idUser", referencedColumnName = "idUserData")
     @ManyToOne(optional = false)
-    private Location idLacotion;
+    private Userdata idUser;
 
     public Campaign() {
     }
@@ -156,14 +159,6 @@ public class Campaign implements Serializable {
         this.enddate = enddate;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -180,31 +175,12 @@ public class Campaign implements Serializable {
         this.url = url;
     }
 
-    @XmlTransient
-    public List<User> getUserList() {
-        return userList;
+    public String getHashTag() {
+        return hashTag;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
-    @XmlTransient
-    public List<Assconsref> getAssconsrefList() {
-        return assconsrefList;
-    }
-
-    public void setAssconsrefList(List<Assconsref> assconsrefList) {
-        this.assconsrefList = assconsrefList;
-    }
-
-    @XmlTransient
-    public List<Campaigntopics> getCampaigntopicsList() {
-        return campaigntopicsList;
-    }
-
-    public void setCampaigntopicsList(List<Campaigntopics> campaigntopicsList) {
-        this.campaigntopicsList = campaigntopicsList;
+    public void setHashTag(String hashTag) {
+        this.hashTag = hashTag;
     }
 
     @XmlTransient
@@ -214,6 +190,33 @@ public class Campaign implements Serializable {
 
     public void setPublishchannelList(List<Publishchannel> publishchannelList) {
         this.publishchannelList = publishchannelList;
+    }
+
+    @XmlTransient
+    public List<Userdata> getUserdataList() {
+        return userdataList;
+    }
+
+    public void setUserdataList(List<Userdata> userdataList) {
+        this.userdataList = userdataList;
+    }
+
+    @XmlTransient
+    public List<CampaignHasPlatform> getCampaignHasPlatformList() {
+        return campaignHasPlatformList;
+    }
+
+    public void setCampaignHasPlatformList(List<CampaignHasPlatform> campaignHasPlatformList) {
+        this.campaignHasPlatformList = campaignHasPlatformList;
+    }
+
+    @XmlTransient
+    public List<Campaigntopics> getCampaigntopicsList() {
+        return campaigntopicsList;
+    }
+
+    public void setCampaigntopicsList(List<Campaigntopics> campaigntopicsList) {
+        this.campaigntopicsList = campaigntopicsList;
     }
 
     @XmlTransient
@@ -235,15 +238,6 @@ public class Campaign implements Serializable {
     }
 
     @XmlTransient
-    public List<Activites> getActivitesList() {
-        return activitesList;
-    }
-
-    public void setActivitesList(List<Activites> activitesList) {
-        this.activitesList = activitesList;
-    }
-
-    @XmlTransient
     public List<Facebookvisits> getFacebookvisitsList() {
         return facebookvisitsList;
     }
@@ -259,6 +253,15 @@ public class Campaign implements Serializable {
 
     public void setFacebookdataList(List<Facebookdata> facebookdataList) {
         this.facebookdataList = facebookdataList;
+    }
+
+    @XmlTransient
+    public List<Action> getActionList() {
+        return actionList;
+    }
+
+    public void setActionList(List<Action> actionList) {
+        this.actionList = actionList;
     }
 
     @XmlTransient
@@ -279,20 +282,20 @@ public class Campaign implements Serializable {
         this.surveyList = surveyList;
     }
 
-    public User getIdUser() {
+    public Location getIdLocation() {
+        return idLocation;
+    }
+
+    public void setIdLocation(Location idLocation) {
+        this.idLocation = idLocation;
+    }
+
+    public Userdata getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(User idUser) {
+    public void setIdUser(Userdata idUser) {
         this.idUser = idUser;
-    }
-
-    public Location getIdLacotion() {
-        return idLacotion;
-    }
-
-    public void setIdLacotion(Location idLacotion) {
-        this.idLacotion = idLacotion;
     }
 
     @Override

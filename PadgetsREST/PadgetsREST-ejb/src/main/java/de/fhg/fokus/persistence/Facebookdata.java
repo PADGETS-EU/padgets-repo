@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Facebookdata.findAll", query = "SELECT f FROM Facebookdata f"),
     @NamedQuery(name = "Facebookdata.findByIdFacebookData", query = "SELECT f FROM Facebookdata f WHERE f.idFacebookData = :idFacebookData"),
-    @NamedQuery(name = "Facebookdata.findByDate", query = "SELECT f FROM Facebookdata f WHERE f.date = :date"),
+    @NamedQuery(name = "Facebookdata.findByMetricDate", query = "SELECT f FROM Facebookdata f WHERE f.metricDate = :metricDate"),
     @NamedQuery(name = "Facebookdata.findByAgeBracket", query = "SELECT f FROM Facebookdata f WHERE f.ageBracket = :ageBracket"),
     @NamedQuery(name = "Facebookdata.findByGender", query = "SELECT f FROM Facebookdata f WHERE f.gender = :gender"),
     @NamedQuery(name = "Facebookdata.findByFans", query = "SELECT f FROM Facebookdata f WHERE f.fans = :fans"),
@@ -34,9 +34,9 @@ public class Facebookdata implements Serializable {
     @NotNull
     @Column(name = "idFacebookData")
     private Integer idFacebookData;
-    @Column(name = "date")
+    @Column(name = "metricDate")
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date metricDate;
     @Size(max = 45)
     @Column(name = "ageBracket")
     private String ageBracket;
@@ -47,6 +47,9 @@ public class Facebookdata implements Serializable {
     private Integer fans;
     @Column(name = "activeUsers")
     private Integer activeUsers;
+    @JoinColumn(name = "idCluster", referencedColumnName = "idCluster")
+    @ManyToOne(optional = false)
+    private Clustercomposition idCluster;
     @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")
     @ManyToOne(optional = false)
     private Campaign idCampaign;
@@ -66,12 +69,12 @@ public class Facebookdata implements Serializable {
         this.idFacebookData = idFacebookData;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getMetricDate() {
+        return metricDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMetricDate(Date metricDate) {
+        this.metricDate = metricDate;
     }
 
     public String getAgeBracket() {
@@ -104,6 +107,14 @@ public class Facebookdata implements Serializable {
 
     public void setActiveUsers(Integer activeUsers) {
         this.activeUsers = activeUsers;
+    }
+
+    public Clustercomposition getIdCluster() {
+        return idCluster;
+    }
+
+    public void setIdCluster(Clustercomposition idCluster) {
+        this.idCluster = idCluster;
     }
 
     public Campaign getIdCampaign() {
