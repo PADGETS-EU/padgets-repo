@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -62,7 +63,7 @@ public class Platform implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<CampaignHasPlatform> getCampaignHasPlatformList() {
         return campaignHasPlatformList;
     }
@@ -71,7 +72,7 @@ public class Platform implements Serializable {
         this.campaignHasPlatformList = campaignHasPlatformList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Action> getActionList() {
         return actionList;
     }

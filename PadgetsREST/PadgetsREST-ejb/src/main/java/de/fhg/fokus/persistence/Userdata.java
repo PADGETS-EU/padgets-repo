@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -231,7 +232,7 @@ public class Userdata implements Serializable {
         this.viewLanguage = viewLanguage;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Smpaccount> getSmpaccountList() {
         return smpaccountList;
     }
@@ -240,7 +241,7 @@ public class Userdata implements Serializable {
         this.smpaccountList = smpaccountList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
@@ -249,7 +250,7 @@ public class Userdata implements Serializable {
         this.publishchannelList = publishchannelList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Authdata> getAuthdataList() {
         return authdataList;
     }
@@ -258,7 +259,7 @@ public class Userdata implements Serializable {
         this.authdataList = authdataList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Message> getMessageList() {
         return messageList;
     }
@@ -267,7 +268,7 @@ public class Userdata implements Serializable {
         this.messageList = messageList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Comment> getCommentList() {
         return commentList;
     }

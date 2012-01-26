@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -183,7 +184,7 @@ public class Campaign implements Serializable {
         this.hashTag = hashTag;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
@@ -192,7 +193,7 @@ public class Campaign implements Serializable {
         this.publishchannelList = publishchannelList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Userdata> getUserdataList() {
         return userdataList;
     }
@@ -201,7 +202,7 @@ public class Campaign implements Serializable {
         this.userdataList = userdataList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<CampaignHasPlatform> getCampaignHasPlatformList() {
         return campaignHasPlatformList;
     }
@@ -210,7 +211,6 @@ public class Campaign implements Serializable {
         this.campaignHasPlatformList = campaignHasPlatformList;
     }
 
-    @XmlTransient
     public List<Campaigntopics> getCampaigntopicsList() {
         return campaigntopicsList;
     }
@@ -219,7 +219,7 @@ public class Campaign implements Serializable {
         this.campaigntopicsList = campaigntopicsList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Message> getMessageList() {
         return messageList;
     }
@@ -228,7 +228,7 @@ public class Campaign implements Serializable {
         this.messageList = messageList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Blogger> getBloggerList() {
         return bloggerList;
     }
@@ -237,7 +237,7 @@ public class Campaign implements Serializable {
         this.bloggerList = bloggerList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Facebookvisits> getFacebookvisitsList() {
         return facebookvisitsList;
     }
@@ -246,7 +246,7 @@ public class Campaign implements Serializable {
         this.facebookvisitsList = facebookvisitsList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Facebookdata> getFacebookdataList() {
         return facebookdataList;
     }
@@ -255,7 +255,7 @@ public class Campaign implements Serializable {
         this.facebookdataList = facebookdataList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Action> getActionList() {
         return actionList;
     }
@@ -264,7 +264,7 @@ public class Campaign implements Serializable {
         this.actionList = actionList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Youtube> getYoutubeList() {
         return youtubeList;
     }
@@ -273,7 +273,7 @@ public class Campaign implements Serializable {
         this.youtubeList = youtubeList;
     }
 
-    @XmlTransient
+        @JsonIgnore @XmlTransient
     public List<Survey> getSurveyList() {
         return surveyList;
     }
@@ -290,6 +290,7 @@ public class Campaign implements Serializable {
         this.idLocation = idLocation;
     }
 
+        @JsonIgnore @XmlTransient
     public Userdata getIdUser() {
         return idUser;
     }

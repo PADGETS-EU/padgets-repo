@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -186,7 +187,7 @@ public class Message implements Serializable {
         this.idCampaign = idCampaign;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Publisheditem> getPublisheditemList() {
         return publisheditemList;
     }
@@ -195,7 +196,7 @@ public class Message implements Serializable {
         this.publisheditemList = publisheditemList;
     }
 
-    @XmlTransient
+       @JsonIgnore     @XmlTransient
     public List<Comment> getCommentList() {
         return commentList;
     }
