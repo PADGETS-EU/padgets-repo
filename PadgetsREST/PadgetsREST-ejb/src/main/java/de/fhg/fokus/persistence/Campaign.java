@@ -10,7 +10,10 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -21,6 +24,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "campaign")
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Campaign.findAll", query = "SELECT c FROM Campaign c"),
     @NamedQuery(name = "Campaign.findByIdCampaign", query = "SELECT c FROM Campaign c WHERE c.idCampaign = :idCampaign"),
@@ -33,6 +37,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Campaign.findByUrl", query = "SELECT c FROM Campaign c WHERE c.url = :url"),
     @NamedQuery(name = "Campaign.findByHashTag", query = "SELECT c FROM Campaign c WHERE c.hashTag = :hashTag")})
 public class Campaign implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -184,7 +189,8 @@ public class Campaign implements Serializable {
         this.hashTag = hashTag;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
@@ -193,7 +199,8 @@ public class Campaign implements Serializable {
         this.publishchannelList = publishchannelList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Userdata> getUserdataList() {
         return userdataList;
     }
@@ -202,7 +209,8 @@ public class Campaign implements Serializable {
         this.userdataList = userdataList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<CampaignHasPlatform> getCampaignHasPlatformList() {
         return campaignHasPlatformList;
     }
@@ -211,6 +219,8 @@ public class Campaign implements Serializable {
         this.campaignHasPlatformList = campaignHasPlatformList;
     }
 
+    @XmlElementWrapper(name = "topics")
+    @XmlElement(name = "topic")
     public List<Campaigntopics> getCampaigntopicsList() {
         return campaigntopicsList;
     }
@@ -219,7 +229,16 @@ public class Campaign implements Serializable {
         this.campaigntopicsList = campaigntopicsList;
     }
 
-        @JsonIgnore @XmlTransient
+    public boolean addCampaigntopic(Campaigntopics ct) {
+        return this.campaigntopicsList.add(ct);
+    }
+
+    public boolean removeCampaigntopic(Campaigntopics ct) {
+        return this.campaigntopicsList.remove(ct);
+    }
+
+    @JsonIgnore
+    @XmlTransient
     public List<Message> getMessageList() {
         return messageList;
     }
@@ -228,7 +247,8 @@ public class Campaign implements Serializable {
         this.messageList = messageList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Blogger> getBloggerList() {
         return bloggerList;
     }
@@ -237,7 +257,8 @@ public class Campaign implements Serializable {
         this.bloggerList = bloggerList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Facebookvisits> getFacebookvisitsList() {
         return facebookvisitsList;
     }
@@ -246,7 +267,8 @@ public class Campaign implements Serializable {
         this.facebookvisitsList = facebookvisitsList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Facebookdata> getFacebookdataList() {
         return facebookdataList;
     }
@@ -255,7 +277,8 @@ public class Campaign implements Serializable {
         this.facebookdataList = facebookdataList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Action> getActionList() {
         return actionList;
     }
@@ -264,7 +287,8 @@ public class Campaign implements Serializable {
         this.actionList = actionList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Youtube> getYoutubeList() {
         return youtubeList;
     }
@@ -273,7 +297,8 @@ public class Campaign implements Serializable {
         this.youtubeList = youtubeList;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Survey> getSurveyList() {
         return surveyList;
     }
@@ -282,6 +307,7 @@ public class Campaign implements Serializable {
         this.surveyList = surveyList;
     }
 
+    @XmlElement(name = "location")
     public Location getIdLocation() {
         return idLocation;
     }
@@ -290,7 +316,8 @@ public class Campaign implements Serializable {
         this.idLocation = idLocation;
     }
 
-        @JsonIgnore @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public Userdata getIdUser() {
         return idUser;
     }
@@ -323,5 +350,4 @@ public class Campaign implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.Campaign[ idCampaign=" + idCampaign + " ]";
     }
-    
 }

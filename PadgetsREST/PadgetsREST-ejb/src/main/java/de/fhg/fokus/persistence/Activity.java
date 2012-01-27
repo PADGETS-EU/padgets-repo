@@ -9,7 +9,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "activity")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Activity.findAll", query = "SELECT a FROM Activity a"),
     @NamedQuery(name = "Activity.findByIdActivity", query = "SELECT a FROM Activity a WHERE a.idActivity = :idActivity"),

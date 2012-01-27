@@ -9,6 +9,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
@@ -17,11 +20,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "campaigntopics")
 @XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Campaigntopics.findAll", query = "SELECT c FROM Campaigntopics c"),
     @NamedQuery(name = "Campaigntopics.findByIdCampaignTopics", query = "SELECT c FROM Campaigntopics c WHERE c.idCampaignTopics = :idCampaignTopics"),
     @NamedQuery(name = "Campaigntopics.findByTopic", query = "SELECT c FROM Campaigntopics c WHERE c.topic = :topic")})
 public class Campaigntopics implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,6 +48,8 @@ public class Campaigntopics implements Serializable {
         this.idCampaignTopics = idCampaignTopics;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public Integer getIdCampaignTopics() {
         return idCampaignTopics;
     }
@@ -59,6 +66,8 @@ public class Campaigntopics implements Serializable {
         this.topic = topic;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public Campaign getCampaignidCampaign() {
         return campaignidCampaign;
     }
@@ -91,5 +100,4 @@ public class Campaigntopics implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.Campaigntopics[ idCampaignTopics=" + idCampaignTopics + " ]";
     }
-    
 }

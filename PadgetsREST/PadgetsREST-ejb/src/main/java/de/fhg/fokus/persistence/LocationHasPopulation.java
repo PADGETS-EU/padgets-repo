@@ -7,7 +7,7 @@ package de.fhg.fokus.persistence;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "location_has_population")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "LocationHasPopulation.findAll", query = "SELECT l FROM LocationHasPopulation l"),
     @NamedQuery(name = "LocationHasPopulation.findByIdLocationhasPopulation", query = "SELECT l FROM LocationHasPopulation l WHERE l.idLocationhasPopulation = :idLocationhasPopulation"),

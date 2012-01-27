@@ -8,7 +8,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "openidprovider")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Openidprovider.findAll", query = "SELECT o FROM Openidprovider o"),
     @NamedQuery(name = "Openidprovider.findByIdOpenIdProvider", query = "SELECT o FROM Openidprovider o WHERE o.idOpenIdProvider = :idOpenIdProvider"),

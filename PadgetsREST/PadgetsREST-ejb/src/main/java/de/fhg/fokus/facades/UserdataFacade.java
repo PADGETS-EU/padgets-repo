@@ -27,4 +27,11 @@ public class UserdataFacade extends AbstractFacade<Userdata> {
         super(Userdata.class);
     }
     
+    @Override
+    public void create(Userdata u) {
+        u.setIdUserData(-1);
+        getEntityManager().persist(u);
+        getEntityManager().flush();
+    }
+    
 }

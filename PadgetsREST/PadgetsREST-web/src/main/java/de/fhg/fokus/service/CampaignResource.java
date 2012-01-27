@@ -5,9 +5,11 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.CampaignFacade;
+import de.fhg.fokus.facades.CampaigntopicsFacade;
+import de.fhg.fokus.facades.LocationFacade;
 import de.fhg.fokus.facades.UserdataFacade;
-import de.fhg.fokus.persistence.Campaign;
-import de.fhg.fokus.persistence.Userdata;
+import de.fhg.fokus.persistence.*;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,6 +24,10 @@ import javax.ws.rs.*;
 public class CampaignResource {
 
     @EJB
+    private LocationFacade locationFacade;
+    @EJB
+    private CampaigntopicsFacade campaigntopicsFacade;
+    @EJB
     private UserdataFacade userdataFacade;
     @EJB
     private SampleSessionBean sampleSessionBean;
@@ -29,7 +35,9 @@ public class CampaignResource {
     private CampaignFacade campaignFacade;
 
     /**
-     * Returns all campaigns for the given user
+     * Returns all campaigns for the given user. It also returns the campaign
+     * location object and the campaign topics. Address
+     * GET <server>/resources/campaign?sid=test_user
      *
      * @param sid valid session id
      * @return list of campaigns
@@ -51,6 +59,11 @@ public class CampaignResource {
 
     /**
      * Create new campaign and returns the persisted object (with valid id).
+     * Every campaign needs a location. Therefore a location object inside the
+     * campaign is needed (id is enough). It is also possible to sends a list of
+     * initial campaign topics (id is not needed) inside the campaign object.
+     *
+     * Address POST <server>/resources/campaign?sid=test_user
      *
      * @param campaign Campaign object
      * @param sid valid session id
@@ -67,8 +80,28 @@ public class CampaignResource {
         //TODO: user id ermitteln
         Userdata ud = userdataFacade.find(1);
         campaign.setIdUser(ud);
+        Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
+        campaign.setIdLocation(l);
+
+
+        List<Campaigntopics> topicList = null;
+        if (campaign.getCampaigntopicsList() != null) {
+            topicList = campaign.getCampaigntopicsList();
+            campaign.setCampaigntopicsList(null);
+        }
+
+        campaign.setCreationdate(new Date());//today
+
         campaignFacade.create(campaign);
 
+        if (topicList != null) {
+            for (Campaigntopics ct : topicList) {
+                ct.setCampaignidCampaign(campaign);
+                campaigntopicsFacade.create(ct);
+                campaign.addCampaigntopic(ct);
+            }
+        }
+        //update user entity
         ud.addCampaignManager(campaign);
 
         //TODO check if campaign id is valid
@@ -76,7 +109,12 @@ public class CampaignResource {
     }
 
     /**
-     * Change the values of the campaign object of the database with the given one. It don't change foreign keys (relations)
+     * Change the values of the campaign object of the database with the given
+     * one. It don't change foreign keys (relations). Only the campaign manager
+     * can change the campaign object.
+     *
+     * Address PUT <server>/resources/campaign/<campId>?sid=test_user
+     *
      * @param campaign Campaign Object
      * @param sid session id
      * @param campaignId id from the campaign
@@ -94,7 +132,7 @@ public class CampaignResource {
         //TODO: user id ermitteln
         Userdata ud = userdataFacade.find(1);
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
-        //TODO kann man ein entity updaten welches alle relationen auf null hat?
+
         if (dbCampaign.getIdUser().equals(ud)) { //is the user the campaign manager?
             dbCampaign.setActive(campaign.getActive());
             dbCampaign.setCreationdate(campaign.getCreationdate());
@@ -108,12 +146,48 @@ public class CampaignResource {
         }
         return dbCampaign;
     }
-    
+
+    /**
+     * Deletes the campaign and some related objects if the user is the campaign
+     * manager.
+     *
+     * Address DELETE <server>/resources/campaign/<campId>?sid=test_user
+     *
+     * @param sid
+     * @param campaignId
+     */
     @DELETE
     @Path("{id}")
-    public void deleteCampaign( @DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId){
-        //TODO
+    public void deleteCampaign(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
+        //TODO: user id ermitteln
+        Userdata ud = userdataFacade.find(1);
+        Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
+
+        if (dbCampaign.getIdUser().equals(ud)) {
+            campaignFacade.remove(dbCampaign);
+        }
     }
-    
-      //TODO create, update delete topics
+
+    /**
+     * Gives you all messages from a campaign
+     * @param sid valid session id
+     * @param campaignId id of the campaign
+     * 
+     * Address GET <server>/resources/campaign/<campId>/message?sid=test_user
+     * 
+     * @return list of messages
+     */
+    @GET
+    @Path("{id}/message")
+    @Produces({"application/xml", "application/json"})
+    public List<Message> getCampaignMessages(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
+             
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleMessageList();
+        }
+        
+         //TODO: sid is valid?
+        Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
+        return dbCampaign.getMessageList();
+    }
 }

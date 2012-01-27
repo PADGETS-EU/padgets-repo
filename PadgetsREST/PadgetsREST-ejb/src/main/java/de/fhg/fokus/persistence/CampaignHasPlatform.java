@@ -7,7 +7,7 @@ package de.fhg.fokus.persistence;
 import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "campaign_has_platform")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "CampaignHasPlatform.findAll", query = "SELECT c FROM CampaignHasPlatform c"),
     @NamedQuery(name = "CampaignHasPlatform.findByIdCampaignhasPlatform", query = "SELECT c FROM CampaignHasPlatform c WHERE c.idCampaignhasPlatform = :idCampaignhasPlatform"),

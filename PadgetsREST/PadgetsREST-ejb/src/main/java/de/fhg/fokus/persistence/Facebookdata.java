@@ -9,7 +9,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "facebookdata")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Facebookdata.findAll", query = "SELECT f FROM Facebookdata f"),
     @NamedQuery(name = "Facebookdata.findByIdFacebookData", query = "SELECT f FROM Facebookdata f WHERE f.idFacebookData = :idFacebookData"),

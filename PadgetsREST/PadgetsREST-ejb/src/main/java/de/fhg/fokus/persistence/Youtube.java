@@ -9,7 +9,7 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "youtube")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Youtube.findAll", query = "SELECT y FROM Youtube y"),
     @NamedQuery(name = "Youtube.findByIdYouTube", query = "SELECT y FROM Youtube y WHERE y.idYouTube = :idYouTube"),

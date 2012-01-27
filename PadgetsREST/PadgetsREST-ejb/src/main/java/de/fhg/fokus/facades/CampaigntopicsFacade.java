@@ -27,4 +27,10 @@ public class CampaigntopicsFacade extends AbstractFacade<Campaigntopics> {
         super(Campaigntopics.class);
     }
     
+                @Override
+    public void create(Campaigntopics campaign) {
+        campaign.setIdCampaignTopics(-1);
+        getEntityManager().persist(campaign);
+        getEntityManager().flush();
+    }
 }

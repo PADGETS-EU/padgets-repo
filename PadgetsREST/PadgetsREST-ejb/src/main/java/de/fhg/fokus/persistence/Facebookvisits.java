@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
  *
@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "facebookvisits")
-@XmlRootElement
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Facebookvisits.findAll", query = "SELECT f FROM Facebookvisits f"),
     @NamedQuery(name = "Facebookvisits.findByIdFacebookVisits", query = "SELECT f FROM Facebookvisits f WHERE f.idFacebookVisits = :idFacebookVisits"),
