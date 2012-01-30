@@ -81,4 +81,5 @@ public class SampleSessionBean {
         mList.add(makeSampleMessage());
         return mList;
     }
+
 }

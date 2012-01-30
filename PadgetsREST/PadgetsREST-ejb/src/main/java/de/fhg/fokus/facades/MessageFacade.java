@@ -4,6 +4,7 @@
  */
 package de.fhg.fokus.facades;
 
+import de.fhg.fokus.persistence.Campaign;
 import de.fhg.fokus.persistence.Message;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,4 +28,10 @@ public class MessageFacade extends AbstractFacade<Message> {
         super(Message.class);
     }
     
+                @Override
+    public void create(Message message) {
+        message.setIdMessage(-1);
+        getEntityManager().persist(message);
+        getEntityManager().flush();
+    }
 }

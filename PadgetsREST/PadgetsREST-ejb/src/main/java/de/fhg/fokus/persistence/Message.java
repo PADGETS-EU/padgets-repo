@@ -10,7 +10,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -20,7 +21,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "message")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
 @NamedQueries({
     @NamedQuery(name = "Message.findAll", query = "SELECT m FROM Message m"),
     @NamedQuery(name = "Message.findByIdMessage", query = "SELECT m FROM Message m WHERE m.idMessage = :idMessage"),
@@ -33,6 +35,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Message.findByMediaPath", query = "SELECT m FROM Message m WHERE m.mediaPath = :mediaPath"),
     @NamedQuery(name = "Message.findByType", query = "SELECT m FROM Message m WHERE m.type = :type")})
 public class Message implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -171,7 +174,8 @@ public class Message implements Serializable {
         this.type = type;
     }
 
-           @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public Userdata getIdUserData() {
         return idUserData;
     }
@@ -180,7 +184,8 @@ public class Message implements Serializable {
         this.idUserData = idUserData;
     }
 
-           @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public Campaign getIdCampaign() {
         return idCampaign;
     }
@@ -189,7 +194,8 @@ public class Message implements Serializable {
         this.idCampaign = idCampaign;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Publisheditem> getPublisheditemList() {
         return publisheditemList;
     }
@@ -198,7 +204,8 @@ public class Message implements Serializable {
         this.publisheditemList = publisheditemList;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Comment> getCommentList() {
         return commentList;
     }
@@ -231,5 +238,4 @@ public class Message implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.Message[ idMessage=" + idMessage + " ]";
     }
-    
 }

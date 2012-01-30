@@ -267,6 +267,14 @@ public class Userdata implements Serializable {
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
     }
+    
+        public boolean addMessage(Message message) {
+        return this.messageList.add(message);
+    }
+
+    public boolean removeMessage(Message message) {
+        return this.messageList.remove(message);
+    }
 
        @JsonIgnore     @XmlTransient
     public List<Comment> getCommentList() {

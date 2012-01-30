@@ -37,7 +37,7 @@ public class CampaignResource {
     /**
      * Returns all campaigns for the given user. It also returns the campaign
      * location object and the campaign topics. Address
-     * GET <server>/resources/campaign?sid=test_user
+     * Address: GET <server>/resources/campaign?sid=test_user
      *
      * @param sid valid session id
      * @return list of campaigns
@@ -48,8 +48,13 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data
             return sampleSessionBean.makeSampleCampaignList();
         }
-        //TODO: user id ermitteln
-        Userdata ud = userdataFacade.find(1);
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if(udList == null){
+            return null;
+        }
+        Userdata ud = udList.get(0);
+        
         if (ud.getUserRole().equals("manager")) {
             return ud.getCampaignListManager();
         } else { //it's a helper
@@ -63,7 +68,7 @@ public class CampaignResource {
      * campaign is needed (id is enough). It is also possible to sends a list of
      * initial campaign topics (id is not needed) inside the campaign object.
      *
-     * Address POST <server>/resources/campaign?sid=test_user
+     * Address: POST <server>/resources/campaign?sid=test_user
      *
      * @param campaign Campaign object
      * @param sid valid session id
@@ -77,8 +82,14 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCampaign();
         }
-        //TODO: user id ermitteln
-        Userdata ud = userdataFacade.find(1);
+        
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if(udList == null){
+            return null;
+        }
+        Userdata ud = udList.get(0);
+        
         campaign.setIdUser(ud);
         Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
         campaign.setIdLocation(l);
@@ -113,7 +124,7 @@ public class CampaignResource {
      * one. It don't change foreign keys (relations). Only the campaign manager
      * can change the campaign object.
      *
-     * Address PUT <server>/resources/campaign/<campId>?sid=test_user
+     * Address: PUT <server>/resources/campaign/<campId>?sid=test_user
      *
      * @param campaign Campaign Object
      * @param sid session id
@@ -129,8 +140,14 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCampaign();
         }
-        //TODO: user id ermitteln
-        Userdata ud = userdataFacade.find(1);
+        
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if(udList == null){
+            return null;
+        }
+        Userdata ud = udList.get(0);
+        
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
 
         if (dbCampaign.getIdUser().equals(ud)) { //is the user the campaign manager?
@@ -151,7 +168,7 @@ public class CampaignResource {
      * Deletes the campaign and some related objects if the user is the campaign
      * manager.
      *
-     * Address DELETE <server>/resources/campaign/<campId>?sid=test_user
+     * Address: DELETE <server>/resources/campaign/<campId>?sid=test_user
      *
      * @param sid
      * @param campaignId
@@ -159,11 +176,17 @@ public class CampaignResource {
     @DELETE
     @Path("{id}")
     public void deleteCampaign(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
-        //TODO: user id ermitteln
-        Userdata ud = userdataFacade.find(1);
+
+                //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if(udList == null){
+            return;
+        }
+        Userdata ud = udList.get(0);
+        
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
 
-        if (dbCampaign.getIdUser().equals(ud)) {
+        if (dbCampaign.getIdUser().equals(ud)) {//campaign manager
             campaignFacade.remove(dbCampaign);
         }
     }
@@ -173,7 +196,7 @@ public class CampaignResource {
      * @param sid valid session id
      * @param campaignId id of the campaign
      * 
-     * Address GET <server>/resources/campaign/<campId>/message?sid=test_user
+     * Address: GET <server>/resources/campaign/<campId>/message?sid=test_user
      * 
      * @return list of messages
      */
@@ -186,7 +209,12 @@ public class CampaignResource {
             return sampleSessionBean.makeSampleMessageList();
         }
         
-         //TODO: sid is valid?
+                //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if(udList == null){
+            return null;
+        }
+
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
         return dbCampaign.getMessageList();
     }
