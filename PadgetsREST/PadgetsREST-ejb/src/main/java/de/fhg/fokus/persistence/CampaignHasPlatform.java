@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map
  */
 @Entity
 @Table(name = "campaign_has_platform")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "CampaignHasPlatform.findAll", query = "SELECT c FROM CampaignHasPlatform c"),
     @NamedQuery(name = "CampaignHasPlatform.findByIdCampaignhasPlatform", query = "SELECT c FROM CampaignHasPlatform c WHERE c.idCampaignhasPlatform = :idCampaignhasPlatform"),

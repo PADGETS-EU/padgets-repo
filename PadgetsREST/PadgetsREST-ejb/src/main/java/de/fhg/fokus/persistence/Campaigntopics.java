@@ -20,7 +20,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "campaigntopics")
 @XmlRootElement
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @NamedQueries({
     @NamedQuery(name = "Campaigntopics.findAll", query = "SELECT c FROM Campaigntopics c"),
     @NamedQuery(name = "Campaigntopics.findByIdCampaignTopics", query = "SELECT c FROM Campaigntopics c WHERE c.idCampaignTopics = :idCampaignTopics"),

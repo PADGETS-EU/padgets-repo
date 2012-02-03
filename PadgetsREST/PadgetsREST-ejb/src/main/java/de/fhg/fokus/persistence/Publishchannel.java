@@ -9,7 +9,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -19,7 +20,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "publishchannel")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Publishchannel.findAll", query = "SELECT p FROM Publishchannel p"),
     @NamedQuery(name = "Publishchannel.findByIdPublishChannel", query = "SELECT p FROM Publishchannel p WHERE p.idPublishChannel = :idPublishChannel"),
@@ -28,6 +30,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Publishchannel.findByNetworkPageId", query = "SELECT p FROM Publishchannel p WHERE p.networkPageId = :networkPageId"),
     @NamedQuery(name = "Publishchannel.findByOAuth2Token", query = "SELECT p FROM Publishchannel p WHERE p.oAuth2Token = :oAuth2Token")})
 public class Publishchannel implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -105,7 +108,8 @@ public class Publishchannel implements Serializable {
         this.oAuth2Token = oAuth2Token;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Campaign> getCampaignList() {
         return campaignList;
     }
@@ -114,6 +118,8 @@ public class Publishchannel implements Serializable {
         this.campaignList = campaignList;
     }
 
+        @JsonIgnore
+    @XmlTransient
     public Userdata getIdUserData() {
         return idUserData;
     }
@@ -122,6 +128,8 @@ public class Publishchannel implements Serializable {
         this.idUserData = idUserData;
     }
 
+        @JsonIgnore
+    @XmlTransient
     public Smpaccount getIdSmpAccount() {
         return idSmpAccount;
     }
@@ -130,7 +138,8 @@ public class Publishchannel implements Serializable {
         this.idSmpAccount = idSmpAccount;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Publisheditem> getPublisheditemList() {
         return publisheditemList;
     }
@@ -163,5 +172,4 @@ public class Publishchannel implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.Publishchannel[ idPublishChannel=" + idPublishChannel + " ]";
     }
-    
 }

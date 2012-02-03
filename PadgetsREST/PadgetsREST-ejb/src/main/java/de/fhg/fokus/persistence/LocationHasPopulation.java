@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map
  */
 @Entity
 @Table(name = "location_has_population")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "LocationHasPopulation.findAll", query = "SELECT l FROM LocationHasPopulation l"),
     @NamedQuery(name = "LocationHasPopulation.findByIdLocationhasPopulation", query = "SELECT l FROM LocationHasPopulation l WHERE l.idLocationhasPopulation = :idLocationhasPopulation"),

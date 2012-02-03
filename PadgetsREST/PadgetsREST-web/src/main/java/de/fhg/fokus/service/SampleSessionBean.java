@@ -8,6 +8,7 @@ import de.fhg.fokus.persistence.Campaign;
 import de.fhg.fokus.persistence.Campaigntopics;
 import de.fhg.fokus.persistence.Location;
 import de.fhg.fokus.persistence.Message;
+import de.fhg.fokus.persistence.Publishchannel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ public class SampleSessionBean {
 
         c.setNotes("These are Notes");
         c.setUrl("http://campaignURI.com");
+        c.setHashTag("#HashTag");
 
 
         Campaigntopics ct1 = new Campaigntopics();
@@ -46,6 +48,8 @@ public class SampleSessionBean {
         ct_list.add(ct1);
         ct_list.add(ct2);
         c.setCampaigntopicsList(ct_list);
+        
+        c.setPublishchannelList(makeSamplePublishChannelList());
 
         Location l = new Location(9999);
         l.setName("Berlin");
@@ -80,6 +84,26 @@ public class SampleSessionBean {
         mList.add(makeSampleMessage());
         mList.add(makeSampleMessage());
         return mList;
+    }
+    
+    public List<Publishchannel> makeSamplePublishChannelList(){
+        List<Publishchannel> pcList = new ArrayList<>();
+        Publishchannel pc = new Publishchannel();
+        pc.setName("Facebook");
+        pc.setNetwork("Facebook");
+        pc.setNetworkPageId("1234567890");
+        pc.setOAuth2Token("oAuth2Token");
+        
+        Publishchannel pc2 = new Publishchannel();
+        pc2.setName("Twitter");
+        pc2.setNetwork("Twitter");
+        pc2.setNetworkPageId("123456");
+        pc2.setOAuth2Token("oAuth2Token");
+        
+        pcList.add(pc);
+        pcList.add(pc2);
+        
+        return pcList;
     }
 
 }

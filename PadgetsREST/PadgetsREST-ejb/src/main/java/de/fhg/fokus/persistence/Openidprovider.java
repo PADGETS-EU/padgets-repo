@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map
  */
 @Entity
 @Table(name = "openidprovider")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Openidprovider.findAll", query = "SELECT o FROM Openidprovider o"),
     @NamedQuery(name = "Openidprovider.findByIdOpenIdProvider", query = "SELECT o FROM Openidprovider o WHERE o.idOpenIdProvider = :idOpenIdProvider"),

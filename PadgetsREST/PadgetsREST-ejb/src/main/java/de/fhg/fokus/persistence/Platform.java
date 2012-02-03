@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "platform")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Platform.findAll", query = "SELECT p FROM Platform p"),
     @NamedQuery(name = "Platform.findByIdPlatform", query = "SELECT p FROM Platform p WHERE p.idPlatform = :idPlatform"),

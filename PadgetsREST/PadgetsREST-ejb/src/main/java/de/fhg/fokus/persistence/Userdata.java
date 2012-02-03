@@ -21,7 +21,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "userdata")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Userdata.findAll", query = "SELECT u FROM Userdata u"),
     @NamedQuery(name = "Userdata.findByIdUserData", query = "SELECT u FROM Userdata u WHERE u.idUserData = :idUserData"),

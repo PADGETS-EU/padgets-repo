@@ -36,8 +36,8 @@ public class CampaignResource {
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
-     * location object and the campaign topics. Address
-     * Address: GET <server>/resources/campaign?sid=test_user
+     * location object and the campaign topics. <br />
+     * Address: GET [server]/resources/campaign?sid=test_user
      *
      * @param sid valid session id
      * @return list of campaigns
@@ -66,9 +66,9 @@ public class CampaignResource {
      * Create new campaign and returns the persisted object (with valid id).
      * Every campaign needs a location. Therefore a location object inside the
      * campaign is needed (id is enough). It is also possible to sends a list of
-     * initial campaign topics (id is not needed) inside the campaign object.
+     * initial campaign topics (id is not needed) inside the campaign object.<br />
      *
-     * Address: POST <server>/resources/campaign?sid=test_user
+     * Address: POST [server]/resources/campaign?sid=test_user
      *
      * @param campaign Campaign object
      * @param sid valid session id
@@ -122,9 +122,9 @@ public class CampaignResource {
     /**
      * Change the values of the campaign object of the database with the given
      * one. It don't change foreign keys (relations). Only the campaign manager
-     * can change the campaign object.
+     * can change the campaign object.<br />
      *
-     * Address: PUT <server>/resources/campaign/<campId>?sid=test_user
+     * Address: PUT [server]/resources/campaign/[campId]?sid=test_user
      *
      * @param campaign Campaign Object
      * @param sid session id
@@ -166,9 +166,9 @@ public class CampaignResource {
 
     /**
      * Deletes the campaign and some related objects if the user is the campaign
-     * manager.
+     * manager.<br />
      *
-     * Address: DELETE <server>/resources/campaign/<campId>?sid=test_user
+     * Address: DELETE [server]/resources/campaign/[campId]?sid=test_user
      *
      * @param sid
      * @param campaignId
@@ -192,11 +192,11 @@ public class CampaignResource {
     }
 
     /**
-     * Gives you all messages from a campaign
+     * Gives you all messages from a campaign.<br />
+     * 
+     * Address: GET [server]/resources/campaign/[campId]/message?sid=test_user
      * @param sid valid session id
      * @param campaignId id of the campaign
-     * 
-     * Address: GET <server>/resources/campaign/<campId>/message?sid=test_user
      * 
      * @return list of messages
      */

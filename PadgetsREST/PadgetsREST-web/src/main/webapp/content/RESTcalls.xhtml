@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : RESTcalls
+    Created on : 03.02.2012, 15:54:27
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:head>
+        <title>REST calls</title>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+    </h:head>
+    <h:body styleClass="ice-skin-rime">
+        <ice:form id="form">
+            <ui:param name="rPath" value="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/resources/" />
+            <ice:outputText value="REST calls"/>
+            <ice:panelGrid border="1" rules="all" columns="4" cellpadding="4px">
+                <ice:outputText value="Method"/>
+                <ice:outputText value="Request URI"/>
+                <ice:outputText value="Request Payload"/>
+                <ice:outputText value="Response Payload"/>
+                
+                <ice:outputText value="GET" />
+                <a href="#{rPath}campaign?sid=test_user">#{rPath}campaign?sid=test_user</a>
+                <ice:outputText value="only session id as query param"/>
+                <ice:outputText value="campaign object"/>
+            </ice:panelGrid>
+        </ice:form>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

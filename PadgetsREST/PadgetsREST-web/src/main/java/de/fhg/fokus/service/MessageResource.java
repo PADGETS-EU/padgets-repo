@@ -36,9 +36,9 @@ public class MessageResource {
      * by sid). Every message needs a campaign object, so the campaign id is necessary.
      * This message is only available in the padgets database and not published to
      * any Networks. The method returns a sample message, if the sid is
-     * "test_user".
+     * "test_user".<br />
      * 
-     * Address: POST <server>/resources/message?sid=test_user&campaignId=<campId>
+     * Address: POST [server]/resources/message?sid=test_user&campaignId=[campId]
      * 
      * @param message Message object with campaign object inside
      * @param sid valid session id
@@ -83,9 +83,9 @@ public class MessageResource {
     /**
      * Returns the message with the given id. If isd = test_user, it returns a
      * sample message.
-     * TODO Who is allowed to read messages?
+     * TODO Who is allowed to read messages?<br />
      * 
-     * Address: GET <server>/resources/message/<messageId>?sid=test_user
+     * Address: GET [server]/resources/message/[messageId]?sid=test_user
      * 
      * @param sid
      * @param messageId

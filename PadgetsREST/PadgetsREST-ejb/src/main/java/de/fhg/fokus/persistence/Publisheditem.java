@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map
  */
 @Entity
 @Table(name = "publisheditem")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Publisheditem.findAll", query = "SELECT p FROM Publisheditem p"),
     @NamedQuery(name = "Publisheditem.findByIdPublishedItem", query = "SELECT p FROM Publisheditem p WHERE p.idPublishedItem = :idPublishedItem"),

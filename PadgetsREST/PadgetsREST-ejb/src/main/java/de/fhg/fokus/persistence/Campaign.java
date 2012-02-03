@@ -24,7 +24,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @Table(name = "campaign")
 @XmlRootElement
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Campaign.findAll", query = "SELECT c FROM Campaign c"),
     @NamedQuery(name = "Campaign.findByIdCampaign", query = "SELECT c FROM Campaign c WHERE c.idCampaign = :idCampaign"),
@@ -189,8 +189,6 @@ public class Campaign implements Serializable {
         this.hashTag = hashTag;
     }
 
-    @JsonIgnore
-    @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }

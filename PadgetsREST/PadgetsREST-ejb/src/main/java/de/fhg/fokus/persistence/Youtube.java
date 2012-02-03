@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map
  */
 @Entity
 @Table(name = "youtube")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Youtube.findAll", query = "SELECT y FROM Youtube y"),
     @NamedQuery(name = "Youtube.findByIdYouTube", query = "SELECT y FROM Youtube y WHERE y.idYouTube = :idYouTube"),

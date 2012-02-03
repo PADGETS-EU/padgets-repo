@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "smpaccount")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Smpaccount.findAll", query = "SELECT s FROM Smpaccount s"),
     @NamedQuery(name = "Smpaccount.findByIdSmpAccount", query = "SELECT s FROM Smpaccount s WHERE s.idSmpAccount = :idSmpAccount"),

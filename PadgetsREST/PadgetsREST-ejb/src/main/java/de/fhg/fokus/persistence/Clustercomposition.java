@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "clustercomposition")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Clustercomposition.findAll", query = "SELECT c FROM Clustercomposition c"),
     @NamedQuery(name = "Clustercomposition.findByIdCluster", query = "SELECT c FROM Clustercomposition c WHERE c.idCluster = :idCluster"),
