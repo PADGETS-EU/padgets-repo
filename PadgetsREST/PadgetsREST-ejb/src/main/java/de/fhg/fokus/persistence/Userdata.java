@@ -11,7 +11,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -21,7 +22,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "userdata")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
+@XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Userdata.findAll", query = "SELECT u FROM Userdata u"),
     @NamedQuery(name = "Userdata.findByIdUserData", query = "SELECT u FROM Userdata u WHERE u.idUserData = :idUserData"),
@@ -30,7 +32,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Userdata.findByEmail", query = "SELECT u FROM Userdata u WHERE u.email = :email"),
     @NamedQuery(name = "Userdata.findByUsername", query = "SELECT u FROM Userdata u WHERE u.username = :username"),
     @NamedQuery(name = "Userdata.findByFirstname", query = "SELECT u FROM Userdata u WHERE u.firstname = :firstname"),
-    @NamedQuery(name = "Userdata.findByNiddlename", query = "SELECT u FROM Userdata u WHERE u.niddlename = :niddlename"),
     @NamedQuery(name = "Userdata.findBySurname", query = "SELECT u FROM Userdata u WHERE u.surname = :surname"),
     @NamedQuery(name = "Userdata.findByGender", query = "SELECT u FROM Userdata u WHERE u.gender = :gender"),
     @NamedQuery(name = "Userdata.findByOpenIDVerifiedIdentifier", query = "SELECT u FROM Userdata u WHERE u.openIDVerifiedIdentifier = :openIDVerifiedIdentifier"),
@@ -64,8 +65,8 @@ public class Userdata implements Serializable {
     @Column(name = "firstname")
     private String firstname;
     @Size(max = 255)
-    @Column(name = "niddlename")
-    private String niddlename;
+    @Column(name = "middlename")
+    private String middlename;
     @Size(max = 255)
     @Column(name = "surname")
     private String surname;
@@ -160,12 +161,12 @@ public class Userdata implements Serializable {
         this.firstname = firstname;
     }
 
-    public String getNiddlename() {
-        return niddlename;
+    public String getMiddlename() {
+        return middlename;
     }
 
-    public void setNiddlename(String niddlename) {
-        this.niddlename = niddlename;
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 
     public String getSurname() {
@@ -184,6 +185,8 @@ public class Userdata implements Serializable {
         this.gender = gender;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getOpenIDVerifiedIdentifier() {
         return openIDVerifiedIdentifier;
     }
@@ -192,6 +195,8 @@ public class Userdata implements Serializable {
         this.openIDVerifiedIdentifier = openIDVerifiedIdentifier;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getOpenid() {
         return openid;
     }
@@ -208,6 +213,8 @@ public class Userdata implements Serializable {
         this.organization = organization;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getUserSIGN() {
         return userSIGN;
     }
@@ -232,7 +239,8 @@ public class Userdata implements Serializable {
         this.viewLanguage = viewLanguage;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Smpaccount> getSmpaccountList() {
         return smpaccountList;
     }
@@ -241,7 +249,8 @@ public class Userdata implements Serializable {
         this.smpaccountList = smpaccountList;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
@@ -250,7 +259,8 @@ public class Userdata implements Serializable {
         this.publishchannelList = publishchannelList;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Authdata> getAuthdataList() {
         return authdataList;
     }
@@ -259,7 +269,8 @@ public class Userdata implements Serializable {
         this.authdataList = authdataList;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Message> getMessageList() {
         return messageList;
     }
@@ -267,8 +278,8 @@ public class Userdata implements Serializable {
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
     }
-    
-        public boolean addMessage(Message message) {
+
+    public boolean addMessage(Message message) {
         return this.messageList.add(message);
     }
 
@@ -276,7 +287,8 @@ public class Userdata implements Serializable {
         return this.messageList.remove(message);
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Comment> getCommentList() {
         return commentList;
     }
@@ -285,6 +297,8 @@ public class Userdata implements Serializable {
         this.commentList = commentList;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public List<Campaign> getCampaignListHelpers() {
         return CampaignListHelpers;
     }
@@ -301,6 +315,8 @@ public class Userdata implements Serializable {
         return this.CampaignListHelpers.remove(campaign);
     }
 
+    @JsonIgnore
+    @XmlTransient
     public List<Campaign> getCampaignListManager() {
         return CampaignListManager;
     }

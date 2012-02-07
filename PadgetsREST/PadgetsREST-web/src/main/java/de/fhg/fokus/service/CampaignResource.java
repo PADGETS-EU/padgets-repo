@@ -195,6 +195,7 @@ public class CampaignResource {
      * Gives you all messages from a campaign.<br />
      * 
      * Address: GET [server]/resources/campaign/[campId]/message?sid=test_user
+     * 
      * @param sid valid session id
      * @param campaignId id of the campaign
      * 

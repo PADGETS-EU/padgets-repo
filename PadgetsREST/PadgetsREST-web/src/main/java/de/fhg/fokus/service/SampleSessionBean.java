@@ -4,11 +4,7 @@
  */
 package de.fhg.fokus.service;
 
-import de.fhg.fokus.persistence.Campaign;
-import de.fhg.fokus.persistence.Campaigntopics;
-import de.fhg.fokus.persistence.Location;
-import de.fhg.fokus.persistence.Message;
-import de.fhg.fokus.persistence.Publishchannel;
+import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,6 +100,25 @@ public class SampleSessionBean {
         pcList.add(pc2);
         
         return pcList;
+    }
+
+    public Userdata makeSampleUser() {
+        Userdata ud = new Userdata();
+        
+        ud.setIdUserData(123456);
+        ud.setAge(new Date());
+        ud.setEmail("user@usermail.com");
+        ud.setFirstname("Max");
+        ud.setGender("male");
+        ud.setOrganization("My Organization");
+        ud.setSurname("Schmidt");
+        ud.setUserRole("My Role {Manager / Helper}");
+        ud.setMiddlename("Midd");
+        ud.setUsername("Maxi1993");
+        ud.setViewLanguage("African");
+        
+        
+        return ud;
     }
 
 }
