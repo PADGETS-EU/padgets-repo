@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @XmlRootElement
 public class Test {

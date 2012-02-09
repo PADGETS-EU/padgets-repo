@@ -15,7 +15,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Entity
 @Table(name = "platform")
@@ -90,7 +90,7 @@ public class Platform implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        
         if (!(object instanceof Platform)) {
             return false;
         }

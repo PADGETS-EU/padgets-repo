@@ -20,63 +20,99 @@
     <h:body styleClass="ice-skin-rime">
         <ice:form id="form">
             <ui:param name="rPath" value="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/resources/" />
-            <ice:outputText value="REST calls"/>
+            <ice:outputText value="REST calls: "/>
             <ice:outputText value="Most of the requests need a valid session id"/>
-            <ice:panelGrid border="1" rules="all" columns="4" cellpadding="4px">
+            <ice:panelGrid border="1" rules="all" columns="5" cellpadding="4px">
                 <ice:outputText value="Method"/>
                 <ice:outputText value="Request URI"/>
                 <ice:outputText value="Request Payload and Values"/>
                 <ice:outputText value="Response Payload"/>
+                <ice:outputText value="Additional Information"/>
 
                 <ice:outputText value="GET" />
                 <a href="#{rPath}campaign?sid=test_user">#{rPath}campaign?sid=test_user</a>
                 <ice:outputText value=""/>
                 <ice:outputText value="campaign object"/>
+                <ice:outputText value="The campaign object, which U get with GET campaign give U the data of the campaign table and 3 related tables (Location, CampaignTopics and PublishChannel)."/>
 
                 <ice:outputText value="POST" />
                 <a href="#{rPath}campaign?sid=test_user">#{rPath}campaign?sid=test_user</a>
                 <ice:outputText value="campaign object"/>
                 <ice:outputText value="stored campaign object"/>
+                <a href="./content/postCampaign.html">additional Information</a>
 
                 <ice:outputText value="PUT" />
                 <a href="#{rPath}campaign?sid=test_user">#{rPath}campaign/[campaign_id]/?sid=test_user</a>
                 <ice:outputText value="campaign object as payload an campaign_id in URI"/>
                 <ice:outputText value="stored campaign object"/>
+                <ice:outputText value=""/>
 
                 <ice:outputText value="DELETE" />
                 <a href="">#{rPath}campaign/[campaign_id]/?sid=test_user</a>
                 <ice:outputText value="campaign_id in URI"/>
                 <ice:outputText value=""/>
+                <ice:outputText value=""/>
 
                 <ice:outputText value="GET" />
-                <a href="#{rPath}campaign/[campaign_id]/message/?sid=test_user">#{rPath}campaign/[campaign_id]/message/?sid=test_user</a>
+                <a href="#{rPath}campaign/1/message/?sid=test_user">#{rPath}campaign/[campaign_id]/message/?sid=test_user</a>
                 <ice:outputText value="campaign_id in URI"/>
                 <ice:outputText value="List of all messages, which are related to this campaign"/>
+                <ice:outputText value="Only paticipants of this campaign can see this object"/>
 
                 <ice:outputText value="POST" />
                 <a href="#{rPath}message/1?sid=test_user">#{rPath}message?sid=test_user&amp;campaignId=[campId]</a>
                 <ice:outputText value="campaign_id as query param and message object in payload"/>
                 <ice:outputText value="the newly created message"/>
+                <a href="./content/postMessage.html">additional Information</a>
 
                 <ice:outputText value="GET" />
                 <a href="#{rPath}message/1?sid=test_user">#{rPath}message/[messageId]?sid=test_user</a>
                 <ice:outputText value="message_id in URI"/>
                 <ice:outputText value="Message Object"/>
+                <ice:outputText value="Only paticipants of this campaign can see this object"/>
 
+                <ice:outputText value="DELETE" />
+                <a href="">#{rPath}message/[messageId]?sid=test_user</a>
+                <ice:outputText value="message_id in URI"/>
+                <ice:outputText value=""/>
+                <ice:outputText value="Only paticipants of this campaign can delete this object"/>
+                
                 <ice:outputText value="GET" />
                 <a href="#{rPath}user?sid=test_user">#{rPath}user?sid=test_user</a>
                 <ice:outputText value=""/>
                 <ice:outputText value="User Object"/>
+                <ice:outputText value=""/>
 
                 <ice:outputText value="PUT" />
                 <a href="#{rPath}user?sid=test_user">#{rPath}user?sid=test_user</a>
                 <ice:outputText value="User Object with new values"/>
                 <ice:outputText value="the updated User Object"/>
+                <ice:outputText value=""/>
 
                 <ice:outputText value="DELETE" />
                 <a href="">#{rPath}user/[userId]?sid=test_user</a>
                 <ice:outputText value="user_id in URI"/>
                 <ice:outputText value=""/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="GET" />
+                <a href="#{rPath}location">#{rPath}location</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="all location from database"/>
+                <ice:outputText value=""/>
+                
+                                <ice:outputText value="GET" />
+                <a href="#{rPath}location/1">#{rPath}location/[locationId]</a>
+                <ice:outputText value="id of location"/>
+                <ice:outputText value="location with the given id"/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="POST" />
+                <a href="#{rPath}location/1">#{rPath}location?sid=test_user&amp;location=[locationName]</a>
+                <ice:outputText value="name of location as query param"/>
+                <ice:outputText value="new location"/>
+                <ice:outputText value=""/>
+                              
             </ice:panelGrid>
         </ice:form>
     </h:body>

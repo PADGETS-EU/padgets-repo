@@ -11,20 +11,27 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Stateless
 public class LocationFacade extends AbstractFacade<Location> {
+
     @PersistenceContext(unitName = "de.fhg.fokus_PadgetsREST-ejb_ejb_1.0PU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public LocationFacade() {
         super(Location.class);
     }
     
+    @Override
+    public void create(Location l) {
+        l.setIdLocation(-1);
+        getEntityManager().persist(l);
+        getEntityManager().flush();
+    }
 }

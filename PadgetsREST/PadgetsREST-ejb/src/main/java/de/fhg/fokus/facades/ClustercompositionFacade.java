@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Stateless
 public class ClustercompositionFacade extends AbstractFacade<Clustercomposition> {

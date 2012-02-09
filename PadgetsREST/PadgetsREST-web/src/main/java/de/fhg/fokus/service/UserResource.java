@@ -14,7 +14,7 @@ import javax.ws.rs.*;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Stateless
 @Path("user")

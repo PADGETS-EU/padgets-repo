@@ -13,7 +13,7 @@ import org.joda.time.DateMidnight;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Stateless
 public class SampleSessionBean {

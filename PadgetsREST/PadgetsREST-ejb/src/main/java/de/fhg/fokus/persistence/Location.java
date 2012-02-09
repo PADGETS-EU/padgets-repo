@@ -9,22 +9,25 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Entity
 @Table(name = "location")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
+@XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l"),
     @NamedQuery(name = "Location.findByIdLocation", query = "SELECT l FROM Location l WHERE l.idLocation = :idLocation"),
     @NamedQuery(name = "Location.findByName", query = "SELECT l FROM Location l WHERE l.name = :name")})
 public class Location implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,7 +66,8 @@ public class Location implements Serializable {
         this.name = name;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<LocationHasPopulation> getLocationHasPopulationList() {
         return locationHasPopulationList;
     }
@@ -72,7 +76,8 @@ public class Location implements Serializable {
         this.locationHasPopulationList = locationHasPopulationList;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Campaign> getCampaignList() {
         return campaignList;
     }
@@ -90,7 +95,7 @@ public class Location implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+        
         if (!(object instanceof Location)) {
             return false;
         }
@@ -105,5 +110,4 @@ public class Location implements Serializable {
     public String toString() {
         return "de.fhg.fokus.persistence.Location[ idLocation=" + idLocation + " ]";
     }
-    
 }

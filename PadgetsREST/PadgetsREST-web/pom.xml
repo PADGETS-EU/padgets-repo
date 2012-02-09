@@ -68,12 +68,13 @@
             <artifactId>jersey-simple-server</artifactId>
             <version>1.11</version>
         </dependency>
-        <!-- 
+        
                 <dependency>
             <groupId>com.sun.jersey.contribs</groupId>
             <artifactId>jersey-atom-abdera</artifactId>
             <version>1.11</version>
         </dependency>
+        <!-- 
       <dependency>
             <groupId>com.sun.jersey.contribs.jersey-oauth</groupId>
             <artifactId>oauth-client</artifactId>

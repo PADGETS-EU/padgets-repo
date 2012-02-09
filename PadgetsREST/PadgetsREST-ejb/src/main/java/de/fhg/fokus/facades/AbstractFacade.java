@@ -11,7 +11,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 public abstract class AbstractFacade<T> {
 

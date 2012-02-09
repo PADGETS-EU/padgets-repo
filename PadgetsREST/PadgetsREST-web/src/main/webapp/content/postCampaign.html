@@ -1,0 +1,91 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div>
+            The campaign object, which U get with GET campaign give U the data of the campaign table and 3 related tables (Location, CampaignTopics and PublishChannel).
+<br />
+<br />Location is a table, where all regions in which campaigns could be take place.
+<br />Every campaign needs this information. Therefore the POST method needs a valid Location id. U need this:
+        </div>
+        <div style="color: blue">
+<br />
+<br />        &lt;location&gt;
+<br />            &lt;idLocation&gt;1&lt;/idLocation&gt;
+<br />            &lt;name&gt;Germany&lt;/name&gt;
+<br />        &lt;/location&gt;
+<br />
+        </div>
+        <div>
+<br />OR
+        </div>
+        <div style="color: blue">
+<br />
+<br />        &lt;location&gt;
+<br />            &lt;idLocation&gt;1&lt;/idLocation&gt;
+<br />        &lt;/location&gt;
+<br />
+        </div>
+        <div>
+<br />It is also possible to add some topics (in my understanding a list of tags) to the campaign:
+<br />
+        </div>
+        <div style="color: blue">
+<br />        &lt;topics&gt;
+<br />            &lt;topic&gt;
+<br />                &lt;topic&gt;Campaigntopic 1&lt;/topic&gt;
+<br />            &lt;/topic&gt;
+<br />            &lt;topic&gt;
+<br />                &lt;topic&gt;Campaigntopic 2&lt;/topic&gt;
+<br />            &lt;/topic&gt;
+<br />        &lt;/topics&gt;
+<br />
+        </div>
+        <div>
+<br />The PublishChannel can’t be add with campaign creating.
+<br />
+<br />A valid xml is the following. Green is mandatory and blue is optional:
+<br />
+        </div>
+        <div style="color: green">
+<br />&lt;campaign&gt;
+<br />        &lt;active&gt;false&lt;/active&gt;
+        </div>
+        <div style="color: blue">
+      &lt;topics&gt;
+<br />            &lt;topic&gt;
+<br />                &lt;topic&gt;Campaigntopic 1&lt;/topic&gt;
+<br />            &lt;/topic&gt;
+<br />            &lt;topic&gt;
+<br />                &lt;topic&gt;Campaigntopic 2&lt;/topic&gt;
+<br />            &lt;/topic&gt;
+<br />        &lt;/topics&gt;
+        </div>
+        <div style="color: green">
+       &lt;creationdate&gt;2012-02-09T00:00:00+02:00&lt;/creationdate&gt;
+<br />        &lt;enddate&gt;2012-04-09T00:00:00+03:00&lt;/enddate&gt;
+<br />        &lt;hashTag&gt;#HashTag&lt;/hashTag&gt;
+<br />        &lt;notes&gt;These are Notes&lt;/notes&gt;
+<br />        &lt;startdate&gt;2012-02-11T00:00:00+02:00&lt;/startdate&gt;
+<br />        &lt;title&gt;Campaign Title&lt;/title&gt;
+<br />        &lt;url&gt;http://campaignURI.com&lt;/url&gt;
+<br />&lt;location&gt;
+<br />   &lt;idLocation&gt;1&lt;/idLocation&gt;
+        </div>
+        <div style="color: blue">
+ &lt;name&gt;Germany&lt;/name&gt;
+        </div>
+        <div style="color: green">
+&lt;/location&gt;
+<br />    &lt;/campaign&gt;
+<br />
+        </div>
+    </body>
+</html>

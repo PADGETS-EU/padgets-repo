@@ -19,7 +19,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author hgo
+ * @author Hannes Gorges
  */
 @Entity
 @Table(name = "campaign")
@@ -244,6 +244,14 @@ public class Campaign implements Serializable {
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
     }
+    
+    public boolean addMessage(Message message) {
+        return this.messageList.add(message);
+    }
+
+    public boolean removeMessage(Message message) {
+        return this.messageList.remove(message);
+    }
 
     @JsonIgnore
     @XmlTransient
@@ -333,7 +341,6 @@ public class Campaign implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Campaign)) {
             return false;
         }
