@@ -5,18 +5,20 @@
 package de.fhg.fokus.persistence;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Hannes Gorges
+ * @author hgo
  */
 @Entity
 @Table(name = "survey")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Survey.findAll", query = "SELECT s FROM Survey s"),
     @NamedQuery(name = "Survey.findByIdSurvey", query = "SELECT s FROM Survey s WHERE s.idSurvey = :idSurvey"),
@@ -31,6 +33,8 @@ public class Survey implements Serializable {
     @Size(max = 255)
     @Column(name = "sKey")
     private String sKey;
+    @OneToMany(mappedBy = "idSurvey")
+    private List<Publisheditem> publisheditemList;
     @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")
     @ManyToOne(optional = false)
     private Campaign idCampaign;
@@ -58,6 +62,15 @@ public class Survey implements Serializable {
         this.sKey = sKey;
     }
 
+    @XmlTransient
+    public List<Publisheditem> getPublisheditemList() {
+        return publisheditemList;
+    }
+
+    public void setPublisheditemList(List<Publisheditem> publisheditemList) {
+        this.publisheditemList = publisheditemList;
+    }
+
     public Campaign getIdCampaign() {
         return idCampaign;
     }
@@ -75,7 +88,7 @@ public class Survey implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Survey)) {
             return false;
         }

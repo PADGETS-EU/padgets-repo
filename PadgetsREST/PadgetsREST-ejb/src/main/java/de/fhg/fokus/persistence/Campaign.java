@@ -189,12 +189,22 @@ public class Campaign implements Serializable {
         this.hashTag = hashTag;
     }
 
+            @XmlElementWrapper(name = "publishchannels")
+    @XmlElement(name = "publishchannel")
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
 
     public void setPublishchannelList(List<Publishchannel> publishchannelList) {
         this.publishchannelList = publishchannelList;
+    }
+
+    public boolean addPublishchannel(Publishchannel publishchannel) {
+        return this.publishchannelList.add(publishchannel);
+    }
+
+    public boolean removePublishchannel(Publishchannel publishchannel) {
+        return this.publishchannelList.remove(publishchannel);
     }
 
     @JsonIgnore
@@ -244,7 +254,7 @@ public class Campaign implements Serializable {
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
     }
-    
+
     public boolean addMessage(Message message) {
         return this.messageList.add(message);
     }

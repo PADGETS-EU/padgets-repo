@@ -72,8 +72,31 @@ public class SampleSessionBean {
         m.setTitle("Message Title");
         m.setType("Type of Message");
 
+        m.setPublisheditemList(makeSamplePublisheditemList());
+        
         return m;
     }
+    
+    public List<Publisheditem> makeSamplePublisheditemList() {
+                Publisheditem pi = new Publisheditem();
+        pi.setIdPublishedItem(99999);
+        pi.setIsPublished(Boolean.TRUE);
+        pi.setNetworkPostId("network Post Id");
+        pi.setPermalink("http://permalink/1234567890");
+        
+                Publisheditem pi2 = new Publisheditem();
+        pi2.setIdPublishedItem(88888);
+        pi2.setIsPublished(Boolean.FALSE);
+        pi2.setNetworkPostId("network Post Id");
+        pi2.setPermalink("http://permalink/ABCDEFGHIJ");
+        
+        List<Publisheditem> pList = new ArrayList<>();
+        pList.add(pi);
+        pList.add(pi2);
+        
+        return pList;
+    }
+    
 
     public List<Message> makeSampleMessageList() {
         List<Message> mList = new ArrayList<>();
@@ -85,12 +108,14 @@ public class SampleSessionBean {
     public List<Publishchannel> makeSamplePublishChannelList(){
         List<Publishchannel> pcList = new ArrayList<>();
         Publishchannel pc = new Publishchannel();
+        pc.setIdPublishChannel(10101010);
         pc.setName("Facebook");
         pc.setNetwork("Facebook");
         pc.setNetworkPageId("1234567890");
         pc.setOAuth2Token("oAuth2Token");
         
         Publishchannel pc2 = new Publishchannel();
+        pc2.setIdPublishChannel(20202020);
         pc2.setName("Twitter");
         pc2.setNetwork("Twitter");
         pc2.setNetworkPageId("123456");

@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
     @NamedQuery(name = "Question.findByIdQuestion", query = "SELECT q FROM Question q WHERE q.idQuestion = :idQuestion"),
-    @NamedQuery(name = "Question.findByQuestion", query = "SELECT q FROM Question q WHERE q.question = :question"),
     @NamedQuery(name = "Question.findByAnswerLimit", query = "SELECT q FROM Question q WHERE q.answerLimit = :answerLimit"),
     @NamedQuery(name = "Question.findByOrderNumber", query = "SELECT q FROM Question q WHERE q.orderNumber = :orderNumber"),
     @NamedQuery(name = "Question.findByRandomAnswerOrder", query = "SELECT q FROM Question q WHERE q.randomAnswerOrder = :randomAnswerOrder"),
@@ -49,8 +48,8 @@ public class Question implements Serializable, Comparable<Question> {
     @Column(name = "idQuestion")
     private Integer idQuestion;
     @Size(max = 255)
-    @Column(name = "Question")
-    private String question;
+    @Column(name = "Label")
+    private String label;
     @Column(name = "Answer_Limit")
     private Integer answerLimit;
     @Column(name = "Order_Number")
@@ -91,12 +90,12 @@ public class Question implements Serializable, Comparable<Question> {
         this.idQuestion = idQuestion;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getLabel() {
+        return label;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public Integer getAnswerLimit() {

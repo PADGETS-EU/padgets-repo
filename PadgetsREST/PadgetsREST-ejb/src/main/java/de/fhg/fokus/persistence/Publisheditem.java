@@ -8,20 +8,23 @@ import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
- * @author Hannes Gorges
+ * @author hgo
  */
 @Entity
 @Table(name = "publisheditem")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Publisheditem.findAll", query = "SELECT p FROM Publisheditem p"),
     @NamedQuery(name = "Publisheditem.findByIdPublishedItem", query = "SELECT p FROM Publisheditem p WHERE p.idPublishedItem = :idPublishedItem"),
     @NamedQuery(name = "Publisheditem.findByNetworkPostId", query = "SELECT p FROM Publisheditem p WHERE p.networkPostId = :networkPostId"),
-    @NamedQuery(name = "Publisheditem.findByPermalink", query = "SELECT p FROM Publisheditem p WHERE p.permalink = :permalink")})
+    @NamedQuery(name = "Publisheditem.findByPermalink", query = "SELECT p FROM Publisheditem p WHERE p.permalink = :permalink"),
+    @NamedQuery(name = "Publisheditem.findByIsPublished", query = "SELECT p FROM Publisheditem p WHERE p.isPublished = :isPublished")})
 public class Publisheditem implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,6 +39,11 @@ public class Publisheditem implements Serializable {
     @Size(max = 255)
     @Column(name = "permalink")
     private String permalink;
+    @Column(name = "isPublished")
+    private Boolean isPublished;
+    @JoinColumn(name = "idSurvey", referencedColumnName = "idSurvey")
+    @ManyToOne
+    private Survey idSurvey;
     @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
     @ManyToOne
     private Message idMessage;
@@ -77,6 +85,26 @@ public class Publisheditem implements Serializable {
         this.permalink = permalink;
     }
 
+    public Boolean getIsPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(Boolean isPublished) {
+        this.isPublished = isPublished;
+    }
+
+        @JsonIgnore
+    @XmlTransient
+    public Survey getIdSurvey() {
+        return idSurvey;
+    }
+
+    public void setIdSurvey(Survey idSurvey) {
+        this.idSurvey = idSurvey;
+    }
+
+        @JsonIgnore
+    @XmlTransient
     public Message getIdMessage() {
         return idMessage;
     }
@@ -85,6 +113,8 @@ public class Publisheditem implements Serializable {
         this.idMessage = idMessage;
     }
 
+        @JsonIgnore
+    @XmlTransient
     public Comment getIdComment() {
         return idComment;
     }
@@ -110,7 +140,7 @@ public class Publisheditem implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Publisheditem)) {
             return false;
         }
