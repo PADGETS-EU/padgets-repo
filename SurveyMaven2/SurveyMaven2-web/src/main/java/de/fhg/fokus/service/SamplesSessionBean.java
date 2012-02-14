@@ -45,7 +45,7 @@ public class SamplesSessionBean {
         voter.setExternalId("tesuser.googlemail.com");
         voter.setName("Max");
         voter.setRegion("Italy");
-        voter.setSex(Boolean.TRUE);
+        voter.setGender(Boolean.TRUE);
         voter.setSocialNetwork("Facebook");     
         voter.setAnswererAnsweredAnswerList(aaaList);
         
@@ -54,7 +54,7 @@ public class SamplesSessionBean {
         voter2.setExternalId("tesuser2.googlemail.com");
         voter2.setName("MFranc");
         voter2.setRegion("Italy");
-        voter2.setSex(Boolean.TRUE);
+        voter2.setGender(Boolean.TRUE);
         voter2.setSocialNetwork("Facebook");
         voter2.setAnswererAnsweredAnswerList(aaaList);
 
@@ -96,7 +96,7 @@ public class SamplesSessionBean {
         Question q = new Question();
         int orderNumber = s.getQuestionList().size() + 1;
         q.setOrderNumber(orderNumber);
-        q.setQuestion("What is the question?");
+        q.setLabel("What is the question?");
         q.setQuestionType(type);
         q.setAnswerLimit(1);
         q.setSurveyidSurvey(s);
@@ -106,12 +106,12 @@ public class SamplesSessionBean {
         
         Answer a1 = new Answer();
         a1.setOrderNumber(1);
-        a1.setAnswer("Yes!");
+        a1.setLabel("Yes!");
         a1.setQuestionidQuestion(q);
         
         Answer a2 = new Answer();
         a2.setOrderNumber(2);
-        a2.setAnswer("No!");
+        a2.setLabel("No!");
         a2.setQuestionidQuestion(q);
         
         q.addAnswer(a1);
@@ -128,7 +128,7 @@ public class SamplesSessionBean {
         voter.setExternalId("tesuser.googlemail.com");
         voter.setName("Max");
         voter.setRegion("Italy");
-        voter.setSex(Boolean.TRUE);
+        voter.setGender(Boolean.TRUE);
         voter.setSocialNetwork("Facebook");
         
         v.setVoter(voter);

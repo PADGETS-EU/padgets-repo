@@ -133,12 +133,12 @@ public class Vote3ManagedBean {
             vm.getAnswerer().setSocialNetwork(socialNetwork);
         }
 
-        if (parameterMap.containsKey("sex")) {
-            String sex = parameterMap.get("sex")[0];
-            if (sex.equals("m") || sex.equals("M") || sex.equals("man") || sex.equals("true") || sex.equals("TRUE")) {
-                vm.getAnswerer().setSex(Boolean.TRUE);
+        if (parameterMap.containsKey("gender")) {
+            String gender = parameterMap.get("gender")[0];
+            if (gender.equals("m") || gender.equals("M") || gender.equals("man") || gender.equals("true") || gender.equals("TRUE")) {
+                vm.getAnswerer().setGender(Boolean.TRUE);
             } else {
-                vm.getAnswerer().setSex(Boolean.FALSE);
+                vm.getAnswerer().setGender(Boolean.FALSE);
             }
         }
 

@@ -29,7 +29,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Smpaccount.findByOAuth2Token", query = "SELECT s FROM Smpaccount s WHERE s.oAuth2Token = :oAuth2Token"),
     @NamedQuery(name = "Smpaccount.findByOAuthSecret", query = "SELECT s FROM Smpaccount s WHERE s.oAuthSecret = :oAuthSecret"),
     @NamedQuery(name = "Smpaccount.findByOAuthToken", query = "SELECT s FROM Smpaccount s WHERE s.oAuthToken = :oAuthToken"),
-    @NamedQuery(name = "Smpaccount.findByPrifileUrl", query = "SELECT s FROM Smpaccount s WHERE s.prifileUrl = :prifileUrl"),
     @NamedQuery(name = "Smpaccount.findByUsername", query = "SELECT s FROM Smpaccount s WHERE s.username = :username")})
 public class Smpaccount implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -58,8 +57,8 @@ public class Smpaccount implements Serializable {
     @Column(name = "oAuthToken")
     private String oAuthToken;
     @Size(max = 255)
-    @Column(name = "prifileUrl")
-    private String prifileUrl;
+    @Column(name = "profileUrl")
+    private String profileUrl;
     @Size(max = 255)
     @Column(name = "username")
     private String username;
@@ -134,12 +133,12 @@ public class Smpaccount implements Serializable {
         this.oAuthToken = oAuthToken;
     }
 
-    public String getPrifileUrl() {
-        return prifileUrl;
+    public String getProfileUrl() {
+        return profileUrl;
     }
 
-    public void setPrifileUrl(String prifileUrl) {
-        this.prifileUrl = prifileUrl;
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
     public String getUsername() {

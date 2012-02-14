@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : changes
+    Created on : 14.02.2012, 16:20:16
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:head>
+        <title>Version of REST service</title>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+    </h:head>
+    <h:body styleClass="ice-skin-rime">
+        <ice:form>
+
+            <ice:panelGrid columns="3" >  
+                <ice:outputText value="Version  "/>
+                <ice:outputText value="  Date"/>
+                <ice:outputText value="Change-History"/>
+                
+                <ice:outputText value=" 0.1 - " style="color: red"/>
+                <ice:outputText value="14.12.2012" />
+                <ul>
+                    <li>Message Object contains now a list of publishedItems</li>
+                    <li>POST campaign consumes now also a list of Publishchannels</li>
+                    <li>GET all PublishChannels from a user</li>
+                    <li>update the docu</li>
+                </ul>
+
+
+                <h:outputStylesheet library="css" name="tableLayout.css" />
+
+                <ice:outputText value="Feature Request" nospan="true"/>
+                <ul>
+                    <li>nothing</li>
+                </ul>
+            </ice:panelGrid>
+        </ice:form>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

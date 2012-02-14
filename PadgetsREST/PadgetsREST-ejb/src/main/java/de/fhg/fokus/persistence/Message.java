@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
@@ -194,8 +196,8 @@ public class Message implements Serializable {
         this.idCampaign = idCampaign;
     }
 
-    @JsonIgnore
-    @XmlTransient
+        @XmlElementWrapper(name = "publisheditems")
+    @XmlElement(name = "publisheditem")
     public List<Publisheditem> getPublisheditemList() {
         return publisheditemList;
     }

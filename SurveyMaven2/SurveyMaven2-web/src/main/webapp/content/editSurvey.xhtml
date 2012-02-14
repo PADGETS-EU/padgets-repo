@@ -69,13 +69,13 @@
                         <ice:panelCollapsible expanded="#{editSurveyManagedBean.em.getCollapseList(question.idQuestion).collapse}" rendered="#{question.questionType == 'norm'}">
                             <f:facet name="header">
                                 <ice:panelGroup>
-                                    <ice:outputText value="#{question.orderNumber}: #{question.question} "/>
+                                    <ice:outputText value="#{question.orderNumber}: #{question.label} "/>
                                 </ice:panelGroup>
                             </f:facet>
                             <ice:panelGroup>
                                 <ice:panelGrid columns="2" styleClass="ice-skin-rime">
                                     <ice:outputText value="#{bundle.question}"/>
-                                    <ice:inputText value="#{question.question}"/>
+                                    <ice:inputText value="#{question.label}"/>
 
                                     <ice:outputText value="#{bundle.answerLimit}"/>
                                     <ice:inputText value="#{question.answerLimit}"/>
@@ -92,7 +92,7 @@
 
                                     <ice:panelGrid columns="3" >
                                         <ice:outputText value="#{answer.orderNumber} - #{bundle.answer}"/>
-                                        <ice:inputText value="#{answer.answer}"/>      
+                                        <ice:inputText value="#{answer.label}"/>      
                                         <ice:commandButton value="#{bundle.removeAnswer}" action="#{editSurveyManagedBean.removeAnswer(question,answer)}" />
                                     </ice:panelGrid>                               
                                 </ice:panelSeries>
@@ -102,13 +102,13 @@
                         <ice:panelCollapsible expanded="#{editSurveyManagedBean.em.getCollapseList(question.idQuestion).collapse}" rendered="#{question.questionType == 'acc'}">
                             <f:facet name="header">
                                 <ice:panelGroup>
-                                    <ice:outputText value="#{question.orderNumber}: #{question.question} "/>
+                                    <ice:outputText value="#{question.orderNumber}: #{question.label} "/>
                                 </ice:panelGroup>
                             </f:facet>
                             <ice:panelGroup>
                                 <ice:panelGrid columns="2" styleClass="ice-skin-rime">
                                     <ice:outputText value="#{bundle.question}"/>
-                                    <ice:inputText value="#{question.question}"/>
+                                    <ice:inputText value="#{question.label}"/>
     
                                     <ice:commandButton value="#{bundle.removeQuestion}" action="#{editSurveyManagedBean.removeQuestion(question)}" />
                                 </ice:panelGrid>
@@ -117,11 +117,11 @@
 
                                 <ice:panelGrid columns="2" style="background-color: lightgreen">
                                         <ice:outputText value="#{question.answerList.get(0).orderNumber} - #{bundle.answer}"/>
-                                        <ice:inputText value="#{question.answerList.get(0).answer}"/>      
+                                        <ice:inputText value="#{question.answerList.get(0).label}"/>      
                                     </ice:panelGrid>           
                                                                         <ice:panelGrid columns="2"  style="background-color: lightcoral">
                                         <ice:outputText value="#{question.answerList.get(1).orderNumber} - #{bundle.answer}"/>
-                                        <ice:inputText value="#{question.answerList.get(1).answer}"/>      
+                                        <ice:inputText value="#{question.answerList.get(1).label}"/>      
                                     </ice:panelGrid>  
                             </ice:panelGroup>
                         </ice:panelCollapsible>

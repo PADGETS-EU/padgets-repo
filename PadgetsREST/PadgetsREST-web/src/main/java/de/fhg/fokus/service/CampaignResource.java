@@ -4,10 +4,7 @@
  */
 package de.fhg.fokus.service;
 
-import de.fhg.fokus.facades.CampaignFacade;
-import de.fhg.fokus.facades.CampaigntopicsFacade;
-import de.fhg.fokus.facades.LocationFacade;
-import de.fhg.fokus.facades.UserdataFacade;
+import de.fhg.fokus.facades.*;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +21,8 @@ import javax.ws.rs.*;
 @Path("campaign")
 public class CampaignResource {
 
+    @EJB
+    private PublishchannelFacade publishchannelFacade;
     @EJB
     private LocationFacade locationFacade;
     @EJB
@@ -71,7 +70,8 @@ public class CampaignResource {
      * Create new campaign and returns the persisted object (with valid id).
      * Every campaign needs a location. Therefore a location object inside the
      * campaign is needed (id is enough). It is also possible to sends a list of
-     * initial campaign topics (id is not needed) inside the campaign object.<br
+     * initial campaign topics (id is not needed) inside the campaign object. A
+     * list of related publishChannels can also be inside the campaign object<br
      * />
      *
      * Address: POST [server]/resources/campaign?sid=test_user
@@ -109,6 +109,15 @@ public class CampaignResource {
             campaign.setCampaigntopicsList(null);
         }
 
+
+        if (campaign.getPublishchannelList() != null) {
+            List<Publishchannel> pcList = campaign.getPublishchannelList();
+            campaign.setPublishchannelList(new ArrayList());
+            for (Publishchannel pc : pcList) {
+                Publishchannel pcInDb = publishchannelFacade.find(pc.getIdPublishChannel());
+                campaign.addPublishchannel(pcInDb);
+            }
+        }
         campaign.setCreationdate(new Date());//today
 
         campaignFacade.create(campaign);
@@ -120,7 +129,7 @@ public class CampaignResource {
                 campaign.addCampaigntopic(ct);
             }
         }
-        
+
         //update user entity
         ud.addCampaignManager(campaign);
 

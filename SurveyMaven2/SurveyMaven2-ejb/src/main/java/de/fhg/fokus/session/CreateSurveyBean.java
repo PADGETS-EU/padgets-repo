@@ -78,7 +78,7 @@ public class CreateSurveyBean {
             Question q = new Question();
             int orderNumber = s.getQuestionList().size() + 1;
             q.setOrderNumber(orderNumber);
-            q.setQuestion("What is the question?");
+            q.setLabel("What is the question?");
             q.setQuestionType(type);
             q.setAnswerLimit(1);
             q.setSurveyidSurvey(s);
@@ -89,13 +89,13 @@ public class CreateSurveyBean {
             
             Answer a1 = new Answer();
             a1.setOrderNumber(1);
-            a1.setAnswer("Yes!");
+            a1.setLabel("Yes!");
             a1.setQuestionidQuestion(q);
             answerFacade.create(a1);
             
             Answer a2 = new Answer();
             a2.setOrderNumber(2);
-            a2.setAnswer("No!");
+            a2.setLabel("No!");
             a2.setQuestionidQuestion(q);
             answerFacade.create(a2);
             
@@ -115,7 +115,7 @@ public class CreateSurveyBean {
             System.out.println("");
             int orderNumber = q.getAnswerList().size() + 1;
             a.setOrderNumber(orderNumber);
-            a.setAnswer("The answer is a mindbogingly 42!");
+            a.setLabel("The answer is a mindbogingly 42!");
             a.setQuestionidQuestion(q);
             answerFacade.create(a);
             q.addAnswer(a);

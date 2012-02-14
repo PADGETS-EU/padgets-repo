@@ -39,7 +39,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Answerer.findAll", query = "SELECT a FROM Answerer a"),
     @NamedQuery(name = "Answerer.findByIdAnswerer", query = "SELECT a FROM Answerer a WHERE a.idAnswerer = :idAnswerer"),
     @NamedQuery(name = "Answerer.findByName", query = "SELECT a FROM Answerer a WHERE a.name = :name"),
-    @NamedQuery(name = "Answerer.findBySex", query = "SELECT a FROM Answerer a WHERE a.sex = :sex"),
     @NamedQuery(name = "Answerer.findByAge", query = "SELECT a FROM Answerer a WHERE a.age = :age"),
     @NamedQuery(name = "Answerer.findByRegion", query = "SELECT a FROM Answerer a WHERE a.region = :region"),
     @NamedQuery(name = "Answerer.findBySocialNetwork", query = "SELECT a FROM Answerer a WHERE a.socialNetwork = :socialNetwork"),
@@ -55,8 +54,8 @@ public class Answerer implements Serializable {
     @Size(max = 255)
     @Column(name = "Name")
     private String name;
-    @Column(name = "Sex")
-    private Boolean sex;
+    @Column(name = "Gender")
+    private Boolean gender;
     @Size(max = 45)
     @Column(name = "Age")
     private String age;
@@ -95,12 +94,12 @@ public class Answerer implements Serializable {
         this.name = name;
     }
 
-    public Boolean getSex() {
-        return sex;
+    public Boolean getGender() {
+        return gender;
     }
 
-    public void setSex(Boolean sex) {
-        this.sex = sex;
+    public void setGender(Boolean gender) {
+        this.gender = gender;
     }
     
     public String getAge() {

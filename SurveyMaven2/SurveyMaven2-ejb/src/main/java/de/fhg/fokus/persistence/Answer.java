@@ -36,7 +36,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "Answer.findAll", query = "SELECT a FROM Answer a"),
     @NamedQuery(name = "Answer.findByIdAnswer", query = "SELECT a FROM Answer a WHERE a.idAnswer = :idAnswer"),
-    @NamedQuery(name = "Answer.findByAnswer", query = "SELECT a FROM Answer a WHERE a.answer = :answer"),
     @NamedQuery(name = "Answer.findByTextfield", query = "SELECT a FROM Answer a WHERE a.textfield = :textfield"),
     @NamedQuery(name = "Answer.findByOrderNumber", query = "SELECT a FROM Answer a WHERE a.orderNumber = :orderNumber")})
 public class Answer implements Serializable, Comparable<Answer> {
@@ -49,8 +48,8 @@ public class Answer implements Serializable, Comparable<Answer> {
     @Column(name = "idAnswer")
     private Integer idAnswer;
     @Size(max = 255)
-    @Column(name = "Answer")
-    private String answer;
+    @Column(name = "Label")
+    private String label;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Textfield")
@@ -88,12 +87,12 @@ public class Answer implements Serializable, Comparable<Answer> {
         return getIdAnswer().toString();
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getLabel() {
+        return label;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     @JsonIgnore

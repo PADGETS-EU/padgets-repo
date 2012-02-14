@@ -5,7 +5,9 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.UserdataFacade;
+import de.fhg.fokus.persistence.Campaign;
 import de.fhg.fokus.persistence.Userdata;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,8 +43,10 @@ public class UserResource {
         }
         
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
-        if (udList == null) {
-            return null;
+        if (udList.isEmpty()) {
+            Userdata u = new Userdata();
+            u.setUsername("The session id is not valid!");
+            return u;
         }
         return udList.get(0);
     }
@@ -65,10 +69,11 @@ public class UserResource {
         }
         
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
-        if (udList == null) {
-            return null;
+        if (udList.isEmpty()) {
+            Userdata u = new Userdata();
+            u.setUsername("The session id is not valid!");
+            return u;
         }
-        
         Userdata ud = udList.get(0);
    
         ud.setAge(new Date());
@@ -100,11 +105,13 @@ public class UserResource {
     public void deleteUser(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer userId) {
         if (sid.equals("test_user")) {//return test data
             return;
-        }
+        }        
        
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
         if (udList != null && udList.get(0).getIdUserData() == userId) {
             userdataFacade.remove(udList.get(0));
         }        
     }
+    
+
 }
