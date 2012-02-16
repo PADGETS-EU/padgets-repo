@@ -10,7 +10,17 @@ and open the template in the editor.
     </head>
     <body>
         <p>
-            This is a sample of a message object, which you can post to the server. The value createTime is set by the server.
+     This method creates a new message which belongs to the given user (identifies
+     by sid). Every message needs a campaign object, so the campaign id is
+     necessary. This message is only available in the padgets database and not
+     published to any Networks. The method returns a sample message, if the
+     sid is "test_user".<br />
+     The service needs a Social Network, where the
+     message should be published. If it is more then one network, it is
+      possible to hand over a string-list with all SNs. There are no regulations for the list. You can write it or without symbols for seperation.
+      The services searches for the keywords from database in the column publishchannel.network . (facebook,twitter,blogger and more?)<br />
+     samples: facebook,twitter,blogger OR facebooktwitterblogger OR &lt;list&gt;facebooktwitterblogger&lt;/list&gt; OR [{network:facebook,network:twitter}]<br />
+        This is a sample of a message object, which you can post to the server. The value createTime is set by the server.
         </p>
         <div>
             &lt;message&gt;

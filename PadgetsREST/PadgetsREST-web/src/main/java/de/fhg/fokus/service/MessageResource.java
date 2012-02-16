@@ -31,63 +31,6 @@ public class MessageResource {
     @EJB
     private MessageFacade messageFacade;
 
-    /**
-     * Method creates a new message which belongs to the given user (identifies
-     * by sid). Every message needs a campaign object, so the campaign id is
-     * necessary. This message is only available in the padgets database and not
-     * published to any Networks. The method returns a sample message, if the
-     * sid is "test_user".<br />
-     *
-     * Address: POST
-     * [server]/resources/message?sid=test_user&campaignId=[campId]
-     *
-     * @param message Message object with campaign object inside
-     * @param sid valid session id
-     * @param campaignId Id of the campaign, which belongs to the message
-     * @return newly created Message object
-     */
-    @POST
-    @Consumes({"application/xml", "application/json"})
-    @Produces({"application/xml", "application/json"})
-    public Message createMessage(Message message, @DefaultValue("test_user") @QueryParam("sid") String sid, @DefaultValue("-1") @QueryParam("campaignId") Integer campaignId) {
-
-        if (sid.equals("test_user")) {//return test data                
-            return sampleSessionBean.makeSampleMessage();
-        }
-
-        if (campaignId == -1) {
-            return null;
-        }
-
-        //check sid
-        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
-        if (udList.isEmpty()) {
-            Message m = new Message();
-            m.setTitle("The session id is not valid!");
-            return m;
-        }
-        Userdata ud = udList.get(0);
-
-        Campaign c = campaignFacade.find(campaignId);
-        if (c == null) {
-            Message m = new Message();
-            m.setTitle("It exists no campaign with this id!");
-            return m;
-        }
-
-        message.setIdUserData(ud);
-        message.setIdCampaign(c);
-        message.setCreateTime(new Date()); //now
-
-        messageFacade.create(message);
-
-        //update user entity and campaign
-        ud.addMessage(message);
-        c.addMessage(message);
-
-        //TODO check if campaign id is valid
-        return message;
-    }
 
     /**
      * Returns the message with the given id. If sid = test_user, it returns a

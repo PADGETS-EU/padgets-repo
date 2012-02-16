@@ -27,4 +27,10 @@ public class PublisheditemFacade extends AbstractFacade<Publisheditem> {
         super(Publisheditem.class);
     }
     
+                    @Override
+    public void create(Publisheditem p) {
+        p.setIdPublishedItem(-1);
+        getEntityManager().persist(p);
+        getEntityManager().flush();
+    }
 }

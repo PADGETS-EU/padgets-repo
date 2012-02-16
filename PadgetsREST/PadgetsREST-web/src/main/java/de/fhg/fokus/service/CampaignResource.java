@@ -20,7 +20,12 @@ import javax.ws.rs.*;
 @Stateless
 @Path("campaign")
 public class CampaignResource {
+    
+    @EJB
+    private PublisheditemFacade publisheditemFacade;
 
+    @EJB
+    private MessageFacade messageFacade;
     @EJB
     private PublishchannelFacade publishchannelFacade;
     @EJB
@@ -33,6 +38,7 @@ public class CampaignResource {
     private SampleSessionBean sampleSessionBean;
     @EJB
     private CampaignFacade campaignFacade;
+    
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
@@ -272,7 +278,98 @@ public class CampaignResource {
             mList.add(m);
             return mList;
         }
+    }
 
+    /**
+     * Method creates a new message which belongs to the given user (identifies
+     * by sid). Every message needs a campaign object, so the campaign id is
+     * necessary. This message is only available in the padgets database and not
+     * published to any Networks. The method returns a sample message, if the
+     * sid is "test_user".<br /> The service needs a Social Network, where the
+     * message should be published. If it is more then one network, it is
+     * possible to hand over a list like facebook,twitter,blogger<br />
+     *
+     * Address: POST
+     * [server]/resources/campaign/[campId]/message?sid=test_user&socialNetwork=[list
+     * of networks
+     *
+     * @param message Message object with campaign object inside
+     * @param sid valid session id
+     * @param campaignId Id of the campaign, which belongs to the message
+     * @param snList list of Social Networks
+     * @return
+     */
+    @POST
+    @Path("{id}/message")
+    @Consumes({"application/xml", "application/json"})
+    @Produces({"application/xml", "application/json"})
+    public Message createMessage(Message message, @DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId, @DefaultValue("nothing") @QueryParam("socialNetwork") String snList) {
 
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleMessage();
+        }
+
+        Campaign c = campaignFacade.find(campaignId); //get requested campaign
+
+        if (c == null) {
+            Message m = new Message();
+            m.setTitle("It exists no campaign with this id!");
+            return m;
+        }
+
+        if (snList.equals("nothing")) {
+            Message m = new Message();
+            m.setTitle("This service needs a list of Social Network delivered through the auery param socialNetwork !");
+            return m;
+        }
+
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if (udList.isEmpty()) {
+            Message m = new Message();
+            m.setTitle("The session id is not valid!");
+            return m;
+        }
+        Userdata ud = udList.get(0);
+
+        if (!(c.getIdUser().equals(ud) || c.getUserdataList().contains(ud))) { //is the user the campaign manager or helper?
+            Message m = new Message();
+            m.setTitle("You are not the campaign manager or a helper. You have no rights to edit this campaign.");
+            return m;
+        }
+
+        List<Publishchannel> publishchannelList = new ArrayList<>();
+        for (Publishchannel pc : c.getPublishchannelList()) {
+            if (snList.matches("(?s).*" + pc.getNetwork() + ".*")) {
+                publishchannelList.add(pc);
+            }
+        }
+        if (publishchannelList.isEmpty()) {
+            Message m = new Message();
+            m.setTitle("No publish channels are matched with your input.");
+            return m;
+        }
+
+        message.setIdUserData(ud);
+        message.setIdCampaign(c);
+        message.setCreateTime(new Date()); //now
+
+        messageFacade.create(message);
+
+        //update user entity and campaign
+        ud.addMessage(message);
+        c.addMessage(message);
+
+        //Create PublishedItem objects
+        for (Publishchannel pc : publishchannelList) {
+            Publisheditem pi = new Publisheditem();
+            pi.setIdMessage(message);
+            pi.setIdPublishChannel(pc);
+            pi.setIsPublished(Boolean.FALSE);
+            publisheditemFacade.create(pi);
+            message.addPublisheditem(pi);
+        }
+
+        return message;
     }
 }

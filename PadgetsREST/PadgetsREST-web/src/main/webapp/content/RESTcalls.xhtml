@@ -60,7 +60,7 @@
                 <ice:outputText value="Only paticipants of this campaign can see this object"/>
 
                 <ice:outputText value="POST" />
-                <a href="#{rPath}message/1?sid=test_user">#{rPath}message?sid=test_user&amp;campaignId=[campId]</a>
+                <a href="#{rPath}campaign/1/message?sid=test_user&amp;socialNetwork=twitter">#{rPath}campaign/[campaign_id]/message?sid=test_user&amp;socialNetwork=[list of networks]</a>
                 <ice:outputText value="campaign_id as query param and message object in payload"/>
                 <ice:outputText value="the newly created message"/>
                 <a href="./content/postMessage.html">additional Information</a>

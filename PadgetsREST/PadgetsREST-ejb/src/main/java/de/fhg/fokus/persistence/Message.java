@@ -196,7 +196,7 @@ public class Message implements Serializable {
         this.idCampaign = idCampaign;
     }
 
-        @XmlElementWrapper(name = "publisheditems")
+    @XmlElementWrapper(name = "publisheditems")
     @XmlElement(name = "publisheditem")
     public List<Publisheditem> getPublisheditemList() {
         return publisheditemList;
@@ -204,6 +204,14 @@ public class Message implements Serializable {
 
     public void setPublisheditemList(List<Publisheditem> publisheditemList) {
         this.publisheditemList = publisheditemList;
+    }
+
+    public boolean addPublisheditem(Publisheditem pi) {
+        return this.publisheditemList.add(pi);
+    }
+
+    public boolean removePublisheditem(Publisheditem pi) {
+        return this.publisheditemList.remove(pi);
     }
 
     @JsonIgnore
@@ -225,7 +233,7 @@ public class Message implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+
         if (!(object instanceof Message)) {
             return false;
         }
