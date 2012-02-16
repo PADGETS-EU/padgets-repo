@@ -117,6 +117,14 @@ public class Publishchannel implements Serializable {
     public void setCampaignList(List<Campaign> campaignList) {
         this.campaignList = campaignList;
     }
+    
+        public boolean addCampaign(Campaign c) {
+        return this.campaignList.add(c);
+    }
+
+    public boolean removeCampaign(Campaign c) {
+        return this.campaignList.remove(c);
+    }
 
         @JsonIgnore
     @XmlTransient
