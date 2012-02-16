@@ -76,7 +76,7 @@
                 <ice:outputText value="message_id in URI"/>
                 <ice:outputText value=""/>
                 <ice:outputText value="Only paticipants of this campaign can delete this object"/>
-                
+
                 <ice:outputText value="GET" />
                 <a href="#{rPath}user?sid=test_user">#{rPath}user?sid=test_user</a>
                 <ice:outputText value=""/>
@@ -100,8 +100,8 @@
                 <ice:outputText value=""/>
                 <ice:outputText value="all location from database"/>
                 <ice:outputText value=""/>
-                
-                                <ice:outputText value="GET" />
+
+                <ice:outputText value="GET" />
                 <a href="#{rPath}location/1">#{rPath}location/[locationId]</a>
                 <ice:outputText value="id of location"/>
                 <ice:outputText value="location with the given id"/>
@@ -112,13 +112,19 @@
                 <ice:outputText value="name of location as query param"/>
                 <ice:outputText value="new location"/>
                 <ice:outputText value=""/>
-                
-                                                <ice:outputText value="GET" />
+
+                <ice:outputText value="GET" />
                 <a href="#{rPath}publishchannel?sid=test_user">#{rPath}publishchannel?sid=test_user</a>
                 <ice:outputText value=""/>
                 <ice:outputText value="all Publishchannels of the user"/>
                 <ice:outputText value=""/>
-                              
+
+                <ice:outputText value="PUT" />
+                <a href="#{rPath}campaign?sid=test_user">#{rPath}campaign/[campId]/publishchannel?sid=test_user&amp;channelId=[publishChannelId]</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="all Publishchannels of the user"/>
+                <ice:outputText value=""/>
+
             </ice:panelGrid>
         </ice:form>
     </h:body>

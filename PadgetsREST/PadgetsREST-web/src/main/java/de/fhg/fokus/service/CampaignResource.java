@@ -20,10 +20,9 @@ import javax.ws.rs.*;
 @Stateless
 @Path("campaign")
 public class CampaignResource {
-    
+
     @EJB
     private PublisheditemFacade publisheditemFacade;
-
     @EJB
     private MessageFacade messageFacade;
     @EJB
@@ -38,7 +37,6 @@ public class CampaignResource {
     private SampleSessionBean sampleSessionBean;
     @EJB
     private CampaignFacade campaignFacade;
-    
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
@@ -371,5 +369,69 @@ public class CampaignResource {
         }
 
         return message;
+    }
+
+    /**
+     * Add a publish channel to a campaign.<br />
+     *
+     * Address: POST
+     * [server]/resources/campaign/[campId]/publishchannel?sid=test_user&channelId=[publishChannelId]
+     *
+     * @param sid valid session id
+     * @param campaignId id of the campaign
+     * @param channelId id of the publish channel
+     * @return
+     */
+    @PUT
+    @Path("{id}/publishchannel")
+    @Produces({"application/xml", "application/json"})
+    public Campaign addPublishChannel(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId, @DefaultValue("-1") @QueryParam("channelId") Integer channelId) {
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleCampaign();
+        }
+
+        Campaign c = campaignFacade.find(campaignId); //get requested campaign
+
+        if (c == null) {
+            c = new Campaign();
+            c.setTitle("It exists no campaign with this id!");
+            return c;
+        }
+
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if (udList.isEmpty()) {
+            c = new Campaign();
+            c.setTitle("The session id is not valid!");
+
+            return c;
+        }
+        Userdata ud = udList.get(0);
+
+        if (!c.getIdUser().equals(ud)) { //is the user the campaign manager?
+            c = new Campaign();
+            c.setTitle("You are not the campaign manager. You have no rights to edit this campaign.");
+            return c;
+        }
+
+        Publishchannel pc = publishchannelFacade.find(channelId);
+        if (pc == null) {
+            c = new Campaign();
+            c.setTitle("The id of the publish channel is not correct.");
+            return c;
+        }
+        if (c.getPublishchannelList().contains(pc)) {
+            c = new Campaign();
+            c.setTitle("The campaign already contains this publish channel.");
+            return c;
+        }
+
+        c.addPublishchannel(pc);
+        pc.addCampaign(c);
+        publishchannelFacade.edit(pc);
+        campaignFacade.edit(c);
+
+        return c;
+
     }
 }
