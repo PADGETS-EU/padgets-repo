@@ -43,6 +43,7 @@ public class PublishchannelResource {
             return pcList;
         }
         Userdata ud = udList.get(0);
+        userdataFacade.refresh(ud);
         
         return ud.getPublishchannelList();
 
