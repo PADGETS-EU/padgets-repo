@@ -34,4 +34,7 @@ public class UserdataFacade extends AbstractFacade<Userdata> {
         getEntityManager().flush();
     }
     
+    public void refresh(Userdata u) {
+        getEntityManager().refresh(u);
+    }
 }
