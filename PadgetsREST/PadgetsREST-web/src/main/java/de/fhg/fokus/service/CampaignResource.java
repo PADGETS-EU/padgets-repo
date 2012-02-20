@@ -5,6 +5,7 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.*;
+import de.fhg.fokus.misc.PublishService;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,6 +21,9 @@ import javax.ws.rs.*;
 @Stateless
 @Path("campaign")
 public class CampaignResource {
+    
+    @EJB
+    private PublishService publishService;
 
     @EJB
     private PublisheditemFacade publisheditemFacade;
@@ -37,6 +41,7 @@ public class CampaignResource {
     private SampleSessionBean sampleSessionBean;
     @EJB
     private CampaignFacade campaignFacade;
+    
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
@@ -367,7 +372,8 @@ public class CampaignResource {
             publisheditemFacade.create(pi);
             message.addPublisheditem(pi);
         }
-
+        System.out.println("");
+//       publishService.publishMessage(message.getIdMessage());
         return message;
     }
 
@@ -430,7 +436,8 @@ public class CampaignResource {
         pc.addCampaign(c);
         publishchannelFacade.edit(pc);
         campaignFacade.edit(c);
-
+        userdataFacade.refresh(ud);
+        
         return c;
 
     }
