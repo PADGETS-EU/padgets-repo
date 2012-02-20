@@ -14,23 +14,13 @@
         </f:metadata>
     </ui:define>
 
-    <ui:define name="top">
-        edit
-
-    </ui:define>
-
-    <ui:define name="left">
-
-
-    </ui:define>
-
     <ui:define name="content">
 
         <ice:outputText value="The given key is wrong!"  rendered="#{editSurveyManagedBean.em.survey == null}" />
 
         <ice:panelGroup styleClass="ice-skin-rime" rendered="#{editSurveyManagedBean.em.survey != null}">
             <ice:form>
-                <ice:panelCollapsible expanded="true">
+                <ice:panelCollapsible expanded="true" >
                     <f:facet name="header">
                         <ice:panelGroup>
                             <ice:outputText value="#{bundle.survey_profile}"/>
@@ -138,7 +128,6 @@
                 </ice:panelGrid>
             </ice:form>
         </ice:panelGroup>
-        <h:outputStylesheet library="css" name="tableLayout.css" />
     </ui:define>
 
 </ui:composition>
