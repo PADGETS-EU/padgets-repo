@@ -32,7 +32,7 @@
     <ice:panelSeries var="question" value="#{vote3ManagedBean.vm.survey.questionList}">
         <ice:panelGroup>
         <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'norm' and question.answerLimit  > 1}">
-            <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
+            <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" styleClass="vote_question"/>
             <ice:outputText value="#{question.label}" styleClass="vote_question"/>
             <ice:selectManyCheckbox id="id_#{question.idQuestion()}" value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenAnswers}"
                                     layout="pageDirection" validator="#{vote3ManagedBean.validateAnswerLimit}" validatorMessage="Max #{question.answerLimit} answers allowed!" >
@@ -45,7 +45,7 @@
             </ice:selectManyCheckbox>
             </ice:panelGroup>
             <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'norm' and question.answerLimit == 1}">
-                <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
+                <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}"  styleClass="vote_question"/>
                 <ice:outputText value="#{question.label}" styleClass="vote_question"/>
                 <ice:selectOneRadio value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenRadioAnswer}"
                                         layout="pageDirection">

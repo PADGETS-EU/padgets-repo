@@ -16,6 +16,7 @@
     background-color:lightgray;
     padding: 2px;
     font-size: large;
+    color: white;
 }
 
 .vote_answer {
@@ -29,6 +30,16 @@
 .vote_caption {
     font-size: x-large;
     text-decoration: underline;
+}
+
+#messageButtonSave {
+    background-color: #272727;
+    bottom: 0px;
+    color: white;
+    float: right;
+    font-size: 12px;
+    height: 24px;
+    width: 80px;
 }
 
 /*
@@ -212,6 +223,10 @@
     padding-bottom: 2px;
     font-weight: normal;
     font-size: 12px;
+}
+
+.white {
+    color: white;
 }
 
 @font-face {
