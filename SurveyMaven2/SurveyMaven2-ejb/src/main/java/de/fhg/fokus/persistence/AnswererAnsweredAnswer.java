@@ -53,8 +53,8 @@ public class AnswererAnsweredAnswer implements Serializable {
     private Date answerDate;
     @Lob
     @Size(max = 65535)
-    @Column(name = "Answer_Text")
-    private String answerText;
+    @Column(name = "Answer_Choice")
+    private String answerChoice;
     @JoinColumn(name = "Answerer_idAnswerer", referencedColumnName = "idAnswerer")
     @ManyToOne(optional = false)
     private Answerer answereridAnswerer;
@@ -89,12 +89,12 @@ public class AnswererAnsweredAnswer implements Serializable {
 
     @JsonIgnore
     @XmlTransient
-    public String getAnswerText() {
-        return answerText;
+    public String getAnswerChoice() {
+        return answerChoice;
     }
 
-    public void setAnswerText(String answerText) {
-        this.answerText = answerText;
+    public void setAnswerChoice(String answerChoice) {
+        this.answerChoice = answerChoice;
     }
 
     @JsonIgnore

@@ -8,6 +8,7 @@ import de.fhg.fokus.facades.CampaignFacade;
 import de.fhg.fokus.facades.MessageFacade;
 import de.fhg.fokus.facades.UserdataFacade;
 import de.fhg.fokus.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -79,6 +80,45 @@ public class MessageResource {
 
     }
 
+     @GET
+    @Path("{id}/comment")
+    public List<Comment> getComments(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer messageId) {
+
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleCommentList();           
+        }
+
+        List<Comment> mList = new ArrayList<>();
+        Comment m = new Comment();
+        mList.add(m);
+        
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if (udList.isEmpty()) {
+            m.setContent("The session id is not valid!");
+            return mList;
+        }
+        Userdata ud = udList.get(0);
+
+        Message dbMessage = messageFacade.find(messageId);
+        messageFacade.refresh(dbMessage);
+        
+        if (dbMessage == null) {
+            m.setContent("It exists no Message with this id !");
+            return mList;
+        }
+        
+        Campaign relatedCampaign = dbMessage.getIdCampaign();
+      
+        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+            return dbMessage.getCommentList();
+        } else {
+            m.setContent("This user have no rights to get information about the comments of this campaign.");      
+            return mList;
+        }
+
+    }
+    
     /**
      * DELETES the message with the given id. Only paticipants of this campaign can delete this object.<br
      * />

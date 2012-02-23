@@ -34,4 +34,8 @@ public class MessageFacade extends AbstractFacade<Message> {
         getEntityManager().persist(message);
         getEntityManager().flush();
     }
+                
+                    public void refresh(Message u) {
+        getEntityManager().refresh(u);
+    }
 }

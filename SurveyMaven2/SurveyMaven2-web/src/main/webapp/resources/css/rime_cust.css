@@ -6,11 +6,6 @@
 /*
 ----------- Vote --------
 */
-.vote_question_acc {
-    background-color:lightgreen;
-    padding: 2px;
-    font-size: large;
-}
 
 .vote_question {
     background-color:lightgray;
@@ -33,9 +28,9 @@
 }
 
 #messageButtonSave {
-    background-color: #272727;
+    background-color: white;
     bottom: 0px;
-    color: white;
+    color: black;
     float: right;
     font-size: 12px;
     height: 24px;

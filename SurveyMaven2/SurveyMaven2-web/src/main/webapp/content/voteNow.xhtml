@@ -29,7 +29,7 @@
     </ice:panelGrid>
 
     <!-- We differ between three types of questions -->
-    <ice:panelSeries var="question" value="#{vote3ManagedBean.vm.survey.questionList}">
+    <ice:panelSeries var="question" value="#{vote3ManagedBean.vm.survey.questionList}" style="background-color: lightgray">
         <ice:panelGroup>
         <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'norm' and question.answerLimit  > 1}">
             <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" styleClass="vote_question"/>
@@ -58,7 +58,7 @@
             </ice:panelGroup>
             <ice:panelGroup styleClass="vote_question_box" rendered="#{question.questionType == 'acc'}">
                 <ice:outputText value="#{question.orderNumber} : " rendered="#{!vote3ManagedBean.vm.survey.randomQuestionOrder}" />
-                <ice:outputText value="#{question.label}" styleClass="vote_question_acc"/>
+                <ice:outputText value="#{question.label}" styleClass="vote_question"/>
                 <ice:selectOneRadio value="#{vote3ManagedBean.vm.getChoosenAnswersMap(question.idQuestion).choosenRadioAnswer}"
                                         layout="pageDirection">
                     <f:selectItems
@@ -71,5 +71,5 @@
         </ice:panelGroup>
     </ice:panelSeries>
     <ice:commandButton id="saveVote" value="#{bundle.saveVote}"
-                       action="#{vote3ManagedBean.saveVote()}" />
+                       action="#{vote3ManagedBean.saveVote()}" style="background-color: lightgray"/>
 </ui:composition>
