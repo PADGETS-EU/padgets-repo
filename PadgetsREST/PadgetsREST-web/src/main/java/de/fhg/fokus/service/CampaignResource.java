@@ -5,7 +5,6 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.*;
-import de.fhg.fokus.misc.PublishService;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,9 +20,6 @@ import javax.ws.rs.*;
 @Stateless
 @Path("campaign")
 public class CampaignResource {
-    
-    @EJB
-    private PublishService publishService;
 
     @EJB
     private PublisheditemFacade publisheditemFacade;
@@ -274,6 +270,7 @@ public class CampaignResource {
         }
 
         if (dbCampaign.getIdUser().equals(ud) || dbCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+           campaignFacade.refresh(dbCampaign);
             return dbCampaign.getMessageList();
         } else {
             Message m = new Message();

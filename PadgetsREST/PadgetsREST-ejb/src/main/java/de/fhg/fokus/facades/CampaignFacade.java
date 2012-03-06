@@ -34,4 +34,8 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
         getEntityManager().persist(campaign);
         getEntityManager().flush();
     }
+
+    public void refresh(Campaign campaign) {
+        getEntityManager().refresh(campaign);
+    }
 }

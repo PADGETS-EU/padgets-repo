@@ -146,4 +146,26 @@ public class SampleSessionBean {
         return ud;
     }
 
+    public Comment makeSampleComment() {
+        Comment c = new Comment();
+        c.setAnnotation(Boolean.TRUE);
+        c.setContent("I am a Comment");
+        c.setCreateTime(new Date());
+        c.setIdComment(1234567);
+        c.setNetwork("network:twitter, facebook, bloger");
+        c.setNetworkCommentId("NetworkCommentId");
+        c.setNetworkCommentUrl("NetworkCommentUrl");
+        c.setUserProfileUrl("http://facebook.de/user/hannes");
+        
+        return c;
+    }
+
+    public List<Comment> makeSampleCommentList() {
+         List<Comment> mList = new ArrayList<>();
+         mList.add(makeSampleComment());
+         mList.add(makeSampleComment());
+         
+         return mList;
+    }
+
 }

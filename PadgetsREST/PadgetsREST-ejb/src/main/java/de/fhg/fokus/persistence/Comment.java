@@ -148,6 +148,7 @@ public class Comment implements Serializable {
         this.publisheditemList = publisheditemList;
     }
 
+     @JsonIgnore     @XmlTransient
     public Message getIdMessage() {
         return idMessage;
     }
@@ -156,6 +157,7 @@ public class Comment implements Serializable {
         this.idMessage = idMessage;
     }
 
+     @JsonIgnore     @XmlTransient
     public Userdata getIdUserData() {
         return idUserData;
     }
