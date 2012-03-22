@@ -5,6 +5,7 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.*;
+import de.fhg.fokus.misc.Counter;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +38,6 @@ public class CampaignResource {
     private SampleSessionBean sampleSessionBean;
     @EJB
     private CampaignFacade campaignFacade;
-    
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
@@ -232,17 +232,19 @@ public class CampaignResource {
      * Gives you all messages from a campaign. Only paticipants of this campaign
      * can see this object.<br />
      *
-     * Address: GET [server]/resources/campaign/[campId]/message?sid=test_user
+     * Address: GET
+     * [server]/resources/campaign/[campId]/message?sid=test_user&from=25
      *
      * @param sid valid session id
      * @param campaignId id of the campaign
+     * @param from What is the first message?
      *
      * @return list of messages
      */
     @GET
     @Path("{id}/message")
     @Produces({"application/xml", "application/json"})
-    public List<Message> getCampaignMessages(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
+    public List<Message> getCampaignMessages(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId, @DefaultValue("0") @QueryParam("from") Integer from) {
 
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleMessageList();
@@ -270,8 +272,10 @@ public class CampaignResource {
         }
 
         if (dbCampaign.getIdUser().equals(ud) || dbCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
-           campaignFacade.refresh(dbCampaign);
-            return dbCampaign.getMessageList();
+            System.out.println(new Date());
+            List<Message> messages = messageFacade.getMessages(dbCampaign.getIdCampaign(), from);
+            System.out.println(new Date());
+            return messages;
         } else {
             Message m = new Message();
             m.setTitle("The user have no rights to get information about the messages of this campaign.");
@@ -434,8 +438,54 @@ public class CampaignResource {
         publishchannelFacade.edit(pc);
         campaignFacade.edit(c);
         userdataFacade.refresh(ud);
-        
+
         return c;
 
+    }
+
+    /**
+     * How many messages has a campaign?<br /> 
+     * Failure codes: <br /> 
+     * -1 - "It exists no campaign with this id!"<br />
+     * -2 - "The session id is not valid!"<br /> 
+     * -3 - "You are not the campaign manager. You have no rights to edit this campaign."<br />
+     *
+     * @param sid
+     * @param campaignId
+     * @return
+     */
+    @GET
+    @Path("{id}/messagecount")
+    @Produces({"application/xml", "application/json"})
+    public Counter getMessageCount(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleCounter();
+        }
+
+        Campaign c = campaignFacade.find(campaignId); //get requested campaign
+
+                    Counter co = new Counter();
+        if (c == null) {
+            co.setCount(-1);
+            return co;
+        }
+        
+                //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if (udList.isEmpty()) {
+            co.setCount(-2);
+            return co;
+        }
+        Userdata ud = udList.get(0);
+
+        if (!c.getIdUser().equals(ud)) { //is the user the campaign manager?
+
+            co.setCount(-3);
+            return co;
+        }
+        
+        Long counter = messageFacade.countMessages(campaignId);
+        co.setCount(counter);
+        return co;
     }
 }

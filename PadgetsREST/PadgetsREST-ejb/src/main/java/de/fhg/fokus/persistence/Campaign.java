@@ -247,6 +247,7 @@ public class Campaign implements Serializable {
 
     @JsonIgnore
     @XmlTransient
+//    @OrderBy("createTime ASC")
     public List<Message> getMessageList() {
         return messageList;
     }

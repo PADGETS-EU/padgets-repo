@@ -5,7 +5,9 @@
 package de.fhg.fokus.facades;
 
 import de.fhg.fokus.persistence.Campaign;
+import de.fhg.fokus.persistence.Message;
 import de.fhg.fokus.persistence.Userdata;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,4 +40,5 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
     public void refresh(Campaign campaign) {
         getEntityManager().refresh(campaign);
     }
+    
 }

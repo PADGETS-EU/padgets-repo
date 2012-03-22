@@ -54,9 +54,27 @@
                 <ice:outputText value=""/>
 
                 <ice:outputText value="GET" />
-                <a href="#{rPath}campaign/1/message/?sid=test_user">#{rPath}campaign/[campaign_id]/message/?sid=test_user</a>
+                <a href="#{rPath}campaign/1/message/?sid=test_user&amp;from=0">#{rPath}campaign/[campaign_id]/message/?sid=test_user&amp;from=[from]</a>
                 <ice:outputText value="campaign_id in URI"/>
-                <ice:outputText value="List of all messages, which are related to this campaign"/>
+                <ice:outputText value="List the 50 newest messages, which are related to this campaign. With the param from you can choose 50 older messages. E.g. with from=51 you get the next 50."/>
+                <ice:outputText value="Only paticipants of this campaign can see this object"/>
+                
+                                <ice:outputText value="GET" />
+                <a href="#{rPath}campaign/1/messagecount/?sid=test_user">#{rPath}campaign/[campaign_id]/messagecount/?sid=test_user</a>
+                <ice:outputText value="campaign_id in URI"/>
+                <ice:outputText value="Returns the number of messages for a campaign."/>
+                <ice:outputText value="Only paticipants of this campaign can see this object"/>
+                
+                                <ice:outputText value="GET" />
+                <a href="#{rPath}message/1/comment/?sid=test_user&amp;from=0">#{rPath}message/[message_id]/comment/?sid=test_user&amp;from=[from]</a>
+                <ice:outputText value="message_id in URI"/>
+                <ice:outputText value="List the 50 newest comments, which are related to this message. With the param from you can choose 50 older comments. E.g. with from=51 you get the next 50."/>
+                <ice:outputText value="Only paticipants of this campaign can see this object"/>
+                
+                                <ice:outputText value="GET" />
+                <a href="#{rPath}message/1/commentcount/?sid=test_user">#{rPath}message/[message_id]/commentcount/?sid=test_user</a>
+                <ice:outputText value="message_id in URI"/>
+                <ice:outputText value="Returns the number of comments for a message."/>
                 <ice:outputText value="Only paticipants of this campaign can see this object"/>
 
                 <ice:outputText value="POST" />

@@ -4,6 +4,7 @@
  */
 package de.fhg.fokus.service;
 
+import de.fhg.fokus.misc.Counter;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -166,6 +167,12 @@ public class SampleSessionBean {
          mList.add(makeSampleComment());
          
          return mList;
+    }
+
+    public Counter makeSampleCounter() {
+       Counter c = new Counter();
+       c.setCount(-999);
+       return c;
     }
 
 }

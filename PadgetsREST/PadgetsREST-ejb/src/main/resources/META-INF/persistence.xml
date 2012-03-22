@@ -3,6 +3,8 @@
   <persistence-unit name="de.fhg.fokus_PadgetsREST-ejb_ejb_1.0PU" transaction-type="JTA">
     <jta-data-source>jdbc/padgetsas</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+        <properties>
+        <property name="eclipselink.jpa.uppercase-column-names" value="true" />
+        </properties>
   </persistence-unit>
 </persistence>

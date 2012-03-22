@@ -5,8 +5,10 @@
 package de.fhg.fokus.service;
 
 import de.fhg.fokus.facades.CampaignFacade;
+import de.fhg.fokus.facades.CommentFacade;
 import de.fhg.fokus.facades.MessageFacade;
 import de.fhg.fokus.facades.UserdataFacade;
+import de.fhg.fokus.misc.Counter;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +26,8 @@ import javax.ws.rs.*;
 public class MessageResource {
 
     @EJB
+    private CommentFacade commentFacade;
+    @EJB
     private CampaignFacade campaignFacade;
     @EJB
     private UserdataFacade userdataFacade;
@@ -31,7 +35,6 @@ public class MessageResource {
     private SampleSessionBean sampleSessionBean;
     @EJB
     private MessageFacade messageFacade;
-
 
     /**
      * Returns the message with the given id. If sid = test_user, it returns a
@@ -67,31 +70,39 @@ public class MessageResource {
             m.setTitle("It exists no Message with this id !");
             return m;
         }
-        
+
         Campaign relatedCampaign = dbMessage.getIdCampaign();
-      
+
         if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
             return dbMessage;
         } else {
             Message m = new Message();
-            m.setTitle("This user have no rights to get information about the messages of this campaign.");      
+            m.setTitle("This user have no rights to get information about the messages of this campaign.");
             return m;
         }
 
     }
 
-     @GET
+    /**
+     *
+     * @param sid
+     * @param messageId
+     * @param from
+     * @return
+     */
+    @GET
     @Path("{id}/comment")
-    public List<Comment> getComments(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer messageId) {
+    @Produces({"application/xml", "application/json"})
+    public List<Comment> getComments(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer messageId, @DefaultValue("0") @QueryParam("from") Integer from) {
 
         if (sid.equals("test_user")) {//return test data                
-            return sampleSessionBean.makeSampleCommentList();           
+            return sampleSessionBean.makeSampleCommentList();
         }
 
         List<Comment> mList = new ArrayList<>();
         Comment m = new Comment();
         mList.add(m);
-        
+
         //check sid
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
         if (udList.isEmpty()) {
@@ -102,36 +113,36 @@ public class MessageResource {
 
         Message dbMessage = messageFacade.find(messageId);
         messageFacade.refresh(dbMessage);
-        
+
         if (dbMessage == null) {
             m.setContent("It exists no Message with this id !");
             return mList;
         }
-        
+
         Campaign relatedCampaign = dbMessage.getIdCampaign();
-      
+
         if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
-            return dbMessage.getCommentList();
+            return commentFacade.getComments(dbMessage.getIdMessage(), from);
         } else {
-            m.setContent("This user have no rights to get information about the comments of this campaign.");      
+            m.setContent("This user have no rights to get information about the comments of this campaign.");
             return mList;
         }
 
     }
-    
+
     /**
-     * DELETES the message with the given id. Only paticipants of this campaign can delete this object.<br
-     * />
+     * DELETES the message with the given id. Only paticipants of this campaign
+     * can delete this object.<br />
      *
      * Address: DELETE [server]/resources/message/[messageId]?sid=test_user
      *
      * @param sid session id
      * @param messageId id of message
      */
-        @DELETE
+    @DELETE
     @Path("{id}")
     public void deleteMessage(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer messageId) {
-            
+
 
         //check sid
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
@@ -144,15 +155,63 @@ public class MessageResource {
         if (dbMessage == null) {
             return;
         }
-        
+
         Campaign relatedCampaign = dbMessage.getIdCampaign();
-      
+
         if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
             //update related objects
             ud.removeMessage(dbMessage);
             relatedCampaign.removeMessage(dbMessage);
-            
+
             messageFacade.remove(dbMessage);
         }
+    }
+
+    /**
+     * How many messages has a campaign?<br /> Failure codes: <br /> -1 - "It
+     * exists no message with this id!"<br /> -2 - "The session id is not
+     * valid!"<br /> -3 - "You are not the campaign manager. You have no rights
+     * to edit this campaign."<br />
+     *
+     * @param sid session id
+     * @param messageId id of message
+     * @return
+     */
+    @GET
+    @Path("{id}/commentcount")
+    @Produces({"application/xml", "application/json"})
+    public Counter getCommentCount(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer messageId) {
+
+        if (sid.equals("test_user")) {//return test data                
+            return sampleSessionBean.makeSampleCounter();
+        }
+
+        Message m = messageFacade.find(messageId); //get requested campaign
+
+        Counter co = new Counter();
+        if (m == null) {
+            co.setCount(-1);
+            return co;
+        }
+
+        //check sid
+        List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
+        if (udList.isEmpty()) {
+            co.setCount(-2);
+            return co;
+        }
+        Userdata ud = udList.get(0);
+
+        Campaign relatedCampaign = m.getIdCampaign();
+
+        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+            Long counter = commentFacade.countComments(messageId);
+            co.setCount(counter);
+            return co;
+        } else {
+            co.setCount(-3);
+            return co;
+        }
+
     }
 }
