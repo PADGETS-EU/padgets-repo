@@ -190,6 +190,11 @@ public class CampaignResource {
             dbCampaign.setStartdate(campaign.getStartdate());
             dbCampaign.setTitle(campaign.getTitle());
             dbCampaign.setUrl(campaign.getUrl());
+            
+            if (campaign.getIdLocation() != null){ //location is changed?
+                    Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
+                    dbCampaign.setIdLocation(l);
+            }
             campaignFacade.edit(dbCampaign);
         } else {
             Campaign c = new Campaign();

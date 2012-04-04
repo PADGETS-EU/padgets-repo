@@ -114,6 +114,7 @@ public class SampleSessionBean {
         pc.setNetwork("Facebook");
         pc.setNetworkPageId("1234567890");
         pc.setOAuth2Token("oAuth2Token");
+        pc.setNetworkPhotoUrl("www.myPhotoUrl.de");
         
         Publishchannel pc2 = new Publishchannel();
         pc2.setIdPublishChannel(20202020);
@@ -121,6 +122,7 @@ public class SampleSessionBean {
         pc2.setNetwork("Twitter");
         pc2.setNetworkPageId("123456");
         pc2.setOAuth2Token("oAuth2Token");
+        pc2.setNetworkPhotoUrl("www.myPhotoUrl.de");
         
         pcList.add(pc);
         pcList.add(pc2);
