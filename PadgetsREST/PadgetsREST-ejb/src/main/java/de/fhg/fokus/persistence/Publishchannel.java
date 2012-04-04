@@ -60,6 +60,9 @@ public class Publishchannel implements Serializable {
     private Smpaccount idSmpAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPublishChannel")
     private List<Publisheditem> publisheditemList;
+    @Size(max = 255)
+    @Column(name = "networkPhotoUrl")
+    private String networkPhotoUrl;
 
     public Publishchannel() {
     }
@@ -154,6 +157,14 @@ public class Publishchannel implements Serializable {
 
     public void setPublisheditemList(List<Publisheditem> publisheditemList) {
         this.publisheditemList = publisheditemList;
+    }
+
+    public String getNetworkPhotoUrl() {
+        return networkPhotoUrl;
+    }
+
+    public void setNetworkPhotoUrl(String networkPhotoUrl) {
+        this.networkPhotoUrl = networkPhotoUrl;
     }
 
     @Override

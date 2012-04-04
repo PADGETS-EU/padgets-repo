@@ -60,6 +60,9 @@ public class Smpaccount implements Serializable {
     @Column(name = "profileUrl")
     private String profileUrl;
     @Size(max = 255)
+    @Column(name = "profilePhoto")
+    private String profilePhoto;
+    @Size(max = 255)
     @Column(name = "username")
     private String username;
     @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")
@@ -139,6 +142,14 @@ public class Smpaccount implements Serializable {
 
     public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
     public String getUsername() {

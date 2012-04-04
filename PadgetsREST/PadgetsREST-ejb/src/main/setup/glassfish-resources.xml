@@ -21,9 +21,10 @@
         <property name="databaseName" value="application_server"/>
         <property name="User" value="fokususerExt"/>
         <property name="Password" value="loki6MRK9"/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/application_server"/>
+        <property name="URL" value="jdbc:mysql://195.251.166.71:3306/application_server"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="jdbc/padgetsas" object-type="user" pool-name="mysql_padgets_application_server_Pool"/>
+    
 </resources> 
 
