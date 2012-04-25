@@ -51,6 +51,23 @@ public class SampleSessionBean {
         Location l = new Location(9999);
         l.setName("Berlin");
         c.setIdLocation(l);
+        
+        Userrole ur = new Userrole();
+        ur.setIdCampaign(c);
+        ur.setIdUserRole(111);
+        ur.setUserRole("manager");
+        
+                Userrole ur2 = new Userrole();
+        ur2.setIdCampaign(c);
+        ur2.setIdUserRole(111);
+        ur2.setUserRole("helper");
+        
+        List<Userrole> urList = new ArrayList<>();
+        urList.add(ur);
+        urList.add(ur2);
+        
+        c.setUserroleList(urList);
+        
         return c;
     }
 
@@ -115,6 +132,7 @@ public class SampleSessionBean {
         pc.setNetworkPageId("1234567890");
         pc.setOAuth2Token("oAuth2Token");
         pc.setNetworkPhotoUrl("www.myPhotoUrl.de");
+        pc.setCount(1234);
         
         Publishchannel pc2 = new Publishchannel();
         pc2.setIdPublishChannel(20202020);
@@ -123,6 +141,7 @@ public class SampleSessionBean {
         pc2.setNetworkPageId("123456");
         pc2.setOAuth2Token("oAuth2Token");
         pc2.setNetworkPhotoUrl("www.myPhotoUrl.de");
+        pc2.setCount(5678);
         
         pcList.add(pc);
         pcList.add(pc2);
@@ -140,11 +159,9 @@ public class SampleSessionBean {
         ud.setGender("male");
         ud.setOrganization("My Organization");
         ud.setSurname("Schmidt");
-        ud.setUserRole("My Role {Manager / Helper}");
         ud.setMiddlename("Midd");
         ud.setUsername("Maxi1993");
         ud.setViewLanguage("African");
-        
         
         return ud;
     }

@@ -32,13 +32,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Userdata.findByEmail", query = "SELECT u FROM Userdata u WHERE u.email = :email"),
     @NamedQuery(name = "Userdata.findByUsername", query = "SELECT u FROM Userdata u WHERE u.username = :username"),
     @NamedQuery(name = "Userdata.findByFirstname", query = "SELECT u FROM Userdata u WHERE u.firstname = :firstname"),
+    @NamedQuery(name = "Userdata.findByMiddlename", query = "SELECT u FROM Userdata u WHERE u.middlename = :middlename"),
     @NamedQuery(name = "Userdata.findBySurname", query = "SELECT u FROM Userdata u WHERE u.surname = :surname"),
     @NamedQuery(name = "Userdata.findByGender", query = "SELECT u FROM Userdata u WHERE u.gender = :gender"),
     @NamedQuery(name = "Userdata.findByOpenIDVerifiedIdentifier", query = "SELECT u FROM Userdata u WHERE u.openIDVerifiedIdentifier = :openIDVerifiedIdentifier"),
     @NamedQuery(name = "Userdata.findByOpenid", query = "SELECT u FROM Userdata u WHERE u.openid = :openid"),
     @NamedQuery(name = "Userdata.findByOrganization", query = "SELECT u FROM Userdata u WHERE u.organization = :organization"),
     @NamedQuery(name = "Userdata.findByUserSIGN", query = "SELECT u FROM Userdata u WHERE u.userSIGN = :userSIGN"),
-    @NamedQuery(name = "Userdata.findByUserRole", query = "SELECT u FROM Userdata u WHERE u.userRole = :userRole"),
     @NamedQuery(name = "Userdata.findByViewLanguage", query = "SELECT u FROM Userdata u WHERE u.viewLanguage = :viewLanguage")})
 public class Userdata implements Serializable {
 
@@ -86,25 +86,20 @@ public class Userdata implements Serializable {
     @Column(name = "userSIGN")
     private String userSIGN;
     @Size(max = 255)
-    @Column(name = "userRole")
-    private String userRole;
-    @Size(max = 255)
     @Column(name = "viewLanguage")
     private String viewLanguage;
-    @ManyToMany(mappedBy = "userdataList")
-    private List<Campaign> CampaignListHelpers;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Smpaccount> smpaccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
-    private List<Publishchannel> publishchannelList;
+    private List<Userrole> userroleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
+    private List<Publishchannel> publishchannelList;
+    @OneToMany(mappedBy = "idUserData")
     private List<Authdata> authdataList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Message> messageList;
     @OneToMany(mappedBy = "idUserData")
     private List<Comment> commentList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
-    private List<Campaign> CampaignListManager;
 
     public Userdata() {
     }
@@ -223,14 +218,6 @@ public class Userdata implements Serializable {
         this.userSIGN = userSIGN;
     }
 
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
     public String getViewLanguage() {
         return viewLanguage;
     }
@@ -249,6 +236,25 @@ public class Userdata implements Serializable {
         this.smpaccountList = smpaccountList;
     }
 
+    @JsonIgnore
+    @XmlTransient
+    public List<Userrole> getUserroleList() {
+        return userroleList;
+    }
+
+    public void setUserroleList(List<Userrole> userroleList) {
+        this.userroleList = userroleList;
+    }
+
+    
+    public boolean addUserrole(Userrole userrole) {
+        return this.userroleList.add(userrole);
+    }
+
+    public boolean removeUserrole(Userrole userrole) {
+        return this.userroleList.remove(userrole);
+    }
+    
     @JsonIgnore
     @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
@@ -297,42 +303,6 @@ public class Userdata implements Serializable {
         this.commentList = commentList;
     }
 
-    @JsonIgnore
-    @XmlTransient
-    public List<Campaign> getCampaignListHelpers() {
-        return CampaignListHelpers;
-    }
-
-    public void setCampaignListHelpers(List<Campaign> CampaignListHelpers) {
-        this.CampaignListHelpers = CampaignListHelpers;
-    }
-
-    public boolean addCampaignHelper(Campaign campaign) {
-        return this.CampaignListHelpers.add(campaign);
-    }
-
-    public boolean removeCampaignHelper(Campaign campaign) {
-        return this.CampaignListHelpers.remove(campaign);
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Campaign> getCampaignListManager() {
-        return CampaignListManager;
-    }
-
-    public void setCampaignListManager(List<Campaign> CampaignListManager) {
-        this.CampaignListManager = CampaignListManager;
-    }
-
-    public boolean addCampaignManager(Campaign campaign) {
-        return this.CampaignListManager.add(campaign);
-    }
-
-    public boolean removeCampaignManager(Campaign campaign) {
-        return this.CampaignListManager.remove(campaign);
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -342,7 +312,6 @@ public class Userdata implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
         if (!(object instanceof Userdata)) {
             return false;
         }

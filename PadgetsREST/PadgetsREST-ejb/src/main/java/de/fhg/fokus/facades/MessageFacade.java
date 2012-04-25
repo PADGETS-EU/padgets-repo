@@ -6,6 +6,7 @@ package de.fhg.fokus.facades;
 
 import de.fhg.fokus.persistence.Campaign;
 import de.fhg.fokus.persistence.Message;
+import de.fhg.fokus.persistence.Publisheditem;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +52,15 @@ public class MessageFacade extends AbstractFacade<Message> {
         String query = "select * from Message where idCampaign = " + campaignId
                + " ORDER BY createTime DESC"
                + " LIMIT " + from + ",50;";
-        return this.executeNativeQueryForSelect(query);
+        List<Message> mesList = this.executeNativeQueryForSelect(query);
+        
+        for(Message m : mesList){
+            for (Publisheditem pi : m.getPublisheditemList()){
+                pi.getIdPublishChannel().setCount(0); //TODO counter berechnen
+            }
+        }
+        
+        return mesList;
     }
     
         public Long countMessages(Integer campaignId) {

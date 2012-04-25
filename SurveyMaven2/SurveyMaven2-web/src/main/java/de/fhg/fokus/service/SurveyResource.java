@@ -64,9 +64,16 @@ public class SurveyResource {
     @GET
     @Produces({"application/xml", "application/json"})
     public Survey getSurvey(@DefaultValue("test") @QueryParam("key") String key) {
+        
+                if (key.equals("test")){
+             return samplesSessionBean.createSampleSurvey();
+        }
+        
         Survey survey = editSurveyBean.getSurveyWithKey(key);
         if (survey == null) { //key not exist
-            return samplesSessionBean.createSampleSurvey();
+            Survey s = new Survey();
+            s.setName("The key is not valid.");
+            return s;
         } else {
             return survey;
         }
@@ -83,6 +90,11 @@ public class SurveyResource {
         return samplesSessionBean.createSampleVoting();
     }
 
+    /**
+     * With this method you can vote!
+     * @param v
+     * @return 
+     */
     @POST
     @Path("vote")
     @Consumes({"application/xml", "application/json"})

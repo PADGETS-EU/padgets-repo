@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : RESTcalls
+    Created on : 03.02.2012, 15:54:27
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:head>
+        <title>REST calls</title>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+    </h:head>
+    <h:body styleClass="ice-skin-rime">
+        <ice:form id="form">
+            <ui:param name="rPath" value="http://#{facesContext.externalContext.requestServerName}:#{facesContext.externalContext.requestServerPort}#{facesContext.externalContext.requestContextPath}/resources/" />
+            <ice:outputText value="REST calls: "/>
+            <ice:outputText value="Some of the requests need a valid survey_key"/>
+            <ice:panelGrid border="1" rules="all" columns="5" cellpadding="4px">
+                <ice:outputText value="Method"/>
+                <ice:outputText value="Request URI"/>
+                <ice:outputText value="Request Payload and Values"/>
+                <ice:outputText value="Response Payload"/>
+                <ice:outputText value="Additional Information"/>
+
+                <ice:outputText value="GET" />
+                <a href="#{rPath}result?sid=test">#{rPath}result?sid=test_user</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="Results of a vote"/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="GET" />
+                <a href="#{rPath}survey/create?sid=test">#{rPath}survey/create?sid=test</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="key of a survey"/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="GET" />
+                <a href="#{rPath}survey?sid=test">#{rPath}survey?sid=test</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="survey with all questions and answers"/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="GET" />
+                <a href="#{rPath}survey/vote">#{rPath}survey/vote</a>
+                <ice:outputText value=""/>
+                <ice:outputText value="returns a sample data set of a vote"/>
+                <ice:outputText value=""/>
+
+                <ice:outputText value="POST" />
+                <ice:outputText value="#{rPath}survey/vote" />
+                <ice:outputText value="vote of a user in the schema like above"/>
+                <ice:outputText value="message if voting was successful"/>
+                <ice:outputText value=""/>
+            </ice:panelGrid>
+        </ice:form>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

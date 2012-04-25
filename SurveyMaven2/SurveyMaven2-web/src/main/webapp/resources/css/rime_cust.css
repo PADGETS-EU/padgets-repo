@@ -2,6 +2,11 @@
     background-color: #4D4D4D;
 }
 
+/* table row */
+
+.icePnlGrdRow1, .icePnlGrdRow2 {
+height: 40px
+}
 
 /*
 ----------- Vote --------
@@ -27,19 +32,50 @@
     text-decoration: underline;
 }
 
-#messageButtonSave {
-    background-color: white;
+/*
+button
+*/
+
+.button_box {
+    background-color: #272727;
     bottom: 0px;
-    color: black;
-    float: right;
-    font-size: 12px;
+    float: left;
     height: 24px;
-    width: 80px;
+    width: 100px;
+}
+
+.button_text {
+    padding: 5px 0px 0px 14px;
+}
+
+.button_pic {
+    background-color: #272727;
+height: 24px;
+margin-left: 2px;
+}
+
+#addAnswer_div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#removeQuestion_div {
+    display: inline-block;
 }
 
 /*
 ----------- Panel Collapsible --------
 */
+
+/*
+----------- panelGroup ----------
+*/
+.icePnlGrp {
+    color: black;
+    font-family: Arimo, Helvetia sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+}
 
 .icePnlClpsbl, .icePnlClpsbl-dis {
     border: none;
@@ -50,10 +86,8 @@
 }
 
 .icePnlClpsblHdr, .icePnlClpsblHdr-dis {
-    font: 11px tahoma;
     color: #484848;
-    padding: 0 0 0 4px;
-    font-weight: bold;
+    padding: 2px 0 2px 4px;
     height: 20px;
     background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
     border-bottom: none;
@@ -98,7 +132,8 @@
 }
 
 .icePnlClpsblCnt .icePnlClpsblColpsdHdr {
-    font: 11px tahoma;
+        font-family: Arimo, Helvetia sans-serif;
+    font-size: 12px;
     color: #484848;
     padding: 0 0 0 0;
     font-weight: bold;
@@ -118,8 +153,8 @@
 }
 
 .icePnlClpsblColpsd, .icePnlClpsblColpsd-dis {
-    border: 1px solid #d9d9d9;
-    height: 20px
+    border: none;
+    height: 24px
 }
 
 .icePnlClpsblCnt .icePnlClpsblColpsd {
@@ -127,10 +162,8 @@
 }
 
 .icePnlClpsblColpsdHdr, .icePnlClpsblColpsdHdr-dis {
-    font: 11px tahoma;
     color: #484848;
-    padding: 3px 0 1px 4px;
-    font-weight: bold;
+    padding: 2px 0 2px 4px;
     height: 20px;
     background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
     border-bottom: none;
@@ -165,9 +198,10 @@
 
 .icePnlClpsblHdr div {
     background: url(#{resource['/images/pfeil_inactive_rechts.svg']}) no-repeat top left;
-    padding: 0;
+    padding: 2px 0 0 36px;
     margin: 0;
     background-position: 3px -3px;   
+
 }
 
 .icePnlClpsblHdr-dis div {
@@ -179,8 +213,8 @@
 
 .icePnlClpsblColpsdHdr div {
     background: url(#{resource['/images/pfeil_inactive.svg']}) no-repeat top left;
-    padding: 5px 0 0 5px;
-    margin: -2px 0 0 -2px;
+    padding: 2px 0 0 36px;
+    margin: 0px;
     background-position: 3px -2px;     
 }
 
@@ -205,25 +239,51 @@
     border: 0;
 }
 
-/*
- font
-*/
+/* input area */
 
-.iceOutTxt, .iceOutLbl {
-    font-family: Arimo, Helvetia sans-serif;
-    color: black;
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    font-weight: normal;
-    font-size: 12px;
+.iceInpTxt, .iceInpSecrt, .iceInpTxtArea {
+    margin: 0px;
+    padding: 0px;
+    background: #272727;
+    border: none;
+    height: 14px;
+    width: 75%;
 }
 
-.white {
-    color: white;
+/* calendar */
+.iceSelInpDateInput {
+width: 150px;
+    margin: 0px;
+    padding: 0px;
+background-color: #272727;
+border: none;
+    height: 20px;
+    width: 75%;
 }
 
+.iceSelInpDateOpenPopup, .iceSelInpDateOpenPopup-dis {
+display: inline;
+text-decoration: none;
+background-color: transparent;
+background-image: url(#{resource['/images/calendar_white.svg']});
+background-repeat: no-repeat;
+text-align: center;
+border: none;
+width: 16px;
+height: 16px;
+margin-left: 5px;
+}
+
+/* drop down */
+.iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb {
+margin: 2px;
+padding: 3px;
+background: #272727;
+border: 1px solid #272727;
+}
+
+
+/* font */
 @font-face {
   font-family: 'Arimo';
   font-style: normal;
@@ -231,32 +291,9 @@
   src: local('Arimo'), url('http://themes.googleusercontent.com/static/fonts/arimo/v3/wZLYhRRxZWGToTRP78bqJQ.woff') format('woff');
 }
 
-/* input area */
-
-.iceInpTxt, .iceInpSecrt, .iceInpTxtArea {
-    margin: 2px;
-    padding: 5px;
-    font: 11px tahoma;
-    background: #272727;
-    border-color: #272727;
+.iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb, .iceSelInpDateInput, .iceInpTxt, .iceInpSecrt, .iceInpTxtArea, .iceOutTxt, .iceOutLbl, .iceCmdLnk, .iceOutLnk, .icePnlClpsblHdr, .icePnlClpsblHdr-dis   {
+        font-family: Arimo, Helvetia sans-serif;
+            font-weight: normal;
+    font-size: 12px;
     color: white;
-}
-
-/* calendar */
-.iceSelInpDateInput {
-width: 150px;
-margin: 2px;
-background-color: #272727;
-color: white;
-border-color: #272727;
-}
-
-/* drop down */
-.iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb {
-margin: 2px;
-padding: 3px;
-font: 11px tahoma;
-background: #272727;
-border: 1px solid #272727;
-color: white;
 }

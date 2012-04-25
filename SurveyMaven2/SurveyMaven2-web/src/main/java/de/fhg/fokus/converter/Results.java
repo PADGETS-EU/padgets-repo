@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Results {
     
   private List<Answerer>  voters = new ArrayList<Answerer>();
+  private String message = "";
 
     public Results() {
     }   
@@ -33,6 +34,14 @@ public class Results {
     public void setVoters(List<Answerer> voters) {
         this.voters = voters;
     }
+
+    @XmlElement
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
     
-  
 }

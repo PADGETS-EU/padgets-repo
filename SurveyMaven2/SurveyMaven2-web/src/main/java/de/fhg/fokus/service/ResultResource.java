@@ -58,16 +58,23 @@ public class ResultResource {
      */
     @GET
     @Produces({"application/xml", "application/json"})
-    public Results get(@DefaultValue("nothing") @QueryParam("key") String key) {
+    public Results get(@DefaultValue("test") @QueryParam("key") String key) {
 
+        if (key.equals("test")){
+             return samplesSessionBean.createSampleResults();
+        }
+        
         Survey s = editSurveyBean.getSurveyWithKey(key);
         if (s == null) {
+            Results r = new Results();
+            r.setMessage("The key is not valid");
             return samplesSessionBean.createSampleResults();
         }
         List<Answerer> allAnswerersFromSurvey = answererFacade.getAllAnswererFromSurvey(s.getIdSurvey());
         
         Results res = new Results();
         res.setVoters(allAnswerersFromSurvey);
+        res.setMessage("Evrithing ok");
         return res;
     }
 }

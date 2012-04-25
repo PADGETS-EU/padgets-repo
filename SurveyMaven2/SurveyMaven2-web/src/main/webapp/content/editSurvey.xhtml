@@ -23,7 +23,7 @@
                 <ice:panelCollapsible expanded="true" >
                     <f:facet name="header">
                         <ice:panelGroup>
-                            <ice:outputText value="#{bundle.survey_profile}"/>
+                            <ice:outputText value="#{bundle.survey_profile}" nospan="true" />
                         </ice:panelGroup>
                     </f:facet>
                     <ice:panelGroup>
@@ -42,18 +42,16 @@
                                                  value="#{editSurveyManagedBean.em.survey.endDate}" renderAsPopup="true" />          
                             <ice:outputText value="#{bundle.randomQuestion}: "  styleClass="white"/>
                             <ice:selectBooleanCheckbox  id="randomQuestions" value="#{editSurveyManagedBean.em.survey.randomQuestionOrder}" />
-<!--
-                            <ice:commandLink id="resetProfile"
-                                             action="#{editSurveyManagedBean.reset()}"> 
-                                <div id="messageButtonSave">&nbsp;#{bundle.reset}</div>
-                            </ice:commandLink>
-                            <ice:commandLink id="saveProfile"
-                                             action="#{editSurveyManagedBean.save()}"> 
-                                <div id="messageButtonSave">&nbsp;#{bundle.save}
-                                    <ice:graphicImage value="#{resource['/images/haken.svg']}" />
+
+                            <ice:commandLink
+                                action="#{editSurveyManagedBean.save()}"> 
+                                <div class="button_box">
+                                    <div class="button_text">
+                                        #{bundle.save}
+                                    </div>
                                 </div>
-                            </ice:commandLink> -->
-  <ice:commandButton value="#{bundle.save}" action="#{editSurveyManagedBean.save()}" />
+                                <ice:graphicImage value="#{resource['/images/haken.svg']}" styleClass="button_pic" />
+                            </ice:commandLink> 
                         </ice:panelGrid>
                     </ice:panelGroup>
                 </ice:panelCollapsible>
@@ -67,7 +65,7 @@
                         <ice:panelCollapsible expanded="#{editSurveyManagedBean.em.getCollapseList(question.idQuestion).collapse}" rendered="#{question.questionType == 'norm'}">
                             <f:facet name="header">
                                 <ice:panelGroup>
-                                    <ice:outputText value="#{question.orderNumber}: #{question.label} "/>
+                                    <ice:outputText value="#{question.orderNumber}: #{question.label} "  nospan="true"  styleClass="black_text"/>
                                 </ice:panelGroup>
                             </f:facet>
                             <ice:panelGroup>
@@ -80,11 +78,7 @@
 
                                     <ice:outputText value="#{bundle.randomAnswer}" styleClass="white"/>
                                     <ice:selectBooleanCheckbox value="#{question.randomAnswerOrder}" />    
-                                    <!-- <ice:commandLink
-                                        action="#{editSurveyManagedBean.removeQuestion(question)}"> 
-                                        <div width="140px" id="messageButtonSave" >&nbsp;#{bundle.removeQuestion}</div>
-                                    </ice:commandLink> -->
-                                         <ice:commandButton value="#{bundle.removeQuestion}" action="#{editSurveyManagedBean.removeQuestion(question)}" />
+
                                 </ice:panelGrid>
 
                                 <!-- answer list -->
@@ -95,22 +89,50 @@
                                     <ice:panelGrid columns="3" >
                                         <ice:outputText value="#{answer.orderNumber} - #{bundle.answer}" styleClass="white"/>
                                         <ice:inputText value="#{answer.label}"/>      
-                                        <ice:commandButton value="#{bundle.removeAnswer}" action="#{editSurveyManagedBean.removeAnswer(question,answer)}" />
+                                        <ice:commandLink 
+                                            action="#{editSurveyManagedBean.removeAnswer(question,answer)}"> 
+                                            <div class="button_box">
+                                                <div class="button_text">
+                                                    #{bundle.removeAnswer}
+                                                </div>
+                                            </div>
+                                            <ice:graphicImage value="#{resource['/images/close.svg']}" styleClass="button_pic" />
+                                        </ice:commandLink> 
                                     </ice:panelGrid>                               
                                 </ice:panelSeries>
 
-                                                            <!--     <ice:commandLink
-                                    action="#{editSurveyManagedBean.addAnswer(question)}"> 
-                                    <div id="messageButtonSave">&nbsp;#{bundle.addAnswer}</div>
-                                </ice:commandLink> -->
-                                         <ice:commandButton value="#{bundle.addAnswer}" action="#{editSurveyManagedBean.addAnswer(question)}" />
-                                   
+                                <div>
+                                    <div id="removeQuestion_div">
+                                        <ice:commandLink 
+                                            action="#{editSurveyManagedBean.removeQuestion(question)}"> 
+                                            <div class="button_box">
+                                                <div class="button_text">
+                                                    #{bundle.removeQuestion}
+                                                </div>
+                                            </div>
+                                            <ice:graphicImage value="#{resource['/images/close.svg']}" styleClass="button_pic" />
+                                        </ice:commandLink> 
+                                    </div>
+                                    <div id="addAnswer_div">
+                                        <ice:commandLink 
+                                            action="#{editSurveyManagedBean.addAnswer(question)}"> 
+                                            <div class="button_box">
+                                                <div class="button_text">
+                                                    #{bundle.addAnswer}
+                                                </div>
+                                            </div>
+                                            <ice:graphicImage value="#{resource['/images/haken.svg']}" styleClass="button_pic" />
+                                        </ice:commandLink> 
+                                    </div>
+                                </div>
                             </ice:panelGroup>
                         </ice:panelCollapsible>
+
+                        <!-- acceptance question -->
                         <ice:panelCollapsible expanded="#{editSurveyManagedBean.em.getCollapseList(question.idQuestion).collapse}" rendered="#{question.questionType == 'acc'}">
                             <f:facet name="header">
                                 <ice:panelGroup>
-                                    <ice:outputText value="#{question.orderNumber}: #{question.label} "/>
+                                    <ice:outputText value="#{question.orderNumber}: #{question.label} " nospan="true"  styleClass="black_text"/>
                                 </ice:panelGroup>
                             </f:facet>
                             <ice:panelGroup>
@@ -118,7 +140,8 @@
                                     <ice:outputText value="#{bundle.question}" styleClass="white"/>
                                     <ice:inputText value="#{question.label}" />
 
-                                    <ice:commandButton value="#{bundle.removeQuestion}" action="#{editSurveyManagedBean.removeQuestion(question)}" />
+
+
                                 </ice:panelGrid>
 
                                 <!-- answer list -->
@@ -131,28 +154,50 @@
                                     <ice:outputText value="#{question.answerList.get(1).orderNumber} - #{bundle.answer}"/>
                                     <ice:inputText value="#{question.answerList.get(1).label}"/>      
                                 </ice:panelGrid>  
+                                <ice:commandLink 
+                                    action="#{editSurveyManagedBean.removeQuestion(question)}"> 
+                                    <div class="button_box">
+                                        <div class="button_text">
+                                            #{bundle.removeQuestion}
+                                        </div>
+                                    </div>
+                                    <ice:graphicImage value="#{resource['/images/close.svg']}" styleClass="button_pic" />
+                                </ice:commandLink> 
                             </ice:panelGroup>
                         </ice:panelCollapsible>
                     </ice:panelGroup>
                 </ice:panelPositioned>
+
+                <!-- add question; save poll -->
                 <ice:panelGrid columns="3" styleClass="ice-skin-rime">
                     <ice:outputText value="#{bundle.questionType}" styleClass="white"/>
                     <ice:selectOneMenu value="#{editSurveyManagedBean.em.questionType}"> 
                         <f:selectItem itemLabel="#{bundle.addNormQuestion}" itemValue="norm" />
                         <f:selectItem itemLabel="#{bundle.addAccQuestion}" itemValue="acc" />
                     </ice:selectOneMenu>
-                   <!-- <ice:commandLink
+
+
+                    <ice:commandLink 
                         action="#{editSurveyManagedBean.addQuestion()}"> 
-                        <div id="messageButtonSave">&nbsp;#{bundle.addQuestion}</div>
-                    </ice:commandLink>
-                    <ice:commandLink
+                        <div class="button_box">
+                            <div class="button_text">
+                                #{bundle.addQuestion}
+                            </div>
+                        </div>
+                        <ice:graphicImage value="#{resource['/images/haken.svg']}" styleClass="button_pic" />
+                    </ice:commandLink> 
+
+
+                    <ice:commandLink 
                         action="#{editSurveyManagedBean.save()}"> 
-                        <div id="messageButtonSave">&nbsp;#{bundle.save_poll}</div>
-                    </ice:commandLink>-->
-                   
-  <ice:commandButton value="#{bundle.addQuestion}" action="#{editSurveyManagedBean.addQuestion()}" />
-  
-  <ice:commandButton value="#{bundle.save_poll}" action="#{editSurveyManagedBean.save()}" />
+                        <div class="button_box">
+                            <div class="button_text">
+                                #{bundle.save}
+                            </div>
+                        </div>
+                        <ice:graphicImage value="#{resource['/images/haken.svg']}" styleClass="button_pic" />
+                    </ice:commandLink> 
+
                 </ice:panelGrid>
             </ice:form>
         </ice:panelGroup>

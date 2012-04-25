@@ -21,7 +21,7 @@ import javax.ws.rs.*;
 @Stateless
 @Path("campaign")
 public class CampaignResource {
-
+    
     @EJB
     private PublisheditemFacade publisheditemFacade;
     @EJB
@@ -36,8 +36,10 @@ public class CampaignResource {
     private UserdataFacade userdataFacade;
     @EJB
     private SampleSessionBean sampleSessionBean;
-    @EJB
+    @EJB    
     private CampaignFacade campaignFacade;
+    @EJB
+    private UserRoleFacade userroleFacade;
 
     /**
      * Returns all campaigns for the given user. It also returns the campaign
@@ -62,13 +64,10 @@ public class CampaignResource {
             cList.add(c);
             return cList;
         }
+        
         Userdata ud = udList.get(0);
-
-        if (ud.getUserRole().equals("manager")) {
-            return ud.getCampaignListManager();
-        } else { //it's a helper
-            return ud.getCampaignListHelpers();
-        }
+        return campaignFacade.getCampaignsForUser(ud);
+        
     }
 
     /**
@@ -76,8 +75,8 @@ public class CampaignResource {
      * Every campaign needs a location. Therefore a location object inside the
      * campaign is needed (id is enough). It is also possible to sends a list of
      * initial campaign topics (id is not needed) inside the campaign object. A
-     * list of related publishChannels can also be inside the campaign object<br
-     * />
+     * list of related publishChannels can also be inside the campaign
+     * object.<br />
      *
      * Address: POST [server]/resources/campaign?sid=test_user
      *
@@ -89,7 +88,7 @@ public class CampaignResource {
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
     public Campaign createCampaign(Campaign campaign, @DefaultValue("test_user") @QueryParam("sid") String sid) {
-
+        
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCampaign();
         }
@@ -102,19 +101,19 @@ public class CampaignResource {
             return c;
         }
         Userdata ud = udList.get(0);
-
-        campaign.setIdUser(ud);
+        
+        
         Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
         campaign.setIdLocation(l);
-
-
+        
+        
         List<Campaigntopics> topicList = null;
         if (campaign.getCampaigntopicsList() != null) {
             topicList = campaign.getCampaigntopicsList();
             campaign.setCampaigntopicsList(null);
         }
-
-
+        
+        
         if (campaign.getPublishchannelList() != null) {
             List<Publishchannel> pcList = campaign.getPublishchannelList();
             campaign.setPublishchannelList(new ArrayList());
@@ -126,7 +125,7 @@ public class CampaignResource {
         campaign.setCreationdate(new Date());//today
 
         campaignFacade.create(campaign);
-
+        
         if (topicList != null) {
             for (Campaigntopics ct : topicList) {
                 ct.setCampaignidCampaign(campaign);
@@ -135,10 +134,16 @@ public class CampaignResource {
             }
         }
 
-        //update user entity
-        ud.addCampaignManager(campaign);
-
-        //TODO check if campaign id is valid
+        //add userRole and update userData and campaign
+        Userrole ur = new Userrole();
+        ur.setIdCampaign(campaign);
+        ur.setIdUserData(ud);
+        ur.setUserRole("manager");
+        userroleFacade.create(ur);
+        
+        ud.addUserrole(ur);
+        campaign.addUserrole(ur);
+        
         return campaign;
     }
 
@@ -159,7 +164,7 @@ public class CampaignResource {
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
     public Campaign updateCampaign(Campaign campaign, @DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId) {
-
+        
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCampaign();
         }
@@ -172,7 +177,7 @@ public class CampaignResource {
             return c;
         }
         Userdata ud = udList.get(0);
-
+        
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
 
         if (dbCampaign == null) {
@@ -180,8 +185,8 @@ public class CampaignResource {
             c.setTitle("It exists no campaign with this id!");
             return c;
         }
-
-        if (dbCampaign.getIdUser().equals(ud)) { //is the user the campaign manager?
+        
+        if (userroleFacade.isCampaignManager(ud, campaign)) { //is the user the campaign manager? 
             dbCampaign.setActive(campaign.getActive());
             dbCampaign.setCreationdate(campaign.getCreationdate());
             dbCampaign.setEnddate(campaign.getEnddate());
@@ -191,17 +196,17 @@ public class CampaignResource {
             dbCampaign.setTitle(campaign.getTitle());
             dbCampaign.setUrl(campaign.getUrl());
             
-            if (campaign.getIdLocation() != null){ //location is changed?
-                    Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
-                    dbCampaign.setIdLocation(l);
+            if (campaign.getIdLocation() != null) { //location is changed?
+                Location l = locationFacade.find(campaign.getIdLocation().getIdLocation());
+                dbCampaign.setIdLocation(l);
             }
             campaignFacade.edit(dbCampaign);
         } else {
             Campaign c = new Campaign();
             c.setTitle("You are not the campaign manager. You have no rights to edit this campaign.");
             return c;
-        }
-
+        }        
+        
         return dbCampaign;
     }
 
@@ -224,11 +229,14 @@ public class CampaignResource {
             return;
         }
         Userdata ud = udList.get(0);
-
+        
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
 
-        if (dbCampaign != null && dbCampaign.getIdUser().equals(ud)) {//campaign manager
-            ud.removeCampaignManager(dbCampaign); //update user data
+        if (userroleFacade.isCampaignManager(ud, dbCampaign)) {//campaign manager
+            
+            for (Userrole ur : dbCampaign.getUserroleList()) {//update user data
+                ur.getIdUserData().removeUserrole(ur);                
+            }
             campaignFacade.remove(dbCampaign);
         }
     }
@@ -250,11 +258,11 @@ public class CampaignResource {
     @Path("{id}/message")
     @Produces({"application/xml", "application/json"})
     public List<Message> getCampaignMessages(@DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId, @DefaultValue("0") @QueryParam("from") Integer from) {
-
+        
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleMessageList();
         }
-
+        
         List<Message> mList = new ArrayList<>();
 
         //check sid
@@ -266,7 +274,7 @@ public class CampaignResource {
             return mList;
         }
         Userdata ud = udList.get(0);
-
+        
         Campaign dbCampaign = campaignFacade.find(campaignId); //get requested campaign
 
         if (dbCampaign == null) {
@@ -276,17 +284,20 @@ public class CampaignResource {
             return mList;
         }
 
-        if (dbCampaign.getIdUser().equals(ud) || dbCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
-            System.out.println(new Date());
+        if (userroleFacade.isCampaignPaticipant(ud, dbCampaign)) { //only paticipants of this campaign can see this object.
+
             List<Message> messages = messageFacade.getMessages(dbCampaign.getIdCampaign(), from);
-            System.out.println(new Date());
+            Userrole userRole = userroleFacade.getUserRole(ud, dbCampaign);
+            userRole.setLastActive(new Date()); //now
+            userroleFacade.edit(userRole);
             return messages;
+       
         } else {
             Message m = new Message();
             m.setTitle("The user have no rights to get information about the messages of this campaign.");
             mList.add(m);
             return mList;
-        }
+        }  
     }
 
     /**
@@ -313,11 +324,11 @@ public class CampaignResource {
     @Consumes({"application/xml", "application/json"})
     @Produces({"application/xml", "application/json"})
     public Message createMessage(Message message, @DefaultValue("test_user") @QueryParam("sid") String sid, @PathParam("id") Integer campaignId, @DefaultValue("nothing") @QueryParam("socialNetwork") String snList) {
-
+        
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleMessage();
         }
-
+        
         Campaign c = campaignFacade.find(campaignId); //get requested campaign
 
         if (c == null) {
@@ -325,7 +336,7 @@ public class CampaignResource {
             m.setTitle("It exists no campaign with this id!");
             return m;
         }
-
+        
         if (snList.equals("nothing")) {
             Message m = new Message();
             m.setTitle("This service needs a list of Social Network delivered through the auery param socialNetwork !");
@@ -341,11 +352,11 @@ public class CampaignResource {
         }
         Userdata ud = udList.get(0);
 
-        if (!(c.getIdUser().equals(ud) || c.getUserdataList().contains(ud))) { //is the user the campaign manager or helper?
+        if (!(userroleFacade.isCampaignPaticipant(ud, c))) { //is the user the campaign manager or helper?
             Message m = new Message();
             m.setTitle("You are not the campaign manager or a helper. You have no rights to edit this campaign.");
             return m;
-        }
+        } 
 
         List<Publishchannel> publishchannelList = new ArrayList<>();
         for (Publishchannel pc : c.getPublishchannelList()) {
@@ -358,7 +369,7 @@ public class CampaignResource {
             m.setTitle("No publish channels are matched with your input.");
             return m;
         }
-
+        
         message.setIdUserData(ud);
         message.setIdCampaign(c);
         message.setCreateTime(new Date()); //now
@@ -401,7 +412,7 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCampaign();
         }
-
+        
         Campaign c = campaignFacade.find(campaignId); //get requested campaign
 
         if (c == null) {
@@ -415,16 +426,16 @@ public class CampaignResource {
         if (udList.isEmpty()) {
             c = new Campaign();
             c.setTitle("The session id is not valid!");
-
+            
             return c;
         }
         Userdata ud = udList.get(0);
 
-        if (!c.getIdUser().equals(ud)) { //is the user the campaign manager?
+        if (!userroleFacade.isCampaignManager(ud, c)) { //is the user the campaign manager?
             c = new Campaign();
             c.setTitle("You are not the campaign manager. You have no rights to edit this campaign.");
             return c;
-        }
+        } 
 
         Publishchannel pc = publishchannelFacade.find(channelId);
         if (pc == null) {
@@ -437,23 +448,22 @@ public class CampaignResource {
             c.setTitle("The campaign already contains this publish channel.");
             return c;
         }
-
+        
         c.addPublishchannel(pc);
         pc.addCampaign(c);
         publishchannelFacade.edit(pc);
         campaignFacade.edit(c);
         userdataFacade.refresh(ud);
-
+        
         return c;
-
+        
     }
 
     /**
-     * How many messages has a campaign?<br /> 
-     * Failure codes: <br /> 
-     * -1 - "It exists no campaign with this id!"<br />
-     * -2 - "The session id is not valid!"<br /> 
-     * -3 - "You are not the campaign manager. You have no rights to edit this campaign."<br />
+     * How many messages has a campaign?<br /> Failure codes: <br /> -1 - "It
+     * exists no campaign with this id!"<br /> -2 - "The session id is not
+     * valid!"<br /> -3 - "You are not the campaign manager. You have no rights
+     * to edit this campaign."<br />
      *
      * @param sid
      * @param campaignId
@@ -466,16 +476,16 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCounter();
         }
-
+        
         Campaign c = campaignFacade.find(campaignId); //get requested campaign
 
-                    Counter co = new Counter();
+        Counter co = new Counter();
         if (c == null) {
             co.setCount(-1);
             return co;
         }
-        
-                //check sid
+
+        //check sid
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
         if (udList.isEmpty()) {
             co.setCount(-2);
@@ -483,11 +493,11 @@ public class CampaignResource {
         }
         Userdata ud = udList.get(0);
 
-        if (!c.getIdUser().equals(ud)) { //is the user the campaign manager?
+        if (!userroleFacade.isCampaignPaticipant(ud, c)) { //is the user a participant of the campaign?
 
             co.setCount(-3);
             return co;
-        }
+        } 
         
         Long counter = messageFacade.countMessages(campaignId);
         co.setCount(counter);

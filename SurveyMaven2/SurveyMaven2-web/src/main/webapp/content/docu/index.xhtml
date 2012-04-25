@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+    Document   : index
+    Created on : 01.02.2012, 16:37:54
+    Author     : hgo
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:icecore="http://www.icefaces.org/icefaces/core"
+      xmlns:ace="http://www.icefaces.org/icefaces/components"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      >
+    <h:head>
+        <title>Documentation for the Padgets Survey</title>
+        <link rel="stylesheet" type="text/css" href="./xmlhttp/css/rime/rime.css"/>
+    </h:head>
+    <h:body styleClass="ice-skin-rime">
+        <ice:outputText value="Welcome to Documentation for Padgets Survey"/>
+        <ice:form id="form">
+            <ice:panelGrid columns="2">
+                <ice:outputText value="Java Doc for REST Service: "/>
+                <a href="./apidocsREST/index.html">java doc web</a>
+                <ice:outputText value="Java Doc for Beans: "/>
+                <a href="./apidocsBeans/index.html">java doc Beans</a>
+                <ice:outputText value="sample Rest calls: "/>
+                <a href="./RESTcalls.xhtml">REST calls</a>
+                <ice:outputText value="last Changes: "/>
+                <a href="./version.xhtml">changes</a>
+            </ice:panelGrid>
+        </ice:form>
+    </h:body>
+    <h:outputStylesheet library="org.icefaces.component.skins" name="rime.css" />
+</html>

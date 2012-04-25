@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
@@ -63,6 +64,8 @@ public class Publishchannel implements Serializable {
     @Size(max = 255)
     @Column(name = "networkPhotoUrl")
     private String networkPhotoUrl;
+    
+    private int count;
 
     public Publishchannel() {
     }
@@ -110,6 +113,15 @@ public class Publishchannel implements Serializable {
     public void setOAuth2Token(String oAuth2Token) {
         this.oAuth2Token = oAuth2Token;
     }
+
+    @XmlElement(name="notificationCount")
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    } 
 
     @JsonIgnore
     @XmlTransient

@@ -75,35 +75,31 @@ public class Campaign implements Serializable {
         @JoinColumn(name = "PublishChannel_idPublishChannel", referencedColumnName = "idPublishChannel")})
     @ManyToMany
     private List<Publishchannel> publishchannelList;
-    @JoinTable(name = "campaign_has_user", joinColumns = {
-        @JoinColumn(name = "idCampaign", referencedColumnName = "idCampaign")}, inverseJoinColumns = {
-        @JoinColumn(name = "idUserData", referencedColumnName = "idUserData")})
-    @ManyToMany
-    private List<Userdata> userdataList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<CampaignHasPlatform> campaignHasPlatformList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "campaignidCampaign")
     private List<Campaigntopics> campaigntopicsList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Message> messageList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Blogger> bloggerList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Facebookvisits> facebookvisitsList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
-    private List<Facebookdata> facebookdataList;
+    private List<Userrole> userroleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Action> actionList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Youtube> youtubeList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
     private List<Survey> surveyList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Invitation> invitationList;
     @JoinColumn(name = "idLocation", referencedColumnName = "idLocation")
     @ManyToOne(optional = false)
     private Location idLocation;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUserData")
-    @ManyToOne(optional = false)
-    private Userdata idUser;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Blogger> bloggerList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Message> messageList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Facebookvisits> facebookvisitsList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCampaign")
+    private List<Facebookdata> facebookdataList;
 
     public Campaign() {
     }
@@ -189,7 +185,7 @@ public class Campaign implements Serializable {
         this.hashTag = hashTag;
     }
 
-            @XmlElementWrapper(name = "publishchannels")
+    @XmlElementWrapper(name = "publishchannels")
     @XmlElement(name = "publishchannel")
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
@@ -205,16 +201,6 @@ public class Campaign implements Serializable {
 
     public boolean removePublishchannel(Publishchannel publishchannel) {
         return this.publishchannelList.remove(publishchannel);
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Userdata> getUserdataList() {
-        return userdataList;
-    }
-
-    public void setUserdataList(List<Userdata> userdataList) {
-        this.userdataList = userdataList;
     }
 
     @JsonIgnore
@@ -245,53 +231,20 @@ public class Campaign implements Serializable {
         return this.campaigntopicsList.remove(ct);
     }
 
-    @JsonIgnore
-    @XmlTransient
-//    @OrderBy("createTime ASC")
-    public List<Message> getMessageList() {
-        return messageList;
+    public List<Userrole> getUserroleList() {
+        return userroleList;
     }
 
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
+    public void setUserroleList(List<Userrole> userroleList) {
+        this.userroleList = userroleList;
     }
 
-    public boolean addMessage(Message message) {
-        return this.messageList.add(message);
+    public boolean addUserrole(Userrole userrole) {
+        return this.userroleList.add(userrole);
     }
 
-    public boolean removeMessage(Message message) {
-        return this.messageList.remove(message);
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Blogger> getBloggerList() {
-        return bloggerList;
-    }
-
-    public void setBloggerList(List<Blogger> bloggerList) {
-        this.bloggerList = bloggerList;
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Facebookvisits> getFacebookvisitsList() {
-        return facebookvisitsList;
-    }
-
-    public void setFacebookvisitsList(List<Facebookvisits> facebookvisitsList) {
-        this.facebookvisitsList = facebookvisitsList;
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Facebookdata> getFacebookdataList() {
-        return facebookdataList;
-    }
-
-    public void setFacebookdataList(List<Facebookdata> facebookdataList) {
-        this.facebookdataList = facebookdataList;
+    public boolean removeUserrole(Userrole userrole) {
+        return this.userroleList.remove(userrole);
     }
 
     @JsonIgnore
@@ -324,6 +277,16 @@ public class Campaign implements Serializable {
         this.surveyList = surveyList;
     }
 
+    @JsonIgnore
+    @XmlTransient
+    public List<Invitation> getInvitationList() {
+        return invitationList;
+    }
+
+    public void setInvitationList(List<Invitation> invitationList) {
+        this.invitationList = invitationList;
+    }
+
     @XmlElement(name = "location")
     public Location getIdLocation() {
         return idLocation;
@@ -333,14 +296,50 @@ public class Campaign implements Serializable {
         this.idLocation = idLocation;
     }
 
-    @JsonIgnore
     @XmlTransient
-    public Userdata getIdUser() {
-        return idUser;
+    public List<Blogger> getBloggerList() {
+        return bloggerList;
     }
 
-    public void setIdUser(Userdata idUser) {
-        this.idUser = idUser;
+    public void setBloggerList(List<Blogger> bloggerList) {
+        this.bloggerList = bloggerList;
+    }
+
+    @JsonIgnore
+    @XmlTransient
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
+    }
+
+    public boolean addMessage(Message message) {
+        return this.messageList.add(message);
+    }
+
+    public boolean removeMessage(Message message) {
+        return this.messageList.remove(message);
+    }
+
+    @JsonIgnore
+    @XmlTransient
+    public List<Facebookvisits> getFacebookvisitsList() {
+        return facebookvisitsList;
+    }
+
+    public void setFacebookvisitsList(List<Facebookvisits> facebookvisitsList) {
+        this.facebookvisitsList = facebookvisitsList;
+    }
+
+    @XmlTransient
+    public List<Facebookdata> getFacebookdataList() {
+        return facebookdataList;
+    }
+
+    public void setFacebookdataList(List<Facebookdata> facebookdataList) {
+        this.facebookdataList = facebookdataList;
     }
 
     @Override

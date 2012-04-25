@@ -5,7 +5,7 @@
 package de.fhg.fokus.facades;
 
 import de.fhg.fokus.persistence.Campaign;
-import de.fhg.fokus.persistence.Message;
+import de.fhg.fokus.persistence.Publishchannel;
 import de.fhg.fokus.persistence.Userdata;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -40,5 +40,20 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
     public void refresh(Campaign campaign) {
         getEntityManager().refresh(campaign);
     }
+    
+    public List<Campaign> getCampaignsForUser(Userdata ud) {
+        String jpql = "SELECT c FROM Campaign c, IN (c.userroleList) ur"
+                + " WHERE ur.idUserData = :idUser";  
+      List<Campaign> cList = (List<Campaign>) getEntityManager().createQuery(jpql).setParameter("idUser", ud).getResultList();
+      
+      for (Campaign c : cList){
+          for (Publishchannel pc : c.getPublishchannelList()){
+              pc.setCount(0); //TODO echter counter setzen
+          }
+      }
+      
+      return cList;
+    }
+
     
 }

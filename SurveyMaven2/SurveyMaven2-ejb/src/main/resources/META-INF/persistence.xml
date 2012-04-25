@@ -3,6 +3,8 @@
   <persistence-unit name="PadgetsSurveyWS-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/padgetssurvey</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+        <property name="eclipselink.jpa.uppercase-column-names" value="true" />
+        </properties>
   </persistence-unit>
 </persistence>

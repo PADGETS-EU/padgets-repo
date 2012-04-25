@@ -4,10 +4,7 @@
  */
 package de.fhg.fokus.service;
 
-import de.fhg.fokus.facades.CampaignFacade;
-import de.fhg.fokus.facades.CommentFacade;
-import de.fhg.fokus.facades.MessageFacade;
-import de.fhg.fokus.facades.UserdataFacade;
+import de.fhg.fokus.facades.*;
 import de.fhg.fokus.misc.Counter;
 import de.fhg.fokus.persistence.*;
 import java.util.ArrayList;
@@ -25,6 +22,8 @@ import javax.ws.rs.*;
 @Path("message")
 public class MessageResource {
 
+    @EJB
+    private UserRoleFacade userRoleFacade;
     @EJB
     private CommentFacade commentFacade;
     @EJB
@@ -73,7 +72,7 @@ public class MessageResource {
 
         Campaign relatedCampaign = dbMessage.getIdCampaign();
 
-        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+        if (userRoleFacade.isCampaignPaticipant(ud, relatedCampaign)) { //only paticipants of this campaign can see this object.
             return dbMessage;
         } else {
             Message m = new Message();
@@ -121,7 +120,7 @@ public class MessageResource {
 
         Campaign relatedCampaign = dbMessage.getIdCampaign();
 
-        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+        if (userRoleFacade.isCampaignPaticipant(ud, relatedCampaign)) { //only paticipants of this campaign can see this object.
             return commentFacade.getComments(dbMessage.getIdMessage(), from);
         } else {
             m.setContent("This user have no rights to get information about the comments of this campaign.");
@@ -158,13 +157,13 @@ public class MessageResource {
 
         Campaign relatedCampaign = dbMessage.getIdCampaign();
 
-        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+        if (userRoleFacade.isCampaignPaticipant(ud, relatedCampaign)) { //only paticipants of this campaign can see this object.
             //update related objects
             ud.removeMessage(dbMessage);
             relatedCampaign.removeMessage(dbMessage);
 
             messageFacade.remove(dbMessage);
-        }
+        } 
     }
 
     /**
@@ -204,7 +203,7 @@ public class MessageResource {
 
         Campaign relatedCampaign = m.getIdCampaign();
 
-        if (relatedCampaign.getIdUser().equals(ud) || relatedCampaign.getUserdataList().contains(ud)) { //only paticipants of this campaign can see this object.
+        if (userRoleFacade.isCampaignPaticipant(ud, relatedCampaign)) { //only paticipants of this campaign can see this object.
             Long counter = commentFacade.countComments(messageId);
             co.setCount(counter);
             return co;
