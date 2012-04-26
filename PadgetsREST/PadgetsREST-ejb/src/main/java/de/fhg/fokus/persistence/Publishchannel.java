@@ -65,6 +65,7 @@ public class Publishchannel implements Serializable {
     @Column(name = "networkPhotoUrl")
     private String networkPhotoUrl;
     
+    @Transient
     private int count;
 
     public Publishchannel() {
