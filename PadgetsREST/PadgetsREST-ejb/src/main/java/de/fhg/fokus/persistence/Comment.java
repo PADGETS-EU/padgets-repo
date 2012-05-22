@@ -57,8 +57,11 @@ public class Comment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Size(max = 255)
-    @Column(name = "userProfileUrl")
-    private String userProfileUrl;
+    @Column(name = "authorName")
+    private String authorName;
+    @Size(max = 255)
+    @Column(name = "authorProfileUrl")
+    private String authorProfileUrl;
     @OneToMany(mappedBy = "idComment")
     private List<Publisheditem> publisheditemList;
     @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
@@ -129,15 +132,7 @@ public class Comment implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public String getUserProfileUrl() {
-        return userProfileUrl;
-    }
-
-    public void setUserProfileUrl(String userProfileUrl) {
-        this.userProfileUrl = userProfileUrl;
-    }
+    }   
 
        @JsonIgnore     @XmlTransient
     public List<Publisheditem> getPublisheditemList() {
@@ -188,6 +183,34 @@ public class Comment implements Serializable {
     @Override
     public String toString() {
         return "de.fhg.fokus.persistence.Comment[ idComment=" + idComment + " ]";
+    }
+
+    /**
+     * @return the authorName
+     */
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    /**
+     * @param authorName the authorName to set
+     */
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    /**
+     * @return the authorProfileUrl
+     */
+    public String getAuthorProfileUrl() {
+        return authorProfileUrl;
+    }
+
+    /**
+     * @param authorProfileUrl the authorProfileUrl to set
+     */
+    public void setAuthorProfileUrl(String authorProfileUrl) {
+        this.authorProfileUrl = authorProfileUrl;
     }
     
 }
