@@ -23,7 +23,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "Smpaccount.findAll", query = "SELECT s FROM Smpaccount s"),
     @NamedQuery(name = "Smpaccount.findByIdSmpAccount", query = "SELECT s FROM Smpaccount s WHERE s.idSmpAccount = :idSmpAccount"),
-    @NamedQuery(name = "Smpaccount.findByName", query = "SELECT s FROM Smpaccount s WHERE s.name = :name"),
     @NamedQuery(name = "Smpaccount.findByNetwork", query = "SELECT s FROM Smpaccount s WHERE s.network = :network"),
     @NamedQuery(name = "Smpaccount.findByNetworkUserId", query = "SELECT s FROM Smpaccount s WHERE s.networkUserId = :networkUserId"),
     @NamedQuery(name = "Smpaccount.findByOAuth2Token", query = "SELECT s FROM Smpaccount s WHERE s.oAuth2Token = :oAuth2Token"),
@@ -39,29 +38,32 @@ public class Smpaccount implements Serializable {
     @Column(name = "idSmpAccount")
     private Integer idSmpAccount;
     @Size(max = 255)
-    @Column(name = "name")
-    private String name;
+    @Column(name = "fullname")
+    private String fullname;
     @Size(max = 255)
-    @Column(name = "network")
-    private String network;
+    @Column(name = "provider")
+    private String provider;
     @Size(max = 255)
-    @Column(name = "networkUserId")
-    private String networkUserId;
+    @Column(name = "providerId")
+    private String providerId;
     @Size(max = 255)
-    @Column(name = "oAuth2Token")
-    private String oAuth2Token;
+    @Column(name = "authMethod")
+    private String authMethod;
     @Size(max = 255)
-    @Column(name = "oAuthSecret")
-    private String oAuthSecret;
+    @Column(name = "accessToken")
+    private String accessToken;
     @Size(max = 255)
-    @Column(name = "oAuthToken")
-    private String oAuthToken;
+    @Column(name = "secret")
+    private String secret;
+    @Size(max = 255)
+    @Column(name = "token")
+    private String token;
     @Size(max = 255)
     @Column(name = "profileUrl")
     private String profileUrl;
     @Size(max = 255)
     @Column(name = "profilePhoto")
-    private String profilePhoto;
+    private String avatarUrl;
     @Size(max = 255)
     @Column(name = "username")
     private String username;
@@ -69,9 +71,7 @@ public class Smpaccount implements Serializable {
     @ManyToOne(optional = false)
     private Userdata idUserData;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSmpAccount")
-    private List<Publishchannel> publishchannelList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSmpAccount")
-    private List<Authdata> authdataList;
+    private List<Publishchannel> publishchannelList;    
 
     public Smpaccount() {
     }
@@ -88,52 +88,52 @@ public class Smpaccount implements Serializable {
         this.idSmpAccount = idSmpAccount;
     }
 
-    public String getName() {
-        return name;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
-    public String getNetwork() {
-        return network;
+    public String getProvider() {
+        return provider;
     }
 
-    public void setNetwork(String network) {
-        this.network = network;
+    public void setProvider(String network) {
+        this.provider = network;
     }
 
-    public String getNetworkUserId() {
-        return networkUserId;
+    public String getProviderId() {
+        return providerId;
     }
 
-    public void setNetworkUserId(String networkUserId) {
-        this.networkUserId = networkUserId;
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 
-    public String getOAuth2Token() {
-        return oAuth2Token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setOAuth2Token(String oAuth2Token) {
-        this.oAuth2Token = oAuth2Token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getOAuthSecret() {
-        return oAuthSecret;
+    public String getSecret() {
+        return secret;
     }
 
-    public void setOAuthSecret(String oAuthSecret) {
-        this.oAuthSecret = oAuthSecret;
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
-    public String getOAuthToken() {
-        return oAuthToken;
+    public String getToken() {
+        return token;
     }
 
-    public void setOAuthToken(String oAuthToken) {
-        this.oAuthToken = oAuthToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getProfileUrl() {
@@ -144,12 +144,12 @@ public class Smpaccount implements Serializable {
         this.profileUrl = profileUrl;
     }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setProfilePhoto(String profilePhoto) {
-        this.profilePhoto = profilePhoto;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public String getUsername() {
@@ -175,16 +175,7 @@ public class Smpaccount implements Serializable {
 
     public void setPublishchannelList(List<Publishchannel> publishchannelList) {
         this.publishchannelList = publishchannelList;
-    }
-
-       @JsonIgnore     @XmlTransient
-    public List<Authdata> getAuthdataList() {
-        return authdataList;
-    }
-
-    public void setAuthdataList(List<Authdata> authdataList) {
-        this.authdataList = authdataList;
-    }
+    }    
 
     @Override
     public int hashCode() {
@@ -209,6 +200,20 @@ public class Smpaccount implements Serializable {
     @Override
     public String toString() {
         return "de.fhg.fokus.persistence.Smpaccount[ idSmpAccount=" + idSmpAccount + " ]";
+    }
+
+    /**
+     * @return the authMethod
+     */
+    public String getAuthMethod() {
+        return authMethod;
+    }
+
+    /**
+     * @param authMethod the authMethod to set
+     */
+    public void setAuthMethod(String authMethod) {
+        this.authMethod = authMethod;
     }
     
 }

@@ -158,8 +158,7 @@ public class SampleSessionBean {
         ud.setFirstname("Max");
         ud.setGender("male");
         ud.setOrganization("My Organization");
-        ud.setSurname("Schmidt");
-        ud.setMiddlename("Midd");
+        ud.setLastname("Schmidt");
         ud.setUsername("Maxi1993");
         ud.setViewLanguage("African");
         

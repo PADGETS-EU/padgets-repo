@@ -81,8 +81,7 @@ public class UserResource {
         ud.setFirstname(user.getFirstname());
         ud.setGender(user.getGender());
         ud.setOrganization(user.getOrganization());
-        ud.setSurname(user.getSurname());
-        ud.setMiddlename(user.getMiddlename());
+        ud.setLastname(user.getLastname());
         ud.setUsername(user.getUsername());
         ud.setViewLanguage(user.getViewLanguage());
         

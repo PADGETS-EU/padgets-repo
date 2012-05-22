@@ -32,11 +32,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Userdata.findByEmail", query = "SELECT u FROM Userdata u WHERE u.email = :email"),
     @NamedQuery(name = "Userdata.findByUsername", query = "SELECT u FROM Userdata u WHERE u.username = :username"),
     @NamedQuery(name = "Userdata.findByFirstname", query = "SELECT u FROM Userdata u WHERE u.firstname = :firstname"),
-    @NamedQuery(name = "Userdata.findByMiddlename", query = "SELECT u FROM Userdata u WHERE u.middlename = :middlename"),
-    @NamedQuery(name = "Userdata.findBySurname", query = "SELECT u FROM Userdata u WHERE u.surname = :surname"),
     @NamedQuery(name = "Userdata.findByGender", query = "SELECT u FROM Userdata u WHERE u.gender = :gender"),
-    @NamedQuery(name = "Userdata.findByOpenIDVerifiedIdentifier", query = "SELECT u FROM Userdata u WHERE u.openIDVerifiedIdentifier = :openIDVerifiedIdentifier"),
-    @NamedQuery(name = "Userdata.findByOpenid", query = "SELECT u FROM Userdata u WHERE u.openid = :openid"),
     @NamedQuery(name = "Userdata.findByOrganization", query = "SELECT u FROM Userdata u WHERE u.organization = :organization"),
     @NamedQuery(name = "Userdata.findByUserSIGN", query = "SELECT u FROM Userdata u WHERE u.userSIGN = :userSIGN"),
     @NamedQuery(name = "Userdata.findByViewLanguage", query = "SELECT u FROM Userdata u WHERE u.viewLanguage = :viewLanguage")})
@@ -65,20 +61,26 @@ public class Userdata implements Serializable {
     @Column(name = "firstname")
     private String firstname;
     @Size(max = 255)
-    @Column(name = "middlename")
-    private String middlename;
+    @Column(name = "lastname")
+    private String lastname;
     @Size(max = 255)
-    @Column(name = "surname")
-    private String surname;
+    @Column(name = "fullname")
+    private String fullname;
+    @Size(max = 255)
+    @Column(name = "avatarUrl")
+    private String avatarUrl;
+    @Size(max = 255)
+    @Column(name = "profileUrl")
+    private String profileUrl;
+    @Size(max = 255)
+    @Column(name = "provider")
+    private String provider;
+    @Size(max = 255)
+    @Column(name = "providerId")
+    private String providerId;
     @Size(max = 45)
     @Column(name = "gender")
-    private String gender;
-    @Size(max = 255)
-    @Column(name = "openIDVerifiedIdentifier")
-    private String openIDVerifiedIdentifier;
-    @Size(max = 255)
-    @Column(name = "openid")
-    private String openid;
+    private String gender;        
     @Size(max = 255)
     @Column(name = "organization")
     private String organization;
@@ -94,8 +96,6 @@ public class Userdata implements Serializable {
     private List<Userrole> userroleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Publishchannel> publishchannelList;
-    @OneToMany(mappedBy = "idUserData")
-    private List<Authdata> authdataList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Message> messageList;
     @OneToMany(mappedBy = "idUserData")
@@ -156,20 +156,20 @@ public class Userdata implements Serializable {
         this.firstname = firstname;
     }
 
-    public String getMiddlename() {
-        return middlename;
+    public String geFullname() {
+        return fullname;
     }
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
+    public void setFullname(String fullname) {
+        this.fullname  = fullname;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getGender() {
@@ -178,27 +178,7 @@ public class Userdata implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public String getOpenIDVerifiedIdentifier() {
-        return openIDVerifiedIdentifier;
-    }
-
-    public void setOpenIDVerifiedIdentifier(String openIDVerifiedIdentifier) {
-        this.openIDVerifiedIdentifier = openIDVerifiedIdentifier;
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
+    }    
 
     public String getOrganization() {
         return organization;
@@ -263,17 +243,7 @@ public class Userdata implements Serializable {
 
     public void setPublishchannelList(List<Publishchannel> publishchannelList) {
         this.publishchannelList = publishchannelList;
-    }
-
-    @JsonIgnore
-    @XmlTransient
-    public List<Authdata> getAuthdataList() {
-        return authdataList;
-    }
-
-    public void setAuthdataList(List<Authdata> authdataList) {
-        this.authdataList = authdataList;
-    }
+    }    
 
     @JsonIgnore
     @XmlTransient
@@ -325,5 +295,61 @@ public class Userdata implements Serializable {
     @Override
     public String toString() {
         return "de.fhg.fokus.persistence.Userdata[ idUserData=" + idUserData + " ]";
+    }
+
+    /**
+     * @return the avatarUrl
+     */
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    /**
+     * @param avatarUrl the avatarUrl to set
+     */
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    /**
+     * @return the profileUrl
+     */
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    /**
+     * @param profileUrl the profileUrl to set
+     */
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    /**
+     * @return the provider
+     */
+    public String getProvider() {
+        return provider;
+    }
+
+    /**
+     * @param provider the provider to set
+     */
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    /**
+     * @return the providerId
+     */
+    public String getProviderId() {
+        return providerId;
+    }
+
+    /**
+     * @param providerId the providerId to set
+     */
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
     }
 }
