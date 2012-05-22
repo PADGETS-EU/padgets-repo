@@ -18,36 +18,36 @@ import org.joda.time.DateMidnight;
  */
 @Stateless
 public class SampleSessionBean {
-
+    
     public Campaign makeSampleCampaign() {
         Campaign c = new Campaign();
         c.setIdCampaign(99999999);
         c.setTitle("Campaign Title");
         c.setActive(false);
-
+        
         DateMidnight cDate = new DateMidnight();
         c.setCreationdate(cDate.toDate());
         c.setStartdate(cDate.plusDays(2).toDate());
         c.setEnddate(cDate.plusMonths(2).toDate());
-
-
+        
+        
         c.setNotes("These are Notes");
         c.setUrl("http://campaignURI.com");
         c.setHashTag("#HashTag");
-
-
+        
+        
         Campaigntopics ct1 = new Campaigntopics();
         ct1.setTopic("Campaigntopic 1");
         Campaigntopics ct2 = new Campaigntopics();
         ct2.setTopic("Campaigntopic 2");
-
+        
         List<Campaigntopics> ct_list = new ArrayList<>();
         ct_list.add(ct1);
         ct_list.add(ct2);
         c.setCampaigntopicsList(ct_list);
         
         c.setPublishchannelList(makeSamplePublishChannelList());
-
+        
         Location l = new Location(9999);
         l.setName("Berlin");
         c.setIdLocation(l);
@@ -57,7 +57,7 @@ public class SampleSessionBean {
         ur.setIdUserRole(111);
         ur.setUserRole("manager");
         
-                Userrole ur2 = new Userrole();
+        Userrole ur2 = new Userrole();
         ur2.setIdCampaign(c);
         ur2.setIdUserRole(111);
         ur2.setUserRole("helper");
@@ -70,14 +70,14 @@ public class SampleSessionBean {
         
         return c;
     }
-
+    
     public List<Campaign> makeSampleCampaignList() {
         List<Campaign> cList = new ArrayList<>();
         cList.add(makeSampleCampaign());
         cList.add(makeSampleCampaign());
         return cList;
     }
-
+    
     public Message makeSampleMessage() {
         Message m = new Message();
         m.setContent("That is content!");
@@ -89,20 +89,20 @@ public class SampleSessionBean {
         m.setPermalink("social link");
         m.setTitle("Message Title");
         m.setType("Type of Message");
-
+        
         m.setPublisheditemList(makeSamplePublisheditemList());
         
         return m;
     }
     
     public List<Publisheditem> makeSamplePublisheditemList() {
-                Publisheditem pi = new Publisheditem();
+        Publisheditem pi = new Publisheditem();
         pi.setIdPublishedItem(99999);
         pi.setIsPublished(Boolean.TRUE);
         pi.setNetworkPostId("network Post Id");
         pi.setPermalink("http://permalink/1234567890");
         
-                Publisheditem pi2 = new Publisheditem();
+        Publisheditem pi2 = new Publisheditem();
         pi2.setIdPublishedItem(88888);
         pi2.setIsPublished(Boolean.FALSE);
         pi2.setNetworkPostId("network Post Id");
@@ -115,7 +115,6 @@ public class SampleSessionBean {
         return pList;
     }
     
-
     public List<Message> makeSampleMessageList() {
         List<Message> mList = new ArrayList<>();
         mList.add(makeSampleMessage());
@@ -123,7 +122,7 @@ public class SampleSessionBean {
         return mList;
     }
     
-    public List<Publishchannel> makeSamplePublishChannelList(){
+    public List<Publishchannel> makeSamplePublishChannelList() {
         List<Publishchannel> pcList = new ArrayList<>();
         Publishchannel pc = new Publishchannel();
         pc.setIdPublishChannel(10101010);
@@ -148,7 +147,7 @@ public class SampleSessionBean {
         
         return pcList;
     }
-
+    
     public Userdata makeSampleUser() {
         Userdata ud = new Userdata();
         
@@ -164,7 +163,7 @@ public class SampleSessionBean {
         
         return ud;
     }
-
+    
     public Comment makeSampleComment() {
         Comment c = new Comment();
         c.setAnnotation(Boolean.TRUE);
@@ -174,23 +173,23 @@ public class SampleSessionBean {
         c.setNetwork("network:twitter, facebook, bloger");
         c.setNetworkCommentId("NetworkCommentId");
         c.setNetworkCommentUrl("NetworkCommentUrl");
-        c.setUserProfileUrl("http://facebook.de/user/hannes");
+        c.setAuthorName("hannes");
+        c.setAuthorProfileUrl("http://facebook.de/user/hannes");
         
         return c;
     }
-
+    
     public List<Comment> makeSampleCommentList() {
-         List<Comment> mList = new ArrayList<>();
-         mList.add(makeSampleComment());
-         mList.add(makeSampleComment());
-         
-         return mList;
+        List<Comment> mList = new ArrayList<>();
+        mList.add(makeSampleComment());
+        mList.add(makeSampleComment());
+        
+        return mList;
     }
-
+    
     public Counter makeSampleCounter() {
-       Counter c = new Counter();
-       c.setCount(-999);
-       return c;
+        Counter c = new Counter();
+        c.setCount(-999);
+        return c;
     }
-
 }
