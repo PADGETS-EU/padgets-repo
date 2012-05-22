@@ -22,12 +22,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Smpaccount.findAll", query = "SELECT s FROM Smpaccount s"),
-    @NamedQuery(name = "Smpaccount.findByIdSmpAccount", query = "SELECT s FROM Smpaccount s WHERE s.idSmpAccount = :idSmpAccount"),
-    @NamedQuery(name = "Smpaccount.findByNetwork", query = "SELECT s FROM Smpaccount s WHERE s.network = :network"),
-    @NamedQuery(name = "Smpaccount.findByNetworkUserId", query = "SELECT s FROM Smpaccount s WHERE s.networkUserId = :networkUserId"),
-    @NamedQuery(name = "Smpaccount.findByOAuth2Token", query = "SELECT s FROM Smpaccount s WHERE s.oAuth2Token = :oAuth2Token"),
-    @NamedQuery(name = "Smpaccount.findByOAuthSecret", query = "SELECT s FROM Smpaccount s WHERE s.oAuthSecret = :oAuthSecret"),
-    @NamedQuery(name = "Smpaccount.findByOAuthToken", query = "SELECT s FROM Smpaccount s WHERE s.oAuthToken = :oAuthToken"),
     @NamedQuery(name = "Smpaccount.findByUsername", query = "SELECT s FROM Smpaccount s WHERE s.username = :username")})
 public class Smpaccount implements Serializable {
     private static final long serialVersionUID = 1L;
