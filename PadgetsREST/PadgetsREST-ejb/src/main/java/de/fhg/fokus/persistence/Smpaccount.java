@@ -9,7 +9,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement; import org.codehaus.jackson.map.annotate.JsonSerialize;
+import javax.xml.bind.annotation.XmlRootElement;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -19,11 +20,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
  */
 @Entity
 @Table(name = "smpaccount")
-@XmlRootElement  @JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
+@XmlRootElement
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 @NamedQueries({
     @NamedQuery(name = "Smpaccount.findAll", query = "SELECT s FROM Smpaccount s"),
     @NamedQuery(name = "Smpaccount.findByUsername", query = "SELECT s FROM Smpaccount s WHERE s.username = :username")})
 public class Smpaccount implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,7 +59,7 @@ public class Smpaccount implements Serializable {
     @Column(name = "profileUrl")
     private String profileUrl;
     @Size(max = 255)
-    @Column(name = "profilePhoto")
+    @Column(name = "avatarUrl")
     private String avatarUrl;
     @Size(max = 255)
     @Column(name = "username")
@@ -65,7 +68,7 @@ public class Smpaccount implements Serializable {
     @ManyToOne(optional = false)
     private Userdata idUserData;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSmpAccount")
-    private List<Publishchannel> publishchannelList;    
+    private List<Publishchannel> publishchannelList;
 
     public Smpaccount() {
     }
@@ -106,6 +109,8 @@ public class Smpaccount implements Serializable {
         this.providerId = providerId;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getAccessToken() {
         return accessToken;
     }
@@ -114,6 +119,8 @@ public class Smpaccount implements Serializable {
         this.accessToken = accessToken;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getSecret() {
         return secret;
     }
@@ -122,6 +129,8 @@ public class Smpaccount implements Serializable {
         this.secret = secret;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getToken() {
         return token;
     }
@@ -162,14 +171,15 @@ public class Smpaccount implements Serializable {
         this.idUserData = idUserData;
     }
 
-       @JsonIgnore     @XmlTransient
+    @JsonIgnore
+    @XmlTransient
     public List<Publishchannel> getPublishchannelList() {
         return publishchannelList;
     }
 
     public void setPublishchannelList(List<Publishchannel> publishchannelList) {
         this.publishchannelList = publishchannelList;
-    }    
+    }
 
     @Override
     public int hashCode() {
@@ -180,7 +190,7 @@ public class Smpaccount implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+
         if (!(object instanceof Smpaccount)) {
             return false;
         }
@@ -209,5 +219,4 @@ public class Smpaccount implements Serializable {
     public void setAuthMethod(String authMethod) {
         this.authMethod = authMethod;
     }
-    
 }
