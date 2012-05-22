@@ -124,6 +124,10 @@ public class CampaignResource {
         }
         campaign.setCreationdate(new Date());//today
 
+        // chck hashTag
+        if(!campaign.getHashTag().isEmpty() && !campaign.getHashTag().contains("#"))
+            campaign.setHashTag("#" + campaign.getHashTag());
+        
         campaignFacade.create(campaign);
         
         if (topicList != null) {
@@ -186,10 +190,14 @@ public class CampaignResource {
             return c;
         }
         
+        // chck hashTag
+        if(!campaign.getHashTag().isEmpty() && !campaign.getHashTag().contains("#"))
+            campaign.setHashTag("#" + campaign.getHashTag());
+        
         if (userroleFacade.isCampaignManager(ud, campaign)) { //is the user the campaign manager? 
             dbCampaign.setActive(campaign.getActive());
             dbCampaign.setCreationdate(campaign.getCreationdate());
-            dbCampaign.setEnddate(campaign.getEnddate());
+            dbCampaign.setEnddate(campaign.getEnddate());           
             dbCampaign.setHashTag(campaign.getHashTag());
             dbCampaign.setNotes(campaign.getNotes());
             dbCampaign.setStartdate(campaign.getStartdate());
