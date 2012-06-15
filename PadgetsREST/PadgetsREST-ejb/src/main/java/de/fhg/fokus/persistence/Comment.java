@@ -29,7 +29,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Comment.findByNetworkCommentId", query = "SELECT c FROM Comment c WHERE c.networkCommentId = :networkCommentId"),
     @NamedQuery(name = "Comment.findByNetworkCommentUrl", query = "SELECT c FROM Comment c WHERE c.networkCommentUrl = :networkCommentUrl"),
     @NamedQuery(name = "Comment.findByCreateTime", query = "SELECT c FROM Comment c WHERE c.createTime = :createTime"),
-    @NamedQuery(name = "Comment.findByUserProfileUrl", query = "SELECT c FROM Comment c WHERE c.userProfileUrl = :userProfileUrl")})
+    @NamedQuery(name = "Comment.findByAuthorProfileUrl", query = "SELECT c FROM Comment c WHERE c.authorProfileUrl = :authorProfileUrl")})
 public class Comment implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
