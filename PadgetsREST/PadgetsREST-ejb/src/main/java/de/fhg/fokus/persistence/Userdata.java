@@ -93,7 +93,7 @@ public class Userdata implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "firstLogin")
-    private boolean firstLogin;
+    private boolean firstLogin;    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Smpaccount> smpaccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
@@ -208,6 +208,14 @@ public class Userdata implements Serializable {
 
     public void setViewLanguage(String viewLanguage) {
         this.viewLanguage = viewLanguage;
+    }
+    
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
     }
 
     @JsonIgnore
