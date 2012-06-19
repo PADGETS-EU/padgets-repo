@@ -90,6 +90,10 @@ public class Userdata implements Serializable {
     @Size(max = 255)
     @Column(name = "viewLanguage")
     private String viewLanguage;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "firstLogin")
+    private boolean firstLogin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
     private List<Smpaccount> smpaccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUserData")
