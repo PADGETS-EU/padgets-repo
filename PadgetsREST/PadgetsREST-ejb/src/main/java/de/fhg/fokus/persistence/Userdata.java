@@ -210,7 +210,7 @@ public class Userdata implements Serializable {
         this.viewLanguage = viewLanguage;
     }
     
-    public boolean isFirstLogin() {
+    public boolean getFirstLogin() {
         return firstLogin;
     }
 
