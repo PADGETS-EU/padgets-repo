@@ -84,6 +84,7 @@ public class UserResource {
         ud.setLastname(user.getLastname());
         ud.setUsername(user.getUsername());
         ud.setViewLanguage(user.getViewLanguage());
+        ud.setFirstLogin(user.getFirstLogin());
         
         userdataFacade.edit(ud);
         
