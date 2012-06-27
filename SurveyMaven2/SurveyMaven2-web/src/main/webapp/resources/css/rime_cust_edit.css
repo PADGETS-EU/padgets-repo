@@ -1,17 +1,7 @@
-/*VOTE*/
+/*EDIT*/
 
 .content {
     background-color: #4D4D4D;
-}
-
-.firebugResetStyles {
-	box-shadow: none !important;
-	border: transparent !important;
-}
-
-.firebugBlockBackgroundColor {
-	box-shadow: none !important;
-	border: transparent !important;
 }
 
 /* table row */
@@ -36,9 +26,7 @@ height: 40px
 }
 
 .vote_question_box {
-    padding-top: 20px;		/*modified*/
-    padding-left: 20px;		/*modified*/
-    background-color: white;	/*modified*/
+    padding: 3px;
 }
 
 .vote_caption {
@@ -55,11 +43,11 @@ button
     bottom: 0px;
     float: left;
     height: 24px;
-    width: 100px;
+    width: 115px;		/*Modified was 100px*/
 }
 
 .button_text {
-    padding: 5px 0px 0px 14px;
+    padding: 5px 0px 0px 4px;	/*Modified was 5px 0px 0px 14px*/
 }
 
 .button_pic {
@@ -75,6 +63,7 @@ margin-left: 2px;
 
 #removeQuestion_div {
     display: inline-block;
+    margin-top: 10px;		/*Modified*/
 }
 
 /*
@@ -312,52 +301,28 @@ border: 1px solid #272727;
     color: white;
 }
 
-.icePnlSrs {			/*modified*/
-	margin-top:30px;	/*modified*/
-	margin-left: 20px;	/*modified*/
-	margin-bottom: 20px;	/*modified*/
+.iceInpTxt {		/*Modified*/
+	width:	114px;
+	height:	24px;
 }
 
-.iceOutTxt {			/*modified*/
-	margin-left: 1px;
-	color: black;
+.iceOutTxt {
+	margin-left: 10px !important;
 }
 
-.iceSelOneRb {
-	border-color: transparent !important;
-	margin-left: -1px;	/*modified*/
-	padding-left: 1px;	/*modified*/
-	margin-top: 6px;	/*modified*/
+.icePnlGrdCol2 {
+	padding-left: 20px !important;
 }
 
-.vote_question {		/*modified*/
-	width: 1500px;
-	background-color: #E6E6E6;	/*modified*/
-	padding: 6px;
-	font-weight: bold;		/*modified*/
+.icePnlGrp {
+	margin-top: 10px;
 }
 
-.iceSelMnyCb {
-	border: transparent;		/*modified*/
-	margin-left: -7px;	/*modified*/
-	padding: 5px;		/*modified*/
+.icePnlGrd {		/*Modified*/
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.iceCmdBtn {			/*modified*/
-    	background-color: white !important;
-    	border: medium none transparent;
-    	clear: both;
-    	color: #4D4D4D;
-    	height: 24px;
-    	line-height: 23px;
-    	margin-left: 20px;
-    	text-align: center;
-    	width: 100px;
+.icePnlGrdCol1 {
+	margin-left: 10px !important;
 }
-
-/*
-.iceFrm {
-	background-color: red;
-	height: 100px;
-}*/
-
