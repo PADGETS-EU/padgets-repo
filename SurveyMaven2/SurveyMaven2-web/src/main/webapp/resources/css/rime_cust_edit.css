@@ -1,0 +1,363 @@
+/*VOTE*/
+
+.content {
+    background-color: #4D4D4D;
+}
+
+.firebugResetStyles {
+	box-shadow: none !important;
+	border: transparent !important;
+}
+
+.firebugBlockBackgroundColor {
+	box-shadow: none !important;
+	border: transparent !important;
+}
+
+/* table row */
+
+.icePnlGrdRow1, .icePnlGrdRow2 {
+height: 40px
+}
+
+/*
+----------- Vote --------
+*/
+
+.vote_question {
+    background-color:lightgray;
+    padding: 2px;
+    font-size: large;
+    color: white;
+}
+
+.vote_answer {
+    margin-left: 10px;
+}
+
+.vote_question_box {
+    padding-top: 20px;		/*modified*/
+    padding-left: 20px;		/*modified*/
+    background-color: white;	/*modified*/
+}
+
+.vote_caption {
+    font-size: x-large;
+    text-decoration: underline;
+}
+
+/*
+button
+*/
+
+.button_box {
+    background-color: #272727;
+    bottom: 0px;
+    float: left;
+    height: 24px;
+    width: 100px;
+}
+
+.button_text {
+    padding: 5px 0px 0px 14px;
+}
+
+.button_pic {
+    background-color: #272727;
+height: 24px;
+margin-left: 2px;
+}
+
+#addAnswer_div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+#removeQuestion_div {
+    display: inline-block;
+}
+
+/*
+----------- Panel Collapsible --------
+*/
+
+/*
+----------- panelGroup ----------
+*/
+.icePnlGrp {
+    color: black;
+    font-family: Arimo, Helvetia sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.icePnlClpsbl, .icePnlClpsbl-dis {
+    border: none;
+}
+
+.icePnlClpsblCnt .icePnlClpsbl {
+    border: none;
+}
+
+.icePnlClpsblHdr, .icePnlClpsblHdr-dis {
+    color: #484848;
+    padding: 2px 0 2px 4px;
+    height: 20px;
+    background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
+    border-bottom: none;
+}
+
+.icePnlClpsblHdr-dis {
+    background: #FFF url( './css-images/table_col_header_dis.gif' ) repeat-x top left;
+}
+
+.icePnlClpsblHdr .iceCmdLnk, .icePnlClpsblColpsdHdr .iceCmdLnk {
+    padding-left: 22px;
+}
+
+.icePnlClpsblHdr .icePnlGrp a, .icePnlClpsblHdr-dis .icePnlGrp a {
+	font-weight: bold;
+}
+
+.icePnlClpsblCnt, .icePnlClpsblCnt-dis {
+    font: 11px / 17px tahoma;
+    color: #494949;
+    background: #4D4D4D;
+    padding: 4px 4px 4px 9px;
+    border-bottom: none;
+}
+
+.icePnlClpsblCnt-dis {
+    background-color: #e5e5e5;
+}
+
+.icePnlClpsblCnt .icePnlClpsblHdr {
+    font: 11px tahoma;
+    color: #484848;
+    padding: 0 0 0 0;
+    font-weight: bold;
+    height: 20px;
+    border: none;
+    margin-top: 8px;
+}
+
+.icePnlClpsblCnt .icePnlClpsblHdr .iceOutTxt {
+    background: none;
+}
+
+.icePnlClpsblCnt .icePnlClpsblColpsdHdr {
+        font-family: Arimo, Helvetia sans-serif;
+    font-size: 12px;
+    color: #484848;
+    padding: 0 0 0 0;
+    font-weight: bold;
+    height: 20px;
+    border: none;
+    margin-top: 8px;
+}
+
+.icePnlClpsblCnt .icePnlClpsblColpsdHdr .iceOutTxt{
+    background: none;
+}
+
+.icePnlClpsblCnt .icePnlClpsblCnt {
+    border-left: none;
+    border-right: none;
+    padding: 0 0 0 10px;
+}
+
+.icePnlClpsblColpsd, .icePnlClpsblColpsd-dis {
+    border: none;
+    height: 24px
+}
+
+.icePnlClpsblCnt .icePnlClpsblColpsd {
+    border: none;
+}
+
+.icePnlClpsblColpsdHdr, .icePnlClpsblColpsdHdr-dis {
+    color: #484848;
+    padding: 2px 0 2px 4px;
+    height: 20px;
+    background: #FFF url( './css-images/table_col_header.gif' ) repeat-x top left;
+    border-bottom: none;
+}
+
+.icePnlClpsblColpsdHdr-dis {
+    background: #FFF url( './css-images/table_col_header_dis.gif' ) repeat-x top left;
+}
+
+.icePnlClpsblColpsdHdr .iceOutTxt, .icePnlClpsblHdr .iceOutTxt, 
+.icePnlClpsblColpsdHdr-dis .iceOutTxt, .icePnlClpsblHdr-dis .iceOutTxt {
+    padding-left: 40px;
+}
+
+.icePnlClpsblColpsdCnt, .icePnlClpsblColpsdCnt-dis {
+    border: none;
+}
+
+.icePnlClpsblHdr, .icePnlClpsblColpsdHdr {
+    cursor: pointer;
+}
+
+.icePnlClpsblHdr-dis, .icePnlClpsblColpsdHdr-dis {
+    cursor: default;
+}
+
+.icePnlClpsblHdr div, .icePnlClpsblHdr-dis div, .icePnlClpsblColpsdHdr div, .icePnlClpsblColpsdHdr-dis div {
+    background-repeat: no-repeat;
+    background-position: left top;
+    height: 20px;
+}
+
+.icePnlClpsblHdr div {
+    background: url(/SurveyMaven2-web/javax.faces.resource/images/pfeil_inactive_rechts.svg.xhtml) no-repeat top left;
+    padding: 2px 0 0 36px;
+    margin: 0;
+    background-position: 3px -3px;   
+
+}
+
+.icePnlClpsblHdr-dis div {
+    background: url( './images/pfeil_inactive.svg' ) no-repeat top left;
+    padding: 5px 0 0 5px;
+    margin: -2px 0 0 -2px;
+    background-position: 3px 2px;     
+}
+
+.icePnlClpsblColpsdHdr div {
+    background: url(/SurveyMaven2-web/javax.faces.resource/images/pfeil_inactive.svg.xhtml) no-repeat top left;
+    padding: 2px 0 0 36px;
+    margin: 0px;
+    background-position: 3px -2px;     
+}
+
+.icePnlClpsblColpsdHdr-dis div {
+    background: url( './css-images/PnlHdr_collapsed_dis.gif' ) no-repeat top left;
+    padding: 5px 0 0 5px;
+    margin: -2px 0 0 -2px;
+    background-position: 3px 2px;    
+}
+
+.icePnlClpsbl-dis, .icePnlClpsblHdr-dis, .icePnlClpsblCnt-dis,
+.icePnlClpsblColpsd-dis, .icePnlClpsblColpsdHdr-dis, .icePnlClpsblColpsdCnt-dis{
+    color: #999;
+}
+
+.icePnlClpsblHdr-dis .iceOutTxt, .icePnlClpsblCnt-dis .iceOutTxt,
+.icePnlClpsblColpsdHdr-dis .iceOutTxt, .icePnlClpsblColpsdCnt-dis .iceOutTxt {
+    color: #999;
+}
+
+.icePnlClpsblHdr img, .icePnlClpsblColpsdHdr img {
+    border: 0;
+}
+
+/* input area */
+
+.iceInpTxt, .iceInpSecrt, .iceInpTxtArea {
+    margin: 0px;
+    padding: 0px;
+    background: #272727;
+    border: none;
+    height: 14px;
+    width: 75%;
+}
+
+/* calendar */
+.iceSelInpDateInput {
+width: 150px;
+    margin: 0px;
+    padding: 0px;
+background-color: #272727;
+border: none;
+    height: 20px;
+    width: 75%;
+}
+
+.iceSelInpDateOpenPopup, .iceSelInpDateOpenPopup-dis {
+display: inline;
+text-decoration: none;
+background-color: transparent;
+background-image: url(/SurveyMaven2-web/javax.faces.resource/images/calendar_white.svg.xhtml);
+background-repeat: no-repeat;
+text-align: center;
+border: none;
+width: 16px;
+height: 16px;
+margin-left: 5px;
+}
+
+/* drop down */
+.iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb {
+margin: 2px;
+padding: 3px;
+background: #272727;
+border: 1px solid #272727;
+}
+
+
+/* font */
+@font-face {
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Arimo'), url('http://themes.googleusercontent.com/static/fonts/arimo/v3/wZLYhRRxZWGToTRP78bqJQ.woff') format('woff');
+}
+
+.iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb, .iceSelInpDateInput, .iceInpTxt, .iceInpSecrt, .iceInpTxtArea, .iceOutTxt, .iceOutLbl, .iceCmdLnk, .iceOutLnk, .icePnlClpsblHdr, .icePnlClpsblHdr-dis   {
+        font-family: Arimo, Helvetia sans-serif;
+            font-weight: normal;
+    font-size: 12px;
+    color: white;
+}
+
+.icePnlSrs {			/*modified*/
+	margin-top:30px;	/*modified*/
+	margin-left: 20px;	/*modified*/
+	margin-bottom: 20px;	/*modified*/
+}
+
+.iceOutTxt {			/*modified*/
+	margin-left: 1px;
+	color: black;
+}
+
+.iceSelOneRb {
+	border-color: transparent !important;
+	margin-left: -1px;	/*modified*/
+	padding-left: 1px;	/*modified*/
+	margin-top: 6px;	/*modified*/
+}
+
+.vote_question {		/*modified*/
+	width: 1500px;
+	background-color: #E6E6E6;	/*modified*/
+	padding: 6px;
+	font-weight: bold;		/*modified*/
+}
+
+.iceSelMnyCb {
+	border: transparent;		/*modified*/
+	margin-left: -7px;	/*modified*/
+	padding: 5px;		/*modified*/
+}
+
+.iceCmdBtn {			/*modified*/
+    	background-color: white !important;
+    	border: medium none transparent;
+    	clear: both;
+    	color: #4D4D4D;
+    	height: 24px;
+    	line-height: 23px;
+    	margin-left: 20px;
+    	text-align: center;
+    	width: 100px;
+}
+
+/*
+.iceFrm {
+	background-color: red;
+	height: 100px;
+}*/
+
