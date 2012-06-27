@@ -296,7 +296,7 @@ public class CampaignResource {
 
             List<Message> messages = messageFacade.getMessages(dbCampaign.getIdCampaign(), from);
             Userrole userRole = userroleFacade.getUserRole(ud, dbCampaign);
-            userRole.setLastActive(new Date()); //now
+//            userRole.setLastActive(new Date()); //now
             userroleFacade.edit(userRole);
             return messages;
        
