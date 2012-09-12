@@ -201,7 +201,7 @@ margin-left: 2px;
 
 .icePnlClpsblHdr div {
     background: url(/SurveyMaven2-web/javax.faces.resource/images/pfeil_inactive_rechts.svg.xhtml) no-repeat top left;
-    padding: 4px 0 0 4px;				/*Modified*/
+    padding: 4px 0 0 36px;				/*Modified!!!*/
     margin: 0;
     background-position: 3px -3px;   
 
