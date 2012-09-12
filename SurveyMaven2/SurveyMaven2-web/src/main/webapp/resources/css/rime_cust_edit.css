@@ -42,7 +42,7 @@ button
     background-color: #272727;
     bottom: 0px;
     float: left;
-    height: 24px;
+    height: 27px;
     width: 115px;		/*Modified was 100px*/
 }
 
@@ -52,7 +52,7 @@ button
 
 .button_pic {
     background-color: #272727;
-height: 24px;
+height: 27px;
 margin-left: 2px;
 }
 
@@ -201,7 +201,7 @@ margin-left: 2px;
 
 .icePnlClpsblHdr div {
     background: url(/SurveyMaven2-web/javax.faces.resource/images/pfeil_inactive_rechts.svg.xhtml) no-repeat top left;
-    padding: 2px 0 0 36px;
+    padding: 4px 0 0 4px;				/*Modified*/
     margin: 0;
     background-position: 3px -3px;   
 
@@ -257,7 +257,7 @@ margin-left: 2px;
 .iceSelInpDateInput {
 width: 150px;
     margin: 0px;
-    padding: 0px;
+    padding: 2px;			/*Modified*/
 background-color: #272727;
 border: none;
     height: 20px;
@@ -304,6 +304,10 @@ border: 1px solid #272727;
 .iceInpTxt {		/*Modified*/
 	width:	114px;
 	height:	24px;
+	padding-left: 4px;
+    	padding-right: 4px;
+	background-color: #4d4d4d;
+	border: 1px solid white;
 }
 
 .iceOutTxt {
@@ -325,4 +329,9 @@ border: 1px solid #272727;
 
 .icePnlGrdCol1 {
 	margin-left: 10px !important;
+}
+
+.iceGphImg {		/*Modified*/
+	width: 20px;
+	height: 27px;
 }

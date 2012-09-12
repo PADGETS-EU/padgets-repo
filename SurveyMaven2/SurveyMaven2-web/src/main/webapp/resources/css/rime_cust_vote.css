@@ -308,7 +308,7 @@ border: 1px solid #272727;
 .iceSelOneMnu, .iceSelMnyLb, .iceSelMnyMnu, .iceSelOneLb, .iceSelInpDateInput, .iceInpTxt, .iceInpSecrt, .iceInpTxtArea, .iceOutTxt, .iceOutLbl, .iceCmdLnk, .iceOutLnk, .icePnlClpsblHdr, .icePnlClpsblHdr-dis   {
         font-family: Arimo, Helvetia sans-serif;
             font-weight: normal;
-    font-size: 12px;
+    font-size: 13px;
     color: white;
 }
 
@@ -328,12 +328,13 @@ border: 1px solid #272727;
 	margin-left: -1px;	/*modified*/
 	padding-left: 1px;	/*modified*/
 	margin-top: 6px;	/*modified*/
+	line-height: 2.5;	/*modified*/
 }
 
 .vote_question {		/*modified*/
 	width: 1500px;
 	background-color: #E6E6E6;	/*modified*/
-	padding: 6px;
+	padding: 3px 0;
 	font-weight: bold;		/*modified*/
 }
 
@@ -341,6 +342,7 @@ border: 1px solid #272727;
 	border: transparent;		/*modified*/
 	margin-left: -7px;	/*modified*/
 	padding: 5px;		/*modified*/
+	line-height: 2.5;	/*modified*/
 }
 
 .iceCmdBtn {			/*modified*/
@@ -355,9 +357,12 @@ border: 1px solid #272727;
     	width: 100px;
 }
 
-/*
-.iceFrm {
-	background-color: red;
-	height: 100px;
-}*/
 
+.iceFrm {
+	margin: 100px 50px;
+}
+
+
+#j_idt17:j_idt29:0:j_idt38:_2 {
+	margin-top:10px;
+}
