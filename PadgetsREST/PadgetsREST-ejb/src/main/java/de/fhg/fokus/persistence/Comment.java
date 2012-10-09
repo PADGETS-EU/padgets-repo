@@ -31,6 +31,21 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Comment.findByCreateTime", query = "SELECT c FROM Comment c WHERE c.createTime = :createTime"),
     @NamedQuery(name = "Comment.findByAuthorProfileUrl", query = "SELECT c FROM Comment c WHERE c.authorProfileUrl = :authorProfileUrl")})
 public class Comment implements Serializable {
+    
+    public enum Opinion {
+        NEGATIVE("NEGATIVE"),
+        POSITIVE("POSITIVE");
+        String name;
+
+        Opinion(String name) {
+            this.name = name;
+        }
+        
+        public String toString() {
+            return name;
+        }
+        
+    };
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +77,8 @@ public class Comment implements Serializable {
     @Size(max = 255)
     @Column(name = "authorProfileUrl")
     private String authorProfileUrl;
+    @Enumerated(EnumType.STRING)
+    private Opinion opinion;    
     @OneToMany(mappedBy = "idComment")
     private List<Publisheditem> publisheditemList;
     @JoinColumn(name = "idMessage", referencedColumnName = "idMessage")
@@ -132,7 +149,15 @@ public class Comment implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }   
+    }
+    
+    public Opinion getOpinion() {
+        return opinion;
+    }
+
+    public void setOpinion(Opinion opinion) {
+        this.opinion = opinion;
+    }
 
        @JsonIgnore     @XmlTransient
     public List<Publisheditem> getPublisheditemList() {
