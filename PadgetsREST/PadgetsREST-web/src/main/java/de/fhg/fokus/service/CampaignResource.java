@@ -50,6 +50,22 @@ public class CampaignResource {
      * @return list of campaigns
      */
     @GET
+    @Path("/search")
+    @Produces({"application/xml", "application/json"})
+    public List<Campaign> searchCampaigns(@QueryParam("keyword") String keyword, @QueryParam("location") String location, @DefaultValue("0") @QueryParam("offset") Integer offset) {
+                
+        return campaignFacade.searchCampaigns(keyword, location, offset);                
+    }
+    
+    /**
+     * Returns all campaigns for the given user. It also returns the campaign
+     * location object and the campaign topics. <br /> Address: GET
+     * [server]/resources/campaign?sid=test_user
+     *
+     * @param sid valid session id
+     * @return list of campaigns
+     */
+    @GET
     @Produces({"application/xml", "application/json"})
     public List<Campaign> getCampaigns(@DefaultValue("test_user") @QueryParam("sid") String sid) {
         if (sid.equals("test_user")) {//return test data

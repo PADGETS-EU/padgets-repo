@@ -4,13 +4,16 @@
  */
 package de.fhg.fokus.facades;
 
-import de.fhg.fokus.persistence.Campaign;
-import de.fhg.fokus.persistence.Publishchannel;
-import de.fhg.fokus.persistence.Userdata;
+import de.fhg.fokus.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import javax.persistence.metamodel.EntityType;
 
 /**
  *
@@ -45,15 +48,41 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
         String jpql = "SELECT c FROM Campaign c, IN (c.userroleList) ur"
                 + " WHERE ur.idUserData = :idUser";  
       List<Campaign> cList = (List<Campaign>) getEntityManager().createQuery(jpql).setParameter("idUser", ud).getResultList();
-      
-      for (Campaign c : cList){
-          for (Publishchannel pc : c.getPublishchannelList()){
-              pc.setCount(0); //TODO echter counter setzen
-          }
-      }
+      getPublishchannels(cList);
       
       return cList;
     }
 
+    public List<Campaign> searchCampaigns(String keyword, String location, Integer offset) {
+      CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+      CriteriaQuery<Campaign> cq = cb.createQuery(Campaign.class);
+      Root<Campaign> campaignRoot = cq.from(Campaign.class);
+            
+      cq.select(campaignRoot);
+      List<Predicate> criteria = new ArrayList<Predicate>();
+      if(keyword != null && !keyword.isEmpty()){          
+          criteria.add(cb.like(campaignRoot.get(Campaign_.title), "%"+keyword+"%"));
+          criteria.add(cb.like(campaignRoot.get(Campaign_.hashTag), "%"+keyword+"%"));
+          criteria.add(cb.like(campaignRoot.get(Campaign_.notes), "%"+keyword+"%"));
+          cq.where(cb.or(criteria.toArray(new Predicate[0])));
+      }      
+      if(location != null && !location.isEmpty()){
+          Join<Campaign, Location> locationJoin = campaignRoot.join("idLocation");
+          cq.where(cb.and(cb.like(locationJoin.get(Location_.name), "%"+location+"%")));
+      }      
+      TypedQuery<Campaign> q = em.createQuery(cq).setFirstResult(offset).setMaxResults(50);
+      List<Campaign> cList = q.getResultList();
+      getPublishchannels(cList);
+      return cList;
+    }
+    
+    private void getPublishchannels(List<Campaign> cList) {
+        for (Campaign c : cList){
+            for (Publishchannel pc : c.getPublishchannelList()){
+                pc.setCount(0); //TODO echter counter setzen
+            }
+        }
+    }    
+    
     
 }
