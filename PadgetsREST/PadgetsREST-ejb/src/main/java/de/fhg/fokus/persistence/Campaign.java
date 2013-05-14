@@ -231,6 +231,8 @@ public class Campaign implements Serializable {
         return this.campaigntopicsList.remove(ct);
     }
 
+    @JsonIgnore
+    @XmlTransient
     public List<Userrole> getUserroleList() {
         return userroleList;
     }

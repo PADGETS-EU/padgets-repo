@@ -107,6 +107,8 @@ public class Publishchannel implements Serializable {
         this.networkPageId = networkPageId;
     }
 
+    @JsonIgnore
+    @XmlTransient
     public String getOAuth2Token() {
         return oAuth2Token;
     }

@@ -70,7 +70,7 @@ public class CampaignResource {
     public List<Campaign> getCampaigns(@DefaultValue("test_user") @QueryParam("sid") String sid) {
         if (sid.equals("test_user")) {//return test data
             return sampleSessionBean.makeSampleCampaignList();
-        }
+        }    
         //check sid
         List<Userdata> udList = userdataFacade.executeNamedQuery("Userdata.findByUserSIGN", "userSIGN", sid);
         if (udList.isEmpty()) {
@@ -286,7 +286,12 @@ public class CampaignResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleMessageList();
         }
-        
+        // citizen, read 
+        if (sid.equals("read_user")) {
+            Campaign dbCampaign = campaignFacade.find(campaignId);
+            return dbCampaign.getMessageList();
+        }
+
         List<Message> mList = new ArrayList<>();
 
         //check sid

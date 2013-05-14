@@ -97,6 +97,11 @@ public class MessageResource {
         if (sid.equals("test_user")) {//return test data                
             return sampleSessionBean.makeSampleCommentList();
         }
+        // citizen, read 
+        if (sid.equals("read_user")) {
+            Message dbMessage = messageFacade.find(messageId);
+            return dbMessage.getCommentList();
+        }
 
         List<Comment> mList = new ArrayList<>();
         Comment m = new Comment();

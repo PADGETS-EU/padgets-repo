@@ -63,16 +63,18 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
       if(keyword != null && !keyword.isEmpty()){          
           criteria.add(cb.like(campaignRoot.get(Campaign_.title), "%"+keyword+"%"));
           criteria.add(cb.like(campaignRoot.get(Campaign_.hashTag), "%"+keyword+"%"));
-          criteria.add(cb.like(campaignRoot.get(Campaign_.notes), "%"+keyword+"%"));
-          cq.where(cb.or(criteria.toArray(new Predicate[0])));
-      }      
+          criteria.add(cb.like(campaignRoot.get(Campaign_.notes), "%"+keyword+"%"));                                       
+      }
+      Predicate orP = cb.or(criteria.toArray(new Predicate[0]));
+      Predicate notLikeP = cb.notLike(campaignRoot.get(Campaign_.hashTag), "%InitialCampaign%");          
+      
       if(location != null && !location.isEmpty()){
           Join<Campaign, Location> locationJoin = campaignRoot.join("idLocation");
-          cq.where(cb.and(cb.like(locationJoin.get(Location_.name), "%"+location+"%")));
-      }      
+          cq.where(cb.and(orP, notLikeP, cb.like(locationJoin.get(Location_.name), "%"+location+"%")));
+      }
+      cq.where(cb.and(orP, notLikeP));
       TypedQuery<Campaign> q = em.createQuery(cq).setFirstResult(offset).setMaxResults(50);
       List<Campaign> cList = q.getResultList();
-      getPublishchannels(cList);
       return cList;
     }
     
