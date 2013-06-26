@@ -73,7 +73,7 @@ public class CampaignFacade extends AbstractFacade<Campaign> {
           cq.where(cb.and(orP, notLikeP, cb.like(locationJoin.get(Location_.name), "%"+location+"%")));
       }
       cq.where(cb.and(orP, notLikeP));
-      TypedQuery<Campaign> q = em.createQuery(cq).setFirstResult(offset).setMaxResults(50);
+      TypedQuery<Campaign> q = em.createQuery(cq).setFirstResult(offset).setMaxResults(200);
       List<Campaign> cList = q.getResultList();
       return cList;
     }
