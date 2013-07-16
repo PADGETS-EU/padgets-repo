@@ -1,0 +1,50 @@
+      <entry xmlns="http://www.w3.org/2005/Atom" 
+             xmlns:activity="http://activitystrea.ms/spec/1.0/" 
+             xmlns:padgets="http://padgets.eu/spec/1.0/">
+        <title>publish activity title</title>
+        <author>
+            <name>Username</name>
+            <uri>http://example.com/username</uri>
+            <id>userID</id>
+            <activity:object-type>person</activity:object-type>
+            <link rel="alternate" type="text/html" href="http://example.com/username" />
+        </author>
+        <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+        <activity:object>
+          <activity:object-type>http://activitystrea.ms/spec/1.0/object/comment</activity:object-type>
+          <content type="text/plain">text attached</content>
+          
+        </activity:object>
+        <activity:target>
+           <id>tag:photopanic.example.com,2009:photo-album/2519</id>
+           <title>My Pets</title>
+           <link rel="alternate" type="text/html" href="/geraldine/albums/pets" />
+           <activity:object-type>photo-album</activity:object-type>
+        </activity:target>
+        <padgets:campaign id="cmpg1" name="reachyouth"/>
+        <padgets:platforms>
+              <padgets:facebook>
+                <padgets:account email="user@domain.com" username="username" uri="http://www.facebook.com/username"/>
+                <padgets:facebookPage id="pageID" name="pageName"/>
+                <padgets:facebookPage id="pageID" name="pageName"/>
+              </padgets:facebook>
+              <padgets:google>
+                <padgets:account email="user@gmail.com" username="username" uri=""/>
+                <padgets:blogger id="blogID" name="blogName"/>
+                <padgets:blogger id="blogID" name="blogName"/>
+              </padgets:google>
+              <padgets:yahoo>
+                <padgets:account email="user@yahoo.com" username="username" uri=""/>
+              </padgets:yahoo>
+              <padgets:digg>
+                <padgets:account email="user@domain.com" username="username" uri=""/>
+              </padgets:digg>  
+              <padgets:twitter>
+                <padgets:account email="user@domain.com" username="username" uri="http://www.twitter.com/username"/>
+              </padgets:twitter>
+              <padgets:linkedIn>
+                <padgets:account email="user@domain.com" username="username" uri=""/>
+              </padgets:linkedIn>
+        </padgets:platforms>
+    </entry>
+
